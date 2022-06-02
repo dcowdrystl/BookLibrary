@@ -20,6 +20,7 @@ namespace BookLibrary.ViewModels
 
         public BookDetailViewModel(Book theBook, IList<UserProfile> userProfiles)
         {
+            Id = theBook.Id;
             BookTitle = theBook.BookTitle;
             AuthorFirstName = theBook.AuthorFirstName;
             AuthorLastName = theBook.AuthorLastName;

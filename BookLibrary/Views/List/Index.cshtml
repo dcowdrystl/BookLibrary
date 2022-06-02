@@ -32,6 +32,15 @@ else
 {
     <table class="table">
         <tr>
+            
+            <tr>
+                @*<td><a asp-controller="List" asp-action="ShowGenre" asp-route-genre="Western"  style="color:black">Western</a></td>
+                 <td><a asp-controller="List" asp-action="ShowGenre" asp-route-genre="Romance"  style="color:black">Romance</a></td>
+                 <td><a asp-controller="List" asp-action="ShowGenre" asp-route-genre="Action and Adventure"  style="color:black">Action and Adventure</a></td>*@
+            </tr>
+            
+               
+            
             @*<th>
                     Id
                 </th>*@
@@ -41,8 +50,8 @@ else
             <th>
                 Author's First Name
             </th>
-            <th><b><a asp-controller="Books" asp-action="Add" style="color:black">Author's Last Name</a></b>
-                
+            <th>
+                Author's Last Name
             </th>
             <th>
                 Genre
@@ -61,11 +70,10 @@ else
                 <td><b><a asp-controller="Books" asp-action="Detail" asp-route-id="@book.Id" asp-route-url="/List" style="color:black">@book.BookTitle</a></b></td>
                 <td>@book.AuthorFirstName</td>
                 <td>@book.AuthorLastName</td>
-                <td>@book.Genre</td>
+                <td><a asp-controller="List" asp-action="ShowGenre" asp-route-genre="@book.Genre"  style="color:black">@book.Genre</a></td>
                 <td>@book.NumberOfPages</td>
-                <td><a asp-controller="Post" asp-action="NewPost" asp-route-id="@book.Id" class="btn btn-outline-secondary">Add Review</a></td>
                 <td><a asp-controller="Post" asp-action="ShowPost" asp-route-id="@book.Id" class="btn btn-outline-secondary">Reviews</a></td>
-                
+                <td><a asp-controller="Post" asp-action="NewPost" asp-route-id="@book.Id" class="btn btn-outline-secondary">Add Review</a></td>
                 @if (ViewBag.bookTitles.Contains(book.BookTitle))
                 {
                     <td><button type="button" class="btn btn-secondary" disabled>Already Added</button></td>
@@ -86,6 +94,7 @@ else
                         </td>
                     }
                 }
+                
             </tr>
 
 
