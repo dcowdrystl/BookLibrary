@@ -1,0 +1,40 @@
+@using Microsoft.AspNetCore.Http
+
+@model List<Post>
+
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<h1 class="text-centers">Dashboard</h1>
+
+@foreach (Post post in Model)
+{
+    <div class="card mb-3">
+        <div class="card-body">
+            <div class="d-flex justify-content-between">
+
+                <div class="w-100 h-100 mr-4">
+                    <div class="d-flex align-items-center">
+                        <img class="rounded-circle" style="height: 70px; width: 70px" src="https://thamesvalleypartnership.org.uk/wp-content/uploads/2020/10/no-photo-400x400.jpg" alt="">
+                        <p><span class="font-weight-bold">@post.ApplicationUserId </span> on @post.CreatedAt</p>
+                        @*<h4 class="ml-3">@post.CreatedAt</h4>
+                        <h4 class="ml-3">User Name -</h4>
+                        <h4 class="ml-3">@post.ApplicationUserId</h4>*@
+                        @*<h4 class="ml-3">@post.PostBook.BookTitle</h4>*@
+                        @*<h4 class="ml-3">@post.UserId</h4>*@
+                       
+                        @*<h4 class="ml-3">@post.BookId</h4>*@
+                        <h4 class="ml-3">Review for <span class="font-weight-bold"> @post.PostBook.BookTitle </span>  </h4>
+                        @*<h4 class="font-weight-bold">  @post.PostBook.BookTitle</h4>*@
+                    </div>
+                    <div class="border border-dark style-solid mt-3" style="height: 70px;">
+                        <p>@post.Content</p>
+                    </div>
+                </div>
+            
+            </div>
+         
+        </div>
+    </div>
+}

@@ -1,0 +1,45 @@
+﻿@model BookLibrary.ViewModels.BookDetailViewModel
+@*@model BookCollection.Models.Book*@
+
+@*@model List<BookCollection.Models.Book>*@
+<h1>@Model.BookTitle</h1>
+
+<table class="table">
+    <tr>
+        <th>Book Title</th>
+        <td>@Model.BookTitle</td>
+    </tr>
+    <tr>
+        <th>Author's First name</th>
+        <td>@Model.AuthorFirstName</td>
+    </tr>
+    <tr>
+        <th>Author's Last Name</th>
+        <td>@Model.AuthorLastName</td>
+    </tr>
+    <tr>
+        <th>Genre</th>
+        <td>@Model.Genre</td>
+    </tr>
+    <tr>
+        <th>Number of Pages</th>
+        <td>@Model.NumberOfPages</td>
+    </tr>
+
+
+    @if (Model.UserBooks.Count != 0)
+    {
+        <tr>
+            <th>Also Liked By :</th>
+            </tr>
+        <tr>
+            @foreach (var person in @Model.UserBooks)
+            {
+                <td>@person.UserName.Remove(person.UserName.IndexOf("@"))</td>
+            }
+        </tr>
+        
+
+    }
+    <td><a asp-controller="Post" asp-action="ShowPost" asp-route-id="@Model.Id" class="btn btn-outline-secondary">Reviews</a></td>
+</table>

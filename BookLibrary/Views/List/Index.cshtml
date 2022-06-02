@@ -1,0 +1,94 @@
+﻿@using BookLibrary.Models
+
+@model List<Book>
+@*<a asp-controller="Books" asp-action="Detail" asp-route-url="/List" ></a>*@
+<h1>List Books</h1>
+<div class="container body-content">
+
+
+
+    <form action="/list/index" method="post">
+
+
+        <p>
+            <label for="searchTerm"></label>
+            <input type="text" class="btn-outline" placeholder ="search" name="searchTerm" id="searchTerm" />
+            <input type="submit" class="btn btn-outline-dark" value="Search" />
+        </p>
+
+
+    </form>
+
+    <hr />
+
+</div>
+
+@if (Model.Count == 0)
+{
+    <p>No Books in the Online Collection yet!</p>
+}
+
+else
+{
+    <table class="table">
+        <tr>
+            @*<th>
+                    Id
+                </th>*@
+            <th>
+                Book Title
+            </th>
+            <th>
+                Author's First Name
+            </th>
+            <th><b><a asp-controller="Books" asp-action="Add" style="color:black">Author's Last Name</a></b>
+                
+            </th>
+            <th>
+                Genre
+            </th>
+            <th>
+                Number of Pages
+            </th>
+
+        </tr>
+
+        @foreach (var book in Model)
+        {
+            <tr>
+                @*<td>@book.Id</td>*@
+                @*<td>@book.BookTitle</td>*@
+                <td><b><a asp-controller="Books" asp-action="Detail" asp-route-id="@book.Id" asp-route-url="/List" style="color:black">@book.BookTitle</a></b></td>
+                <td>@book.AuthorFirstName</td>
+                <td>@book.AuthorLastName</td>
+                <td>@book.Genre</td>
+                <td>@book.NumberOfPages</td>
+                <td><a asp-controller="Post" asp-action="NewPost" asp-route-id="@book.Id" class="btn btn-outline-secondary">Add Review</a></td>
+                <td><a asp-controller="Post" asp-action="ShowPost" asp-route-id="@book.Id" class="btn btn-outline-secondary">Reviews</a></td>
+                
+                @if (ViewBag.bookTitles.Contains(book.BookTitle))
+                {
+                    <td><button type="button" class="btn btn-secondary" disabled>Already Added</button></td>
+                }
+                else
+                {
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <td>
+                            @Html.ActionLink(
+                                    "Add Book",
+                                    "AddOtherBooks",
+                                    "Books",
+                                    new { bookId = @book.Id , url = "/List"},
+
+                                    htmlAttributes: new { @class = "btn btn-outline-secondary", @role = "button"})
+                                    
+                        </td>
+                    }
+                }
+            </tr>
+
+
+        }
+    </table>
+}

@@ -1,0 +1,28 @@
+﻿<h1>@ViewBag.title</h1>
+
+<form method="post" action="/books/edit">
+    <div class="form-group">
+        <label for="booktitle">Book Title</label>
+        <input name="booktitle" type="text" value="@ViewBag.bookToEdit.BookTitle"/>
+    </div>
+    <div class="form-group">
+        <label for="authorfirstname">Author's First Name</label>
+        <input name="authorfirstname" type="text" value="@ViewBag.bookToEdit.AuthorFirstName" />
+    </div>
+    <div class="form-group">
+        <label for="authorlastname">Author's Last Name</label>
+        <input name="authorlastname" type="text" value="@ViewBag.bookToEdit.AuthorLastName" />
+    </div>
+    <div class="form-group">
+        <label for="genre">Genre</label>
+        <input name="genre" type="text" value="@ViewBag.bookToEdit.Genre" />
+    </div>
+    <div class="form-group">
+        <label for="numberofpages">Number of Pages</label>
+        <input name="numberofpages" type="text" value="@ViewBag.bookToEdit.NumberOfPages" />
+    </div>
+    <input type="hidden" value="@ViewBag.bookToEdit.Id" name="bookId">
+    <input type="submit" class ="btn btn-outline-secondary"value="Edit Book" />
+
+    
+</form>

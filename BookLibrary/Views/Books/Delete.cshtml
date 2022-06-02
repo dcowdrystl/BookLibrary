@@ -1,0 +1,35 @@
+﻿<h1>Delete Books</h1>
+
+@*<form method="post">
+    @foreach (var book in ViewBag.books)
+    {
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" name="bookIds" value="@book.Id" class="checkbox"> <span>@book.BookTitle by @book.AuthorFirstName @book.AuthorLastName</span>
+            </label>
+        </div>
+    }
+
+    <input type="submit" value="Delete Selected Books" class="btn btn-danger">
+
+</form>*@
+
+<form method="post">
+    @foreach (var book in ViewBag.books)
+    {
+        <div class="delete">
+            <label>
+                <span>@book.BookTitle by @book.AuthorFirstName @book.AuthorLastName</span>
+                @*<input type="submit" name="bookIds" value="Delete" class="btn btn-danger">*@
+                @Html.ActionLink(
+                "Delete",
+                "Delete",
+                new { bookId = @book.Id}
+                )
+            </label>
+        </div>
+    }
+
+    @*<input type="submit" value="Delete Selected Books" class="btn btn-danger">*@
+
+</form>

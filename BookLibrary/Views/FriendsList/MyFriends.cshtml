@@ -1,0 +1,32 @@
+﻿@model List<Friends>
+
+
+<h1>Your Friends:</h1>
+<br />
+
+@if (Model.Count == 0)
+{
+
+<div class="align-content-center my-auto">
+    You have no friends. &#9785; <br />
+    @Html.ActionLink("Add Some Friends!", "Index", "FriendsList", null, new { @class = "btn btn-outline-info btn-lg btn-block" })
+</div>
+} else
+{
+    <table class="table">
+        <tr>
+            <th scope="col">Name</th>
+            
+            <th></th>
+        </tr>
+        @foreach (var friend in Model)
+        {
+            <tr>
+                <td>@friend.Friend.UserName.Remove(friend.Friend.UserName.IndexOf("@")) </td>
+                <td>@Html.ActionLink("See " +@friend.Friend.UserName.Remove(friend.Friend.UserName.IndexOf("@")) + "'s Books", "TheirBooks", "Books", new { userName = friend.Friend.UserName, userId = friend.Friend.ApplicationUserId}, new { @class = "btn btn-outline-dark" })</td>
+                <td>@Html.ActionLink("Remove Friend", "RemoveFriend", "FriendsList", new { id = friend.Friend.Id }, new { @class = "btn btn-outline-danger" })</td>
+            </tr>
+        }
+    </table>
+    <h3>@Html.ActionLink("Want More Friends? Click Here!", "Index", "FriendsList", null, new { @class = "btn btn-outline-info btn-block" })</h3>
+}

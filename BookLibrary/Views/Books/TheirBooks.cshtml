@@ -1,0 +1,74 @@
+﻿@model List<Book>
+
+@{
+    ViewData["Title"] = "Books";
+}
+
+@if (Model.Count == 0)
+{
+    <div class="mx-auto px-3 py-3 pt-md-5 pb-md-4 text-center">
+        <div>
+            <h4 style="text-align: center"> Looks like @ViewBag.User doesn't have any books, yet. &#9785;</h4>
+        </div>
+    </div>
+}
+else
+{
+    <div class="mx-auto px-3 py-3 pt-md-5 pb-md-4 text-center">
+        <h2>@ViewBag.User's Books</h2>
+    </div>
+    <table class="table">
+        <tr>
+            @*<th>
+                    Id
+                </th>*@
+            <th>
+                Book Title
+            </th>
+            <th>
+                Author's First Name
+            </th>
+            <th>
+                Author's Last Name
+            </th>
+            <th>
+                Genre
+            </th>
+            <th>
+                Number of Pages
+            </th>
+        </tr>
+
+        @foreach (var book in Model)
+        {
+    <tr>
+        @*<td>@book.Id</td>*@
+        @*<td>@book.BookTitle</td>*@
+        <td><b><a asp-controller="Books" asp-action="Detail" asp-route-id="@book.Id" style="color:black">@book.BookTitle</a></b></td>
+        <td>@book.AuthorFirstName</td>
+        <td>@book.AuthorLastName</td>
+        <td>@book.Genre</td>
+        <td>@book.NumberOfPages</td>
+        @if (ViewBag.bookTitles.Contains(book.BookTitle))
+        {
+            <td><button type="button" class="btn btn-secondary" disabled>Already Added</button></td>
+        }
+        else
+        {
+            @if (User.Identity.IsAuthenticated) 
+            {
+                <td>
+                    @Html.ActionLink(
+                            "Add Book",
+                            "AddOtherBooks",
+                            "Books",
+                            new { bookId = @book.Id , url = "/Books/TheirBooks?userName="+ViewBag.Uname+"&userId="+ViewBag.Uid },
+                            htmlAttributes: new { @class = "btn btn-outline-secondary", @role = "button" })
+                </td>
+            }
+        }
+    </tr>
+        }
+    </table>
+
+}

@@ -18,8 +18,9 @@ namespace BookLibrary.Controllers
          _logger = logger;
       }
 
-      public IActionResult Index()
+      public IActionResult IndexAsync()
       {
+
          return View();
       }
 
