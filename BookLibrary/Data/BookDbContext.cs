@@ -16,6 +16,7 @@ namespace BookLibrary.Data
 
         public DbSet<UserProfile> Profiles { get; set; }
         public DbSet<Post> Posts { get; set; }
+        public DbSet<Like> Likes { get; set; }      
       public BookDbContext(DbContextOptions<BookDbContext> options) : base(options)
         { 
         }

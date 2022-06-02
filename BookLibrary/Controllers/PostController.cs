@@ -107,13 +107,7 @@ namespace BookLibrary.Models
       [HttpGet]
       [Route("Posts/ShowPost")]
       public IActionResult ShowPost(int id)
-     /* {
-         if (!ModelState.IsValid) { return RedirectToAction("Index", "Home"); }
 
-         Post post = _db.Posts.Include(p => p.PostBook).Include(p => p.User).FirstOrDefault(p => p.Id == id);
-         ViewBag.Post = post;
-         return View("ShowPost");
-      }*/
       {
          if (!ModelState.IsValid) { return RedirectToAction("Index", "Home"); }
          
@@ -143,21 +137,58 @@ namespace BookLibrary.Models
          return View("Dashboard", postsToShow);
       }
 
-
-      /*[HttpGet("posts/{postId}/edit")]
-      public IActionResult EditPost(int postId)
+      [HttpPost("posts/{postId}/like")]
+      public async Task<IActionResult> LikeAsync(int postId)
       {
          if (!ModelState.IsValid) { return RedirectToAction("Index", "Home"); }
 
-         Post post = _db.Posts
-             .Include(p => p.PostBook).ThenInclude(a => a.BookTitle)
-             .Include(post => post.Comments)
-             .FirstOrDefault(p => p.PostId == postId);
-         ViewBag.Post = post;
-         return View("EditPost");
-      }*/
+         var currentUser = await GetCurrentUserAsync();
 
-      
+         /*ApplicationUser applicationUser = _userManager
+            .FindByNameAsync(User.Identity.Name).Result;*/
+
+         ApplicationUser dbUser = _db.Users
+            .Include(u => u.Likes)
+            .FirstOrDefault(u => u.Id == currentUser.Id);
+         Post post = _db.Posts
+            .Include(p => p.User)
+            .Include(post => post.Likes)
+            .FirstOrDefault(p => p.PostId == postId);
+         Like like = _db.Likes.FirstOrDefault(l => l.PostId == postId && l.LikeUser.Id == currentUser.Id);
+
+
+         // User hasn't liked this post yet
+         if (like == null)
+         {
+            Like newLike = new Like
+            {
+               ApplicationUserId = currentUser.Id,
+               PostId = postId,
+               UserId = dbUser.Id,
+               LikeUser = dbUser,
+               LikePost = _db.Posts.FirstOrDefault(p => p.PostId == postId)
+            };
+
+            post.Likes.Add(newLike);
+            currentUser.Likes.Add(newLike);
+
+            _db.Likes.Add(newLike);
+            // _db.SaveChanges();
+         }
+         else
+         {
+            post.Likes.Remove(like);
+            currentUser.Likes.Remove(like);
+            _db.Likes.Remove(like);
+            //_db.SaveChanges();
+         }
+         ViewBag.CurrentUser = currentUser.Id;
+
+
+         _db.SaveChanges();
+         return RedirectToAction("Dashboard");
+      }
+
       private BookDbContext _db;
 
     }

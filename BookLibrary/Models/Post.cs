@@ -26,8 +26,9 @@ namespace BookLibrary.Models
  
       public int BookId { get; set; }
         public Book PostBook{ get; set; }
+      public List<Like> Likes { get; set; }
 
       /*public List<Like> Likes { get; set; }
       public List<Comment> Comments { get; set; }*/
-    }
+   }
 }
