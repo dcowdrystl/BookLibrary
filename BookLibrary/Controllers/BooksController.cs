@@ -94,6 +94,7 @@ namespace BookLibrary.Controllers
                AuthorLastName = addBookViewModel.AuthorLastName,
                Genre = addBookViewModel.Genre,
                NumberOfPages = addBookViewModel.NumberOfPages,
+               ApplicationUserId = currentUser.Id,
 
             };
 
