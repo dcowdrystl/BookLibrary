@@ -5,13 +5,14 @@
 @*<img src="https://scx1.b-cdn.net/csz/news/800/2017/theoreticala.jpg" alt=”an artist's rendition of a black hole in space”>*@
 <div>     
 <div class="text-center">
+    <h1 class="display-4"> Book Central </h1>
 
 
-    @*    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>*@
     @if (!User.Identity.IsAuthenticated)
     {
-        <div class="text-center">
-        <h1 class="display-4"> Book Central </h1>
+        
+        <div class="text-left">
+       
 
         <br />
 
@@ -19,14 +20,36 @@
         
         <br /><br />
 
-              <span style="display: inline;">
+           @*   <span style="display: inline;">
                   <a asp-area="Identity" asp-page="/Account/Login" style="color:black;" class="btn btn-outline-dark">   Log in  </a>
               </span> <br />
                   <span style="display: inline;">
             <a asp-area="Identity" asp-page="/Account/Register" style="color:black;" class="btn btn-outline-dark">Join  </a>
-                  </span>
+                  </span>*@
+<div class="btn-group-vertical">
+                 <td><a asp-controller="List" asp-action="ShowGenre" asp-route-genre="Action and Adventure"  style="color:black" class="btn btn-outline-dark">Action and Adventure</a></td>
+                 <td><a asp-controller="List" asp-action="ShowGenre" asp-route-genre="Classics"  style="color:black" class="btn btn-outline-dark">Classics</a></td>
+                 <td><a asp-controller="List" asp-action="ShowGenre" asp-route-genre="Comic Book"  style="color:black" class="btn btn-outline-dark">Comic Book</a></td>
+                 <td><a asp-controller="List" asp-action="ShowGenre" asp-route-genre="Fantasy"  style="color:black" class="btn btn-outline-dark">Fantasy</a></td>
+                 <td><a asp-controller="List" asp-action="ShowGenre" asp-route-genre="Graphic Novel"  style="color:black" class="btn btn-outline-dark">Graphic Novel</a></td>
+                 <td><a asp-controller="List" asp-action="ShowGenre" asp-route-genre="Historical Fiction"  style="color:black" class="btn btn-outline-dark">Historical Fiction</a></td>
+                 <td><a asp-controller="List" asp-action="ShowGenre" asp-route-genre="Horror"  style="color:black" class="btn btn-outline-dark">Horror</a></td>
+                 <td><a asp-controller="List" asp-action="ShowGenre" asp-route-genre="Literary Fiction"  style="color:black" class="btn btn-outline-dark">Literary Fiction</a></td>
+                 <td><a asp-controller="List" asp-action="ShowGenre" asp-route-genre="Mystery"  style="color:black" class="btn btn-outline-dark">Mystery</a></td>
+                 <td><a asp-controller="List" asp-action="ShowGenre" asp-route-genre="Non-Fiction"  style="color:black" class="btn btn-outline-dark">Non-Fiction</a></td>
+                 <td><a asp-controller="List" asp-action="ShowGenre" asp-route-genre="Realist Literature"  style="color:black" class="btn btn-outline-dark">Realist Literature</a></td>
+                 <td><a asp-controller="List" asp-action="ShowGenre" asp-route-genre="Romance"  style="color:black" class="btn btn-outline-dark">Romance</a></td>
+                 <td><a asp-controller="List" asp-action="ShowGenre" asp-route-genre="Science Fiction"  style="color:black" class="btn btn-outline-dark">Science Fiction</a></td>
+                 <td><a asp-controller="List" asp-action="ShowGenre" asp-route-genre="Speculative Fiction"  style="color:black" class="btn btn-outline-dark">Speculative Fiction</a></td>
+                 <td><a asp-controller="List" asp-action="ShowGenre" asp-route-genre="Western"  style="color:black" class="btn btn-outline-dark">Western</a></td>
 
 
+
+
+
+
+
+</div>
          </div>
             
             
