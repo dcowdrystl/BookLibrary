@@ -140,6 +140,7 @@ namespace BookLibrary.Models
          List<Post> bookPosts = _db.Posts
          .Include(p => p.Likes)
          .Include(p => p.PostBook)
+         //.Where(p => p.BookId == id)
          // .Include(p => p.User)
          .OrderByDescending(post => post.CreatedAt)
          .ToList();
