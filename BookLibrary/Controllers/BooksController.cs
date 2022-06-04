@@ -37,14 +37,13 @@ namespace BookLibrary.Controllers
          {
             var currentUser = await GetCurrentUserAsync();
 
-            // This ONE line of code below took about 9 hours to create...
             List<Book> books = context.Books
                 .Include(b => b.BookUsers)
                 .Include(a => a.User)
                 //.ThenInclude(bu => bu.ApplicationUser)
                 .Where(b => b.BookUsers.Any(bu => bu.ApplicationUserId == currentUser.Id))
                 .ToList();
-
+            ViewBag.MyBooks = books.Count();
             List<Book> omg = (from b in context.Books
                               join bu in context.BookUsers on b.Id equals bu.BookId
                               join a in context.ApplicationUsers on bu.ApplicationUserId equals a.Id
