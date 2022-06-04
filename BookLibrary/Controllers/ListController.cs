@@ -31,6 +31,8 @@ namespace BookLibrary.Controllers
       {
          List<Book> books = context.Books
          .ToList();
+         
+         ViewBag.allBooks = books.Count();        
          ViewBag.bookTitles = new List<string>();
          if (!string.IsNullOrEmpty(searchTerm))
          {

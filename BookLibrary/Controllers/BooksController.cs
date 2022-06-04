@@ -44,7 +44,8 @@ namespace BookLibrary.Controllers
                 .Where(b => b.BookUsers.Any(bu => bu.ApplicationUserId == currentUser.Id))
                 .ToList();
             ViewBag.MyBooks = books.Count();
-            List<Book> omg = (from b in context.Books
+            
+           /* List<Book> omg = (from b in context.Books
                               join bu in context.BookUsers on b.Id equals bu.BookId
                               join a in context.ApplicationUsers on bu.ApplicationUserId equals a.Id
                               where a.Id == currentUser.Id
@@ -58,10 +59,7 @@ namespace BookLibrary.Controllers
                                  AuthorLastName = b.AuthorLastName,
                                  Genre = b.Genre,
                                  NumberOfPages = b.NumberOfPages,
-                              }).ToList<Book>();
-
-
-
+                              }).ToList<Book>();*/
 
             return View(books);
          }

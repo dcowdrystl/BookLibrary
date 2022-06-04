@@ -4,7 +4,7 @@
 
 <div class="text-center">
     <h1 class="display-4">Welcome to Your Book Collection Library!</h1>
-    <h7>you have @ViewBag.MyBooks books</h7>
+    <h7>Total Books: @ViewBag.MyBooks </h7>
 </div>
 <p>
     <a asp-controller="Books" asp-action="Add" class="btn btn-outline-primary">Add Book</a>
@@ -32,9 +32,6 @@
                             </div>
 </p>
 
-@*<p>
-    <a asp-controller="Books" asp-action="Delete">Delete Book</a>
-</p>*@
 
 @if (Model.Count == 0)
 {
