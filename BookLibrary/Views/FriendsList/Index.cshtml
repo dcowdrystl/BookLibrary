@@ -3,7 +3,13 @@
     @*@using BookCollection.Models
 
 @model List<Friends>*@
-
+<form action="/FriendsList/index" method="post">
+        <p>
+            <label for="searchTerm"></label>
+            <input type="text" class="btn-outline" placeholder ="search" name="searchTerm" id="searchTerm" />
+            <input type="submit" class="btn btn-outline-dark" value="Search" />
+        </p>
+ </form>
 
 @if (Model.Count == 0)
 {
