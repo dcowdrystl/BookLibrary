@@ -16,9 +16,11 @@ using Microsoft.EntityFrameworkCore.Internal;
 
 using System.Threading.Tasks;
 using BookLibrary.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BookLibrary.Models
 {
+   //[Authorize]
    public class PostController : Controller
    {
       private BookDbContext context;
@@ -58,6 +60,7 @@ namespace BookLibrary.Models
 
          return View("NewPost");
       }*/
+      [Authorize]
       public IActionResult NewPost(int id)
       {
          if (!ModelState.IsValid) { return RedirectToAction("Index", "Home"); }
