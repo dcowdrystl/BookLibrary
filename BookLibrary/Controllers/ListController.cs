@@ -83,9 +83,11 @@ namespace BookLibrary.Controllers
       public async Task<IActionResult> ShowGenre(string searchTerm, string genre)
       {
          Book book1 = new Book();
+         
          List<Book> books = context.Books
          .Where(b => b.Genre == genre)
          .ToList();
+         ViewBag.allBooks = books.Count();
 
          /* List<Book> booksToShow = new List<Book>();
           foreach (Book book in books)

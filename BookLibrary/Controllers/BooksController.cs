@@ -376,6 +376,7 @@ namespace BookLibrary.Controllers
              .Where(b => b.BookUsers.Any(bu => bu.ApplicationUserId == currentUser.Id))
              .Where(b => b.Genre == genre)
              .ToList();
+         ViewBag.MyBooks = books.Count();
          return View("Index", books);
       }
       
