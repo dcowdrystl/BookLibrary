@@ -44,6 +44,7 @@ namespace BookLibrary.Controllers
                 .Where(b => b.BookUsers.Any(bu => bu.ApplicationUserId == currentUser.Id))
                 .ToList();
             ViewBag.MyBooks = books.Count();
+            ViewBag.PersonalBooks = books;
             
            /* List<Book> omg = (from b in context.Books
                               join bu in context.BookUsers on b.Id equals bu.BookId
@@ -363,5 +364,21 @@ namespace BookLibrary.Controllers
 
 
       }
-   }
+
+      public async Task<IActionResult> ShowGenre(string genre)
+      {
+         var currentUser = await GetCurrentUserAsync();
+
+         List<Book> books = context.Books
+             .Include(b => b.BookUsers)
+             .Include(a => a.User)
+             //.ThenInclude(bu => bu.ApplicationUser)
+             .Where(b => b.BookUsers.Any(bu => bu.ApplicationUserId == currentUser.Id))
+             .Where(b => b.Genre == genre)
+             .ToList();
+         return View("Index", books);
+      }
+      
+      
+      }
 }
