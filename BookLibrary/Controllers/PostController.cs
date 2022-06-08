@@ -178,6 +178,8 @@ namespace BookLibrary.Models
          return View("EditPost");
       }*/
 
+
+      [Authorize]
       [HttpPost("posts/{postId}/like")]
       public async Task<IActionResult> LikeAsync(int postId)
       {

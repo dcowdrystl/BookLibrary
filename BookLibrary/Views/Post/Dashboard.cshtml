@@ -76,7 +76,7 @@
             <div class="d-flex justify-content-between mt-2">
                 <div class="d-flex">
                     <form asp-action="Like" asp-controller="Post" asp-route-postId="@post.PostId">
-                        <input type="submit" value="@likeButtonText">
+                        <input type="submit" value="@likeButtonText" style="background-color: lightblue">
                     </form>
                     <span class="ml-2">@post.Likes.Count()</span>
                 </div>
