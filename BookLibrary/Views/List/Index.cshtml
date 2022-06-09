@@ -59,7 +59,7 @@ else
     </div>
     <div class="col-md-8">
       <div class="card-body">
-        <h5 class="card-title">@book.BookTitle</h5>
+        <h5 class="card-title"><b><a asp-controller="Books" asp-action="Detail" asp-route-id="@book.Id" asp-route-url="/List" style="color:black">@book.BookTitle</a></b></h5>
         <p class="card-text">Author: @book.AuthorFirstName @book.AuthorLastName <br>
         Genre: @book.Genre <br>
         Number of Pages: @book.NumberOfPages <br>
