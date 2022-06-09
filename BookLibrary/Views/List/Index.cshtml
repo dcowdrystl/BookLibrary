@@ -85,13 +85,7 @@ else
         <a asp-controller="Post" asp-action="ShowPost" asp-route-id="@book.Id" class="btn btn-outline-dark">Reviews</a>
         
         <a asp-controller="Post" asp-action="NewPost" asp-route-id="@book.Id" class="btn btn-outline-dark">Add Review</a>
-        @*@Html.ActionLink(
-                                    "Add Book",
-                                    "AddOtherBooks",
-                                    "Books",
-                                    new { bookId = @book.Id , url = "/List"},
-
-                                    htmlAttributes: new { @class = "btn btn-outline-primary", @role = "button"})*@
+        
          @if (ViewBag.bookTitles.Contains(book.BookTitle))
                 {
                     <button type="button" class="btn btn-secondary" disabled>Already Added</button>
