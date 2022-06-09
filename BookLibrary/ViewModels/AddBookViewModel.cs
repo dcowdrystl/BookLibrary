@@ -16,7 +16,7 @@ namespace BookLibrary.ViewModels
         public string Genre { get; set; }
         public int NumberOfPages { get; set; }
       
-      [Required]
+      //[Required]
       [Display(Name = "Image URL")]
       public string Image { get; set; }
    }
