@@ -44,7 +44,11 @@
         </select>
     </div>
     <br>
-    
+    <div class="form-group">
+                <label asp-for="Image"></label>
+                <span asp-validation-for="Image" class="text-danger font-weight-bold"></span>
+                <input class="form-control" asp-for="Image">
+            </div>
     <br>
     <input type="submit" class="btn btn-outline-primary" value="Add Book" />
 </form>

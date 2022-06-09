@@ -13,7 +13,8 @@ namespace BookLibrary.Models
         public string AuthorLastName { get; set; }
         public string Genre { get; set; }
         public int NumberOfPages { get; set; }
-        public int Id { get; set; }
+      public string Image { get; set; }
+      public int Id { get; set; }
 
         //[ForeignKey("ApplicationUserId")]
         public ApplicationUser User { get; set; }

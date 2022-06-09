@@ -98,6 +98,7 @@ namespace BookLibrary.Controllers
                Genre = addBookViewModel.Genre,
                NumberOfPages = addBookViewModel.NumberOfPages,
                ApplicationUserId = currentUser.Id,
+               Image = addBookViewModel.Image
 
             };
 
@@ -205,7 +206,7 @@ namespace BookLibrary.Controllers
 
       [HttpPost]
       [Route("Books/Edit")]
-      public IActionResult SubmitEditBookForm(int bookId, string booktitle, string authorfirstname, string authorlastname, string genre, int numberofpages)
+      public IActionResult SubmitEditBookForm(int bookId, string booktitle, string authorfirstname, string authorlastname, string genre, int numberofpages, string image)
       {
 
          Book editingBook = context.Books.Find(bookId);
@@ -214,6 +215,7 @@ namespace BookLibrary.Controllers
          editingBook.AuthorLastName = authorlastname;
          editingBook.Genre = genre;
          editingBook.NumberOfPages = numberofpages;
+         editingBook.Image = image;
 
          context.SaveChanges();
          return Redirect("/Books");
