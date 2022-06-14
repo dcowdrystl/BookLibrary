@@ -79,10 +79,10 @@ else
 
         <div class="card-footer">
      
-        <a asp-controller="Post" asp-action="ShowPost" asp-route-id="@book.Id" class="btn btn-outline-dark">Reviews</a>
+        <a asp-controller="Post" asp-action="ShowPost" asp-route-id="@book.Id" class="btn btn-primary text-dark"><b>Reviews</b></a>
         
-        <a asp-controller="Post" asp-action="NewPost" asp-route-id="@book.Id" class="btn btn-outline-dark">Add Review</a>
-        <a asp-controller="Books" asp-action="Edit" asp-route-id="@book.Id" class="btn btn-outline-dark">Edit Book</a>
+        <a asp-controller="Post" asp-action="NewPost" asp-route-id="@book.Id" class="btn btn-primary text-dark"><b>Add Review</b></a>
+        <a asp-controller="Books" asp-action="Edit" asp-route-id="@book.Id" class="btn btn-info text-dark"><b>Edit Book</b></a>
         @Html.ActionLink(
                     "Delete Book",
                     "Delete",
@@ -90,7 +90,7 @@ else
                          {
                         bookId = @book.Id
                          },
-                    htmlAttributes: new { @class = "btn btn-outline-danger", @role = "button" }
+                    htmlAttributes: new { @class = "btn btn-outline-danger text-danger text-bold", @role = "button" }
                     )
     </div>
       </div>
