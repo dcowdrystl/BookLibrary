@@ -235,7 +235,8 @@ namespace BookLibrary.Controllers
                                  AuthorFirstName = b.AuthorFirstName,
                                  AuthorLastName = b.AuthorLastName,
                                  Genre = b.Genre,
-                                 NumberOfPages = b.NumberOfPages
+                                 NumberOfPages = b.NumberOfPages,
+                                 Image = b.Image
                               }).ToList<Book>();
          ViewBag.User = userName
              .Remove(userName.IndexOf("@"));
@@ -257,7 +258,8 @@ namespace BookLibrary.Controllers
                              AuthorLastName = b.AuthorLastName,
                              Genre = b.Genre,
                              NumberOfPages = b.NumberOfPages,
-                             ApplicationUserId = ""
+                             ApplicationUserId = "",
+                             Image = b.Image
                           }).ToList();
 
             foreach (var book in titles)
