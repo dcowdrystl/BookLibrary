@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
-
+using Google.Apis.Books.v1;
 namespace BookLibrary.Controllers
 {
    [Authorize]
@@ -36,7 +36,7 @@ namespace BookLibrary.Controllers
          if (ModelState.IsValid)
          {
             var currentUser = await GetCurrentUserAsync();
-
+           
             List<Book> books = context.Books
                 .Include(b => b.BookUsers)
                 .Include(a => a.User)
@@ -383,7 +383,23 @@ namespace BookLibrary.Controllers
          ViewBag.MyBooks = books.Count();
          return View("Index", books);
       }
-      
-      
+
+      public async Task<IActionResult> TheirBooks2(string userName, string userId)
+      {
+         var currentUser = await GetCurrentUserAsync();
+
+         List<Book> books = context.Books
+             .Include(b => b.BookUsers)
+             .Include(a => a.User)
+             .Where(b => b.ApplicationUserId == userId)
+             .ToList();
+         ViewBag.MyBooks = books.Count();
+         ViewBag.User = userName
+             .Remove(userName.IndexOf("@"));
+         ViewBag.Uname = userName;
+         return View("Index", books);
       }
+
+
+   }
 }

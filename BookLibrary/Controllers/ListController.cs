@@ -8,16 +8,33 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System;
+using Google.Apis.Auth.OAuth2;
+using Google.Apis.Auth.OAuth2.Flows;
+using Google.Apis.Books.v1;
+using Google.Apis.Books.v1.Data;
+using Google.Apis.Services;
+using Google.Apis.Util.Store;
+using System.Runtime.InteropServices;
+
 namespace BookLibrary.Controllers
 {
    public class ListController : Controller
    {
+      private static string API_KEY = "abc";
+
+      public static BooksService service = new BooksService(new BaseClientService.Initializer
+      {
+         ApplicationName = "BookSearch",
+         ApiKey = API_KEY,
+      });
+
       private BookDbContext context;
       private UserManager<ApplicationUser> _userManager;
       public ListController(BookDbContext dbContext, UserManager<ApplicationUser> userManager)
       {
          context = dbContext;
          _userManager = userManager;
+         
       }
       /*public IActionResult Index()
       {
@@ -138,7 +155,36 @@ namespace BookLibrary.Controllers
          return View("Index", books);
       }
 
+      public IEnumerable<Book> GetBooks(string searchTerm)
+      {
 
+         var queryList = service.Volumes.List(searchTerm);
+         queryList.MaxResults = 10;
+
+         var result = queryList.Execute();
+
+         if (result != null)
+         {
+
+            var books = result.Items.Select(b => new Book
+            {
+               BookTitle = b.VolumeInfo.Title,
+               AuthorFirstName = b.VolumeInfo.Authors.FirstOrDefault(),
+               AuthorLastName = b.VolumeInfo.Authors.LastOrDefault(),
+               Genre = b.VolumeInfo.Categories.FirstOrDefault(),
+               NumberOfPages = (int)b.VolumeInfo.PageCount,
+               Image = b.VolumeInfo.ImageLinks.Thumbnail
+            }).ToList();
+            
+
+            return books;
+
+         }
+         else
+         {
+            return null;
+         }
+      }
 
    }
 }
