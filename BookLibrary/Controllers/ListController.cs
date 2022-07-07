@@ -15,12 +15,15 @@ using Google.Apis.Books.v1.Data;
 using Google.Apis.Services;
 using Google.Apis.Util.Store;
 using System.Runtime.InteropServices;
+using BookLibrary.ViewModels;
+using System.Collections;
+using System.Text.Json;
 
 namespace BookLibrary.Controllers
 {
    public class ListController : Controller
    {
-      private static string API_KEY = "abc";
+      private static string API_KEY = "AIzaSyACdHSQbarZ_V5SzuDEg8UQUQQX_tKfpvA";
 
       public static BooksService service = new BooksService(new BaseClientService.Initializer
       {
@@ -34,7 +37,7 @@ namespace BookLibrary.Controllers
       {
          context = dbContext;
          _userManager = userManager;
-         
+
       }
       /*public IActionResult Index()
       {
@@ -48,8 +51,8 @@ namespace BookLibrary.Controllers
       {
          List<Book> books = context.Books
          .ToList();
-         
-         ViewBag.allBooks = books.Count();        
+
+         ViewBag.allBooks = books.Count();
          ViewBag.bookTitles = new List<string>();
          if (!string.IsNullOrEmpty(searchTerm))
          {
@@ -100,7 +103,7 @@ namespace BookLibrary.Controllers
       public async Task<IActionResult> ShowGenre(string searchTerm, string genre)
       {
          Book book1 = new Book();
-         
+
          List<Book> books = context.Books
          .Where(b => b.Genre == genre)
          .ToList();
@@ -155,30 +158,56 @@ namespace BookLibrary.Controllers
          return View("Index", books);
       }
 
-      public IEnumerable<Book> GetBooks(string searchTerm)
+      [HttpPost]
+
+      
+      public async Task<IActionResult> GetBooksAsync(string searchTerm)
       {
 
-         var queryList = service.Volumes.List(searchTerm);
+         var queryList =  service.Volumes.List(searchTerm);
          queryList.MaxResults = 10;
+        // Console.WriteLine(queryList);
 
          var result = queryList.Execute();
-
+        
+         ViewBag.result = result;
+        // Console.WriteLine(result);
+         
          if (result != null)
          {
 
-            var books = result.Items.Select(b => new Book
+            var booksApi = result.Items.Select(b => new Book
             {
                BookTitle = b.VolumeInfo.Title,
                AuthorFirstName = b.VolumeInfo.Authors.FirstOrDefault(),
-               AuthorLastName = b.VolumeInfo.Authors.LastOrDefault(),
+               AuthorLastName = b.VolumeInfo.Authors.FirstOrDefault(),
                Genre = b.VolumeInfo.Categories.FirstOrDefault(),
                NumberOfPages = (int)b.VolumeInfo.PageCount,
-               Image = b.VolumeInfo.ImageLinks.Thumbnail
+               Image = b.VolumeInfo.ImageLinks.Thumbnail,
+               
             }).ToList();
-            
 
-            return books;
 
+            ViewBag.booksApi = booksApi;
+            List<Book> testing = new List<Book>();
+            foreach (var testBook in booksApi)
+            {
+
+               Book hello = new Book
+               {
+                  BookTitle = testBook.BookTitle,
+                  AuthorFirstName = testBook.AuthorFirstName,
+                  AuthorLastName = testBook.AuthorLastName,
+                  Genre = testBook.Genre,
+                  NumberOfPages = (int)testBook.NumberOfPages,
+                  Image = testBook.Image
+               };
+               testing.Add(hello);
+               ViewBag.testing = testing;
+            }
+            testing.ToList();
+            return View("index", testing);
+           
          }
          else
          {
@@ -186,5 +215,10 @@ namespace BookLibrary.Controllers
          }
       }
 
+
+      public Task AnotherBooksApi()
+      {
+         return View("Index", ViewBag.testing);
+      }
    }
 }

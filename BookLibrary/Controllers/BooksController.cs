@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Google.Apis.Books.v1;
 namespace BookLibrary.Controllers
 {
-   [Authorize]
+  // [Authorize]
    public class BooksController : Controller
    {
       private BookDbContext context;

@@ -8,10 +8,11 @@ namespace BookLibrary.ViewModels
 {
     public class AddBookViewModel
     {
-        [Required(ErrorMessage = "You must include a Title")]
+     
+      //  [Required(ErrorMessage = "You must include a Title")]
         public string BookTitle { get; set; }
         public string AuthorFirstName { get; set; }
-        [Required(ErrorMessage = "You must include the authors last name")]
+       // [Required(ErrorMessage = "You must include the authors last name")]
         public string AuthorLastName { get; set; }
         public string Genre { get; set; }
         public int NumberOfPages { get; set; }

@@ -1,0 +1,43 @@
+﻿@using BookLibrary.ViewModels;
+@model AddBookViewModel;
+
+
+<div class="container body-content">
+
+    <form action="/list/GetBooks" method="post">
+        <p>
+            <label for="searchTerm"></label>
+            <input type="text" class="btn-outline" placeholder ="search" name="searchTerm" id="searchTerm" />
+            <input type="submit" class="btn btn-outline-dark" value="Search" />
+        </p>
+    </form>
+
+     <table class="table">
+        
+
+        @foreach (var book in ViewBag.result)
+        {
+           <div class="card mb-3" style="max-width: 540px; background-color:tan">
+  <div class="row g-0">
+    <div class="col-md-4">
+        
+      @*<img src="@book.Image">*@
+      <a href="https://www.google.com/search?q=.@book.BookTitle.@book.AuthorLastName"> <img src="Items.VolumeInfo.ImageLinks.Thumbnail"/></a>
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title"><b><a asp-controller="Books" asp-action="Detail" asp-route-id="@book.Id" asp-route-url="/List" style="color:black">@book.BookTitle</a></b></h5>
+        <p class="card-text">Author: @book.AuthorFirstName @book.AuthorLastName <br>
+        Genre: @book.Genre <br>
+        Number of Pages: @book.NumberOfPages <br>
+                                
+        </p>
+        
+        </div>
+    </div>
+      </div>
+      </div>
+      }
+        </div>
+        
+    </table>
