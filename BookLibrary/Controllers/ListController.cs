@@ -164,8 +164,8 @@ namespace BookLibrary.Controllers
       public async Task<IActionResult> GetBooksAsync(string searchTerm)
       {
 
-         var queryList =  service.Volumes.List(searchTerm);
-         queryList.MaxResults = 10;
+         var queryList = service.Volumes.List(searchTerm);
+         queryList.MaxResults = 5;
         // Console.WriteLine(queryList);
 
          var result = queryList.Execute();
@@ -179,11 +179,11 @@ namespace BookLibrary.Controllers
             var booksApi = result.Items.Select(b => new Book
             {
                BookTitle = b.VolumeInfo.Title,
-               AuthorFirstName = b.VolumeInfo.Authors.FirstOrDefault(),
+               //AuthorFirstName = b.VolumeInfo.Authors[0],
                AuthorLastName = b.VolumeInfo.Authors.FirstOrDefault(),
-               Genre = b.VolumeInfo.Categories.FirstOrDefault(),
+               Genre = b.VolumeInfo.Categories[0],
                NumberOfPages = (int)b.VolumeInfo.PageCount,
-               Image = b.VolumeInfo.ImageLinks.Thumbnail,
+               Image = b.VolumeInfo.ImageLinks.Thumbnail
                
             }).ToList();
 
