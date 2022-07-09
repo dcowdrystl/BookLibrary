@@ -23,7 +23,7 @@ namespace BookLibrary.Controllers
 {
    public class ListController : Controller
    {
-      private static string API_KEY = "AIzaSyACdHSQbarZ_V5SzuDEg8UQUQQX_tKfpvA";
+      private static string API_KEY = "abc";
 
       public static BooksService service = new BooksService(new BaseClientService.Initializer
       {
@@ -175,24 +175,24 @@ namespace BookLibrary.Controllers
 
             //queryList.Filter = VolumesResource.ListRequest.FilterEnum.Partial;
             var result = queryList.Execute();
-            
+            ViewBag.result = result;
+
             foreach (var resultItem in result.Items)
             {
-               if (resultItem.VolumeInfo.ImageLinks == null)
+               /*if (resultItem.VolumeInfo.ImageLinks != null)
                {
                   continue;
                }
                else
                {
 
-               }
-            }
-            ViewBag.result = result;
-            // Console.WriteLine(result);
+               }*/
+              
 
-            if (result.Items != null) 
-            {
-               
+               if(result != null)
+              // if (resultItem.VolumeInfo.ImageLinks.GetType() != null)
+               {
+
                   var booksApi = result.Items.Select(b => new Book
                   {
 
@@ -230,12 +230,13 @@ namespace BookLibrary.Controllers
                   }
                   // testing.ToList();
                   return View("Index", testing);
-               
-              
-            }
-            else
-            {
-               return null;
+
+
+               }
+               else
+               {
+                  return null;
+               }
             }
          }
          return View();
