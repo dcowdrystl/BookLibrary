@@ -1,7 +1,10 @@
-﻿@using BookLibrary.ViewModels;
-@model AddBookViewModel;
+﻿@using BookLibrary.Models
 
-
+@model List<Book>
+<div class="text-center">
+<h1>Central's Collection</h1>
+<h7>Total Books: @ViewBag.allBooks </h7>
+</div>
 <div class="container body-content">
 
     <form action="/list/GetBooks" method="post">
@@ -12,32 +15,52 @@
         </p>
     </form>
 
-     <table class="table">
+    <div class="dropdown">
+                                <button class="btn btn-outline-dark dropdown-toggle mr-1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Genres
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" asp-controller="List" asp-action="ShowGenre" asp-route-genre="Action and Adventure"  style="color:black" class="btn btn-outline-dark">Action and Adventure</a>
+                                    <a class="dropdown-item" asp-controller="List" asp-action="ShowGenre" asp-route-genre="Classics"  style="color:black" class="btn btn-outline-dark">Classics</a>
+                                    <a class="dropdown-item" asp-controller="List" asp-action="ShowGenre" asp-route-genre="Comic Book"  style="color:black" class="btn btn-outline-dark">Comic Book</a>
+                                    <a class="dropdown-item" asp-controller="List" asp-action="ShowGenre" asp-route-genre="Fantasy"  style="color:black" class="btn btn-outline-dark">Fantasy</a>
+                                    <a class="dropdown-item" asp-controller="List" asp-action="ShowGenre" asp-route-genre="Graphic Novel"  style="color:black" class="btn btn-outline-dark">Graphic Novel</a>
+                                    <a class="dropdown-item" asp-controller="List" asp-action="ShowGenre" asp-route-genre="Historical Fiction"  style="color:black" class="btn btn-outline-dark">Historical Fiction</a>
+                                    <a class="dropdown-item" asp-controller="List" asp-action="ShowGenre" asp-route-genre="Horror"  style="color:black" class="btn btn-outline-dark">Horror</a>
+                                    <a class="dropdown-item" asp-controller="List" asp-action="ShowGenre" asp-route-genre="Literary Fiction"  style="color:black" class="btn btn-outline-dark">Literary Fiction</a>
+                                    <a class="dropdown-item" asp-controller="List" asp-action="ShowGenre" asp-route-genre="Mystery"  style="color:black" class="btn btn-outline-dark">Mystery</a>
+                                    <a class="dropdown-item" asp-controller="List" asp-action="ShowGenre" asp-route-genre="Non-Fiction"  style="color:black" class="btn btn-outline-dark">Non-Fiction</a>
+                                    <a class="dropdown-item" asp-controller="List" asp-action="ShowGenre" asp-route-genre="Realist Literature"  style="color:black" class="btn btn-outline-dark">Realist Literature</a>
+                                    <a class="dropdown-item" asp-controller="List" asp-action="ShowGenre" asp-route-genre="Romance"  style="color:black" class="btn btn-outline-dark">Romance</a>
+                                    <a class="dropdown-item" asp-controller="List" asp-action="ShowGenre" asp-route-genre="Science Fiction"  style="color:black" class="btn btn-outline-dark">Science Fiction</a>
+                                    <a class="dropdown-item" asp-controller="List" asp-action="ShowGenre" asp-route-genre="Speculative Fiction"  style="color:black" class="btn btn-outline-dark">Speculative Fiction</a>
+                                    <a class="dropdown-item" asp-controller="List" asp-action="ShowGenre" asp-route-genre="Western"  style="color:black" class="btn btn-outline-dark">Western</a>
+                                </div>
+                            </div>
+
+</div>
+
+@if (Model.Count == 0)
+{
+    <p>No Books in the Online Collection yet!</p>
+}
+
+else
+{
+    <table class="table">
         
 
-        @foreach (var book in ViewBag.result)
+        @foreach (var book in Model)
         {
-           <div class="card mb-3" style="max-width: 540px; background-color:tan">
-  <div class="row g-0">
-    <div class="col-md-4">
-        
-      @*<img src="@book.Image">*@
-      <a href="https://www.google.com/search?q=.@book.BookTitle.@book.AuthorLastName"> <img src="Items.VolumeInfo.ImageLinks.Thumbnail"/></a>
-    </div>
-    <div class="col-md-8">
-      <div class="card-body">
-        <h5 class="card-title"><b><a asp-controller="Books" asp-action="Detail" asp-route-id="@book.Id" asp-route-url="/List" style="color:black">@book.BookTitle</a></b></h5>
-        <p class="card-text">Author: @book.AuthorFirstName @book.AuthorLastName <br>
-        Genre: @book.Genre <br>
-        Number of Pages: @book.NumberOfPages <br>
-                                
-        </p>
-        
-        </div>
-    </div>
-      </div>
-      </div>
-      }
-        </div>
-        
+          <div class="card" style="width: 18rem;">
+              <a href="https://www.google.com/search?q=.@book.BookTitle.@book.AuthorLastName"> <img src="@book.Image" class="card-img-top" alt="..."/></a>
+  @*<img src="..." class="card-img-top" alt="...">*@
+  <div class="card-body">
+    @*<h5 class="card-title">@book.BookTitle</h5>*@
+    <p class="card-text">@book.AuthorFirstName</p>
+    <a href="#" class="btn btn-primary">Add</a>
+  </div>
+</div>
+        }
     </table>
+}

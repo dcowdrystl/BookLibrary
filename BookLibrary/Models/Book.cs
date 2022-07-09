@@ -36,8 +36,9 @@ namespace BookLibrary.Models
             AuthorLastName = authorlastname;
             Genre = genre;
             NumberOfPages = numberofpages;
+         Image = Image;
 
-        }      
+      }      
 
         public override string ToString()
         {

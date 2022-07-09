@@ -159,61 +159,79 @@ namespace BookLibrary.Controllers
       }
 
       [HttpPost]
-
-
       public async Task<IActionResult> GetBooksAsync(string searchTerm)
       {
          if (!ModelState.IsValid) { return View(); }
          if (ModelState.IsValid)
          {
+
             var currentUser = await GetCurrentUserAsync();
             var queryList = service.Volumes.List(searchTerm);
             queryList.MaxResults = 5;
-            // Console.WriteLine(queryList);
+          
+            // if queryList contains an object without an ImageLink, remove it from the List
+            
+            //queryList.Filter = (VolumesResource.ListRequest.FilterEnum?)VolumesResource.ListRequest.PrintTypeEnum.BOOKS;
 
+            //queryList.Filter = VolumesResource.ListRequest.FilterEnum.Partial;
             var result = queryList.Execute();
+            
+            foreach (var resultItem in result.Items)
+            {
+               if (resultItem.VolumeInfo.ImageLinks == null)
+               {
+                  continue;
+               }
+               else
+               {
 
+               }
+            }
             ViewBag.result = result;
             // Console.WriteLine(result);
 
-            if (result != null)
+            if (result.Items != null) 
             {
-
-               var booksApi = result.Items.Select(b => new Book
-               {
-
-                  BookTitle = b.VolumeInfo.Title,
-                  //AuthorFirstName = b.VolumeInfo.Authors[0],
-                  AuthorLastName = b.VolumeInfo.Authors.FirstOrDefault(),
-                  Genre = b.VolumeInfo.Categories[0],
-                  NumberOfPages = (int)b.VolumeInfo.PageCount,
-                  Image = b.VolumeInfo.ImageLinks.Thumbnail
-
-
-               }).ToList();
-
-
-               ViewBag.booksApi = booksApi;
-               List<Book> testing = new List<Book>();
-               foreach (var testBook in booksApi)
-               {
-
-                  Book hello = new Book
+               
+                  var booksApi = result.Items.Select(b => new Book
                   {
 
-                     BookTitle = testBook.BookTitle,
-                     AuthorFirstName = testBook.AuthorFirstName,
-                     AuthorLastName = testBook.AuthorLastName,
-                     Genre = testBook.Genre,
-                     NumberOfPages = (int)testBook.NumberOfPages,
-                     Image = testBook.Image
-                  };
-                  testing.Add(hello);
-                  ViewBag.testing = testing;
-               }
-               testing.ToList();
-               return View("index", testing);
+                     BookTitle = b.VolumeInfo.Title,
+                     //AuthorFirstName = b.VolumeInfo.Authors[0],
+                     AuthorLastName = b.VolumeInfo.Authors.FirstOrDefault(),
+                     //Genre = b.VolumeInfo.Categories[0],
+                     NumberOfPages = (int)b.VolumeInfo.PageCount,
+                     Image = b.VolumeInfo.ImageLinks.Thumbnail
 
+
+                  })
+                     .ToList();
+
+
+
+                  ViewBag.booksApi = booksApi;
+                  List<Book> testing = new List<Book>();
+                  foreach (var testBook in booksApi)
+                  {
+
+                     Book hello = new Book
+                     {
+
+                        BookTitle = testBook.BookTitle,
+                        AuthorFirstName = testBook.AuthorFirstName,
+                        AuthorLastName = testBook.AuthorLastName,
+                        Genre = testBook.Genre,
+                        NumberOfPages = (int)testBook.NumberOfPages,
+                        Image = testBook.Image
+                     };
+
+                     testing.Add(hello);
+                     ViewBag.testing = testing;
+                  }
+                  // testing.ToList();
+                  return View("Index", testing);
+               
+              
             }
             else
             {
@@ -224,9 +242,12 @@ namespace BookLibrary.Controllers
       }
 
       [HttpPost]
-      public async Task<IActionResult> AddBooksApi()
+      public async Task<IActionResult> AddBooksApi(Book book)
       {
          var currentUser = await GetCurrentUserAsync();
+
+         
+
          return View("Index", ViewBag.testing);
       }
    }
