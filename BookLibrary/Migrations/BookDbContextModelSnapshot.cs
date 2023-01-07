@@ -97,6 +97,9 @@ namespace BookLibrary.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("APIBookID")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ApplicationUserId")
                         .HasColumnType("nvarchar(450)");
 
@@ -132,6 +135,9 @@ namespace BookLibrary.Migrations
 
                     b.Property<string>("ApplicationUserId")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ApiBookID")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("BookId", "ApplicationUserId");
 
@@ -199,6 +205,9 @@ namespace BookLibrary.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("APIBookID")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ApplicationUserId")
                         .HasColumnType("nvarchar(max)");

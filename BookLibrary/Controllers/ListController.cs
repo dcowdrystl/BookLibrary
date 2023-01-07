@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using System;
 using Google.Apis.Books.v1;
 using Google.Apis.Services;
+using BookLibrary.ViewModels;
+using System.Security.Policy;
 //AIzaSyACdHSQbarZ_V5SzuDEg8UQUQQX_tKfpvA
 namespace BookLibrary.Controllers
 {
@@ -167,7 +169,7 @@ namespace BookLibrary.Controllers
                 //queryList.Filter = VolumesResource.ListRequest.FilterEnum.Partial;
                 var result = queryList.Execute();
                 ViewBag.result = result;
-
+            
                 foreach (var resultItem in result.Items)
                 {
                     /*if (resultItem.VolumeInfo.ImageLinks != null)
@@ -183,18 +185,19 @@ namespace BookLibrary.Controllers
                     // if (resultItem.VolumeInfo.ImageLinks.GetType() != null)
                     {
 
-                        var booksApi = result.Items.Select(b => new Book
-                        {
+                  var booksApi = result.Items.Select(b => new Book
+                  {
 
-                            BookTitle = b.VolumeInfo.Title,
-                            //AuthorFirstName = b.VolumeInfo.Authors[0],
-                            AuthorLastName = b.VolumeInfo.Authors.FirstOrDefault(),
-                            //Genre = b.VolumeInfo.Categories[0],
-                            NumberOfPages = (int)b.VolumeInfo.PageCount,
-                            Image = b.VolumeInfo.ImageLinks.Thumbnail
+                     BookTitle = b.VolumeInfo.Title,
+                     //AuthorFirstName = b.VolumeInfo.Authors[0],
+                     AuthorLastName = b.VolumeInfo.Authors.FirstOrDefault(),
+                     //Genre = b.VolumeInfo.Categories[0],
+                     NumberOfPages = (int)b.VolumeInfo.PageCount,
 
+                     Image = b.VolumeInfo.ImageLinks.Thumbnail,
+                     APIBookID = b.Id
 
-                        })
+                  })
                            .ToList();
 
 
@@ -204,24 +207,28 @@ namespace BookLibrary.Controllers
                         foreach (var testBook in booksApi)
                         {
 
-                            Book hello = new Book
-                            {
-                                Id = testBook.Id,
-                                BookTitle = testBook.BookTitle,
-                                AuthorFirstName = testBook.AuthorFirstName,
-                                AuthorLastName = testBook.AuthorLastName,
-                                Genre = testBook.Genre,
-                                NumberOfPages = (int)testBook.NumberOfPages,
-                                ApplicationUserId = currentUser.Id,
-                                Image = testBook.Image
+                     Book hello = new Book
+                     {
+                        Id = testBook.Id,
+                        BookTitle = testBook.BookTitle,
+                        AuthorFirstName = testBook.AuthorFirstName,
+                        AuthorLastName = testBook.AuthorLastName,
+                        Genre = testBook.Genre,
+                        NumberOfPages = (int)testBook.NumberOfPages,
+                        ApplicationUserId = currentUser.Id,
+                        Image = testBook.Image,
+                        APIBookID = testBook.APIBookID
                             };
 
                             testing.Add(hello);
                             ViewBag.testing = testing;
+                            context.Books.Add(hello);
+                            context.SaveChanges();
                         }
                         // testing.ToList();
-                        return View("Index", testing);
 
+                         return View("Index", testing);
+                        //return Redirect("/List");
 
                     }
                     else
@@ -232,6 +239,16 @@ namespace BookLibrary.Controllers
             }
             return View();
         }
-
-    }
+       // [Route("List/GetBooks")]
+        [HttpPost]
+      //public IActionResult CreatePost(Post newPost)
+      // public async Task<IActionResult> CreatePost(Post newPost)
+      public async Task<IActionResult> AddBook(string apibookID)
+      {
+            Book hello = context.Books.Find(apibookID);
+         context.Books.Add(hello);
+            context.SaveChanges();
+            return Redirect("Index");
+        }
+   }
 }

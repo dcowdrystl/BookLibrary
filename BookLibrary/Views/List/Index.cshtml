@@ -69,7 +69,9 @@ else
                         Number of Pages: @book.NumberOfPages <br>*@
 
                             </p>
-
+                            <p class="card-text">
+                                APIBookId: @book.APIBookID
+                            </p>
                             @*<a asp-controller="Books" asp-action="Edit" asp-route-id="@book.Id" class="btn btn-outline-dark">Edit Book</a>
                     <a asp-controller="Post" asp-action="ShowPost" asp-route-id="@book.Id" class="btn btn-outline-dark">Reviews</a>
                     <a asp-controller="Post" asp-action="NewPost" asp-route-id="@book.Id" class="btn btn-outline-dark">Add Review</a>
@@ -95,13 +97,14 @@ else
                         </form>*@
                                @* <a asp-controller="Books" asp-action="Add" asp-route-id="@book.Id" class="btn btn-primary text-dark"><b> Add</b></a>*@
                                 @Html.ActionLink(
-                        "Add Book",
-                        "AddOtherBooks",
-                        "Books",
-                        new { bookId = @book.Id , url = "/List/GetBooks"},
+                        "Add Booksss",
+                        "AddBook",
+                        
+                        new { apibookID = @book.APIBookID},
 
                         htmlAttributes: new { @class = "btn btn-success text-dark", @role = "button"})
 
+                                <a asp-controller="List" asp-action="AddBook" asp-route-id="@book.APIBookID" class="btn btn-primary text-dark"><b> newBook</b></a>
                                 <a asp-controller="Post" asp-action="ShowPost" asp-route-id="@book.Id" class="btn btn-primary text-dark"><b> Reviews</b></a>
 
                                 <a asp-controller="Post" asp-action="NewPost" asp-route-id="@book.Id" class="btn btn-primary text-dark"><b> Add Review</b></a>

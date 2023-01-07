@@ -15,6 +15,7 @@ namespace BookLibrary.Models
         public int NumberOfPages { get; set; }
         public string Image { get; set; } = "no image";
       public int Id { get; set; }
+      public string APIBookID { get; set; }
 
         //[ForeignKey("ApplicationUserId")]
         public ApplicationUser User { get; set; }
@@ -29,7 +30,7 @@ namespace BookLibrary.Models
         {
         }
 
-        public Book(string booktitle, string authorfirstname, string authorlastname, string genre, int numberofpages, string image)
+        public Book(string booktitle, string authorfirstname, string authorlastname, string genre, int numberofpages, string image, string apiBookID)
         {
             BookTitle = booktitle;
             AuthorFirstName = authorfirstname;
@@ -37,6 +38,7 @@ namespace BookLibrary.Models
             Genre = genre;
             NumberOfPages = numberofpages;
             Image = image;
+            APIBookID = apiBookID;
         }      
 
         public override string ToString()

@@ -15,8 +15,10 @@ namespace BookLibrary.ViewModels
         public string AuthorLastName { get; set; }
         public string Genre { get; set; }
         public int NumberOfPages { get; set; }
+      public string Image { get; set; }
+      public string APIBookID { get; set; }
 
-        public IList<UserProfile> UserBooks { get; set; }
+      public IList<UserProfile> UserBooks { get; set; }
 
         public BookDetailViewModel(Book theBook, IList<UserProfile> userProfiles)
         {
@@ -26,6 +28,8 @@ namespace BookLibrary.ViewModels
             AuthorLastName = theBook.AuthorLastName;
             Genre = theBook.Genre;
             NumberOfPages = theBook.NumberOfPages;
+            Image= theBook.Image;
+            APIBookID = theBook.APIBookID;
 
             UserBooks = userProfiles;
         }

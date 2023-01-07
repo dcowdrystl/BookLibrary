@@ -11,6 +11,7 @@ namespace BookLibrary.Models
         //public int Id { get; set; }
 
         public int BookId { get; set; }
+      public string ApiBookID { get; set; }
         public Book Book { get; set; }
 
         ////[Key]

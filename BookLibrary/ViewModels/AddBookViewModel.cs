@@ -19,5 +19,6 @@ namespace BookLibrary.ViewModels
         //[Required]
         [Display(Name = "Image URL")]
         public string Image { get; set; } = "no image";
+      public string APIBookID { get; set; }
    }
 }

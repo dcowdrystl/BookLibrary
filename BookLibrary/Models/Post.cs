@@ -25,6 +25,7 @@ namespace BookLibrary.Models
       public string ApplicationUserId { get; set; }
  
       public int BookId { get; set; }
+      public string APIBookID { get; set; }
         public Book PostBook{ get; set; }
       public List<Like> Likes { get; set; }
 

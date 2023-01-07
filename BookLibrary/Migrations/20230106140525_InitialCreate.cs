@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BookLibrary.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -165,6 +165,8 @@ namespace BookLibrary.Migrations
                     AuthorLastName = table.Column<string>(nullable: true),
                     Genre = table.Column<string>(nullable: true),
                     NumberOfPages = table.Column<int>(nullable: false),
+                    Image = table.Column<string>(nullable: true),
+                    APIBookID = table.Column<string>(nullable: true),
                     ApplicationUserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -203,7 +205,8 @@ namespace BookLibrary.Migrations
                 columns: table => new
                 {
                     BookId = table.Column<int>(nullable: false),
-                    ApplicationUserId = table.Column<string>(nullable: false)
+                    ApplicationUserId = table.Column<string>(nullable: false),
+                    ApiBookID = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -260,6 +263,7 @@ namespace BookLibrary.Migrations
                     UserId = table.Column<string>(nullable: true),
                     ApplicationUserId = table.Column<string>(nullable: true),
                     BookId = table.Column<int>(nullable: false),
+                    APIBookID = table.Column<string>(nullable: true),
                     BookUserApplicationUserId = table.Column<string>(nullable: true),
                     BookUserBookId = table.Column<int>(nullable: true)
                 },
@@ -283,6 +287,35 @@ namespace BookLibrary.Migrations
                         columns: x => new { x.BookUserBookId, x.BookUserApplicationUserId },
                         principalTable: "BookUsers",
                         principalColumns: new[] { "BookId", "ApplicationUserId" },
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Likes",
+                columns: table => new
+                {
+                    LikeId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CreatedAt = table.Column<DateTime>(nullable: false),
+                    UpdatedAt = table.Column<DateTime>(nullable: false),
+                    PostId = table.Column<int>(nullable: false),
+                    UserId = table.Column<string>(nullable: true),
+                    ApplicationUserId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Likes", x => x.LikeId);
+                    table.ForeignKey(
+                        name: "FK_Likes_AspNetUsers_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Likes_Posts_PostId",
+                        column: x => x.PostId,
+                        principalTable: "Posts",
+                        principalColumn: "PostId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -346,6 +379,16 @@ namespace BookLibrary.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Likes_ApplicationUserId",
+                table: "Likes",
+                column: "ApplicationUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Likes_PostId",
+                table: "Likes",
+                column: "PostId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Posts_BookId",
                 table: "Posts",
                 column: "BookId");
@@ -387,13 +430,16 @@ namespace BookLibrary.Migrations
                 name: "Friends");
 
             migrationBuilder.DropTable(
-                name: "Posts");
+                name: "Likes");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "Profiles");
+
+            migrationBuilder.DropTable(
+                name: "Posts");
 
             migrationBuilder.DropTable(
                 name: "BookUsers");
