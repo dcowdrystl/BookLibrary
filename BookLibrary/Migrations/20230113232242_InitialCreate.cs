@@ -201,6 +201,30 @@ namespace BookLibrary.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "SearchedBooks",
+                columns: table => new
+                {
+                    APIBookID = table.Column<string>(nullable: false),
+                    BookTitle = table.Column<string>(nullable: true),
+                    AuthorFirstName = table.Column<string>(nullable: true),
+                    AuthorLastName = table.Column<string>(nullable: true),
+                    Genre = table.Column<string>(nullable: true),
+                    NumberOfPages = table.Column<int>(nullable: false),
+                    Image = table.Column<string>(nullable: true),
+                    ApplicationUserId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SearchedBooks", x => x.APIBookID);
+                    table.ForeignKey(
+                        name: "FK_SearchedBooks_AspNetUsers_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "BookUsers",
                 columns: table => new
                 {
@@ -407,6 +431,11 @@ namespace BookLibrary.Migrations
                 name: "IX_Profiles_ApplicationUserId",
                 table: "Profiles",
                 column: "ApplicationUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SearchedBooks_ApplicationUserId",
+                table: "SearchedBooks",
+                column: "ApplicationUserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -431,6 +460,9 @@ namespace BookLibrary.Migrations
 
             migrationBuilder.DropTable(
                 name: "Likes");
+
+            migrationBuilder.DropTable(
+                name: "SearchedBooks");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

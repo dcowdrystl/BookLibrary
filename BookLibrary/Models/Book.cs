@@ -14,7 +14,10 @@ namespace BookLibrary.Models
         public string Genre { get; set; }
         public int NumberOfPages { get; set; }
         public string Image { get; set; } = "no image";
-      public int Id { get; set; }
+
+        //[DatabaseGenerated(DatabaseGeneratedOption.None)]
+        //[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
       public string APIBookID { get; set; }
 
         //[ForeignKey("ApplicationUserId")]

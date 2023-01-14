@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookLibrary.Migrations
 {
     [DbContext(typeof(BookDbContext))]
-    [Migration("20230106140525_InitialCreate")]
+    [Migration("20230113232242_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -247,6 +247,39 @@ namespace BookLibrary.Migrations
                     b.ToTable("Posts");
                 });
 
+            modelBuilder.Entity("BookLibrary.Models.SearchedBooks", b =>
+                {
+                    b.Property<string>("APIBookID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("AuthorFirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("AuthorLastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("BookTitle")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Genre")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("NumberOfPages")
+                        .HasColumnType("int");
+
+                    b.HasKey("APIBookID");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.ToTable("SearchedBooks");
+                });
+
             modelBuilder.Entity("BookLibrary.Models.UserProfile", b =>
                 {
                     b.Property<int>("Id")
@@ -470,6 +503,14 @@ namespace BookLibrary.Migrations
                     b.HasOne("BookLibrary.Models.BookUser", null)
                         .WithMany("Posts")
                         .HasForeignKey("BookUserBookId", "BookUserApplicationUserId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("BookLibrary.Models.SearchedBooks", b =>
+                {
+                    b.HasOne("BookLibrary.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 

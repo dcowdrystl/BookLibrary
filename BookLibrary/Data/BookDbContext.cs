@@ -16,8 +16,9 @@ namespace BookLibrary.Data
 
         public DbSet<UserProfile> Profiles { get; set; }
         public DbSet<Post> Posts { get; set; }
-        public DbSet<Like> Likes { get; set; }      
-      public BookDbContext(DbContextOptions<BookDbContext> options) : base(options)
+        public DbSet<Like> Likes { get; set; }
+        public DbSet<SearchedBooks> SearchedBooks { get; set; }
+        public BookDbContext(DbContextOptions<BookDbContext> options) : base(options)
         { 
         }
       
@@ -39,6 +40,12 @@ namespace BookLibrary.Data
                 .HasKey(bu => new { bu.BookId, bu.ApplicationUserId });
 
             base.OnModelCreating(modelBuilder);
+
+            /*modelBuilder.Entity<Book>(b =>
+            {
+                b.Property(u => u.Id).HasDefaultValueSql("newsequentialid()");
+            });*/
+
         }
     }
 }

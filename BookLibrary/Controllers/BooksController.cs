@@ -35,34 +35,38 @@ namespace BookLibrary.Controllers
 
          if (ModelState.IsValid)
          {
-            var currentUser = await GetCurrentUserAsync();
+                var currentUser = await GetCurrentUserAsync();
 
-            List<Book> books = context.Books
-                .Include(b => b.BookUsers)
-                .Include(a => a.User)
-                //.ThenInclude(bu => bu.ApplicationUser)
-                .Where(b => b.BookUsers.Any(bu => bu.ApplicationUserId == currentUser.Id))
-                .ToList();
-            ViewBag.MyBooks = books.Count();
-            ViewBag.PersonalBooks = books;
-            
-           /* List<Book> omg = (from b in context.Books
-                              join bu in context.BookUsers on b.Id equals bu.BookId
-                              join a in context.ApplicationUsers on bu.ApplicationUserId equals a.Id
-                              where a.Id == currentUser.Id
-                              orderby b.AuthorLastName ascending
-                              select new Book
+                List<Book> books = context.Books
+                    .Include(b => b.BookUsers)
+                    .Include(a => a.User)
+                    //.ThenInclude(bu => bu.ApplicationUser)
+                    .Where(b => b.BookUsers.Any(bu => bu.ApplicationUserId == currentUser.Id))
+                    .ToList();
+                ViewBag.MyBooks = books.Count();
+                ViewBag.PersonalBooks = books;
 
-                              {
-                                 Id = b.Id,
-                                 BookTitle = b.BookTitle,
-                                 AuthorFirstName = b.AuthorFirstName,
-                                 AuthorLastName = b.AuthorLastName,
-                                 Genre = b.Genre,
-                                 NumberOfPages = b.NumberOfPages,
-                              }).ToList<Book>();*/
+                /* List<Book> omg = (from b in context.Books
+                                   join bu in context.BookUsers on b.Id equals bu.BookId
+                                   join a in context.ApplicationUsers on bu.ApplicationUserId equals a.Id
+                                   where a.Id == currentUser.Id
+                                   orderby b.AuthorLastName ascending
+                                   select new Book
 
-            return View(books);
+                                   {
+                                      Id = b.Id,
+                                      BookTitle = b.BookTitle,
+                                      AuthorFirstName = b.AuthorFirstName,
+                                      AuthorLastName = b.AuthorLastName,
+                                      Genre = b.Genre,
+                                      NumberOfPages = b.NumberOfPages,
+                                   }).ToList<Book>();*/
+                /* var currentUser = await GetCurrentUserAsync();
+                 List<Book> books = context.Books.Where(b => b.ApplicationUserId == currentUser.Id)
+
+               .ToList();*/
+
+                return View(books);
          }
 
          return View();

@@ -1,42 +1,22 @@
 ﻿@using BookLibrary.Models
 
 @model List<SearchedBooks>
+
 <div class="text-center">
     <h1>Central's Collection</h1>
     <h7>Total Books: @ViewBag.allBooks </h7>
 </div>
 <div class="container body-content">
 
-    <form action="/list/GetBooks" method="post">
-        <p>
+   
+       @* <p>
             <label for="searchTerm"></label>
             <input type="text" class="btn-outline" placeholder="search" name="searchTerm" id="searchTerm" />
             <input type="submit" class="btn btn-outline-dark" value="Search" />
-        </p>
-    </form>
+        </p>*@
+    
 
-    <div class="dropdown">
-        <button class="btn btn-outline-dark dropdown-toggle mr-1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Genres
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" asp-controller="List" asp-action="ShowGenre" asp-route-genre="Action and Adventure" style="color:black" class="btn btn-outline-dark">Action and Adventure</a>
-            <a class="dropdown-item" asp-controller="List" asp-action="ShowGenre" asp-route-genre="Classics" style="color:black" class="btn btn-outline-dark">Classics</a>
-            <a class="dropdown-item" asp-controller="List" asp-action="ShowGenre" asp-route-genre="Comic Book" style="color:black" class="btn btn-outline-dark">Comic Book</a>
-            <a class="dropdown-item" asp-controller="List" asp-action="ShowGenre" asp-route-genre="Fantasy" style="color:black" class="btn btn-outline-dark">Fantasy</a>
-            <a class="dropdown-item" asp-controller="List" asp-action="ShowGenre" asp-route-genre="Graphic Novel" style="color:black" class="btn btn-outline-dark">Graphic Novel</a>
-            <a class="dropdown-item" asp-controller="List" asp-action="ShowGenre" asp-route-genre="Historical Fiction" style="color:black" class="btn btn-outline-dark">Historical Fiction</a>
-            <a class="dropdown-item" asp-controller="List" asp-action="ShowGenre" asp-route-genre="Horror" style="color:black" class="btn btn-outline-dark">Horror</a>
-            <a class="dropdown-item" asp-controller="List" asp-action="ShowGenre" asp-route-genre="Literary Fiction" style="color:black" class="btn btn-outline-dark">Literary Fiction</a>
-            <a class="dropdown-item" asp-controller="List" asp-action="ShowGenre" asp-route-genre="Mystery" style="color:black" class="btn btn-outline-dark">Mystery</a>
-            <a class="dropdown-item" asp-controller="List" asp-action="ShowGenre" asp-route-genre="Non-Fiction" style="color:black" class="btn btn-outline-dark">Non-Fiction</a>
-            <a class="dropdown-item" asp-controller="List" asp-action="ShowGenre" asp-route-genre="Realist Literature" style="color:black" class="btn btn-outline-dark">Realist Literature</a>
-            <a class="dropdown-item" asp-controller="List" asp-action="ShowGenre" asp-route-genre="Romance" style="color:black" class="btn btn-outline-dark">Romance</a>
-            <a class="dropdown-item" asp-controller="List" asp-action="ShowGenre" asp-route-genre="Science Fiction" style="color:black" class="btn btn-outline-dark">Science Fiction</a>
-            <a class="dropdown-item" asp-controller="List" asp-action="ShowGenre" asp-route-genre="Speculative Fiction" style="color:black" class="btn btn-outline-dark">Speculative Fiction</a>
-            <a class="dropdown-item" asp-controller="List" asp-action="ShowGenre" asp-route-genre="Western" style="color:black" class="btn btn-outline-dark">Western</a>
-        </div>
-    </div>
+   
 
 </div>
 
@@ -47,11 +27,18 @@
 
 else
 {
+   
+    <form action="/list/Add" method="post">
+
+
+
     <table class="table">
 
-
+        @* <form action="/list/GetBooks" method="post">*@
+     
         @foreach (var book in Model)
         {
+           
             <div class="card mb-3" style="max-width: 540px; background-color:tan">
                 <div class="row g-0">
                     <div class="col-md-4">
@@ -95,19 +82,20 @@ else
                         <input type="submit" class="btn btn-outline-dark" value="Add" />
                         </p>
                         </form>*@
-                               @* <a asp-controller="Books" asp-action="Add" asp-route-id="@book.Id" class="btn btn-primary text-dark"><b> Add</b></a>*@
+                                @* <a asp-controller="Books" asp-action="Add" asp-route-id="@book.Id" class="btn btn-primary text-dark"><b> Add</b></a>*@
                                 @Html.ActionLink(
                         "Add Booksss",
                         "Add",
-                        
+                        "List",
+
                         new { bookId = @book.APIBookID},
 
                         htmlAttributes: new { @class = "btn btn-success text-dark", @role = "button"})
 
-                                <a asp-controller="List" asp-action="AddBook" asp-route-id="@book.APIBookID" class="btn btn-primary text-dark"><b> newBook</b></a>
-                                <a asp-controller="Post" asp-action="ShowPost" asp-route-id="@book.APIBookID" class="btn btn-primary text-dark"><b> Reviews</b></a>
+                                    <a asp-controller="List" asp-action="Add" asp-route-bookId="@book.APIBookID" class="btn btn-primary text-dark"><b> newBook</b></a>
+                                    <a asp-controller="Post" asp-action="ShowPost" asp-route-id="@book.APIBookID" class="btn btn-primary text-dark"><b> Reviews</b></a>
 
-                                <a asp-controller="Post" asp-action="NewPost" asp-route-id="@book.APIBookID" class="btn btn-primary text-dark"><b> Add Review</b></a>
+                                    <a asp-controller="Post" asp-action="NewPost" asp-route-id="@book.APIBookID" class="btn btn-primary text-dark"><b> Add Review</b></a>
 
                                 @*@if (ViewBag.bookTitles.Contains(book.BookTitle))
                         {
@@ -128,11 +116,16 @@ else
 
                         }
                         }*@
+
+                               
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
         }
+       
     </table>
+        </form>
 }
