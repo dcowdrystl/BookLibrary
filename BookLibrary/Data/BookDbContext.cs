@@ -39,6 +39,12 @@ namespace BookLibrary.Data
          modelBuilder.Entity<BookUser>()
                 .HasKey(bu => new { bu.BookId, bu.ApplicationUserId });
 
+            /*modelBuilder.Entity<SearchedBooks>(eb =>
+            {
+                eb.HasNoKey();
+            });
+                */
+
             base.OnModelCreating(modelBuilder);
 
             /*modelBuilder.Entity<Book>(b =>

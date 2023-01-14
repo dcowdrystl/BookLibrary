@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookLibrary.Migrations
 {
     [DbContext(typeof(BookDbContext))]
-    [Migration("20230113232242_InitialCreate")]
+    [Migration("20230114083001_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -249,8 +249,13 @@ namespace BookLibrary.Migrations
 
             modelBuilder.Entity("BookLibrary.Models.SearchedBooks", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
                     b.Property<string>("APIBookID")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ApplicationUserId")
                         .HasColumnType("nvarchar(450)");
@@ -273,7 +278,7 @@ namespace BookLibrary.Migrations
                     b.Property<int>("NumberOfPages")
                         .HasColumnType("int");
 
-                    b.HasKey("APIBookID");
+                    b.HasKey("Id");
 
                     b.HasIndex("ApplicationUserId");
 

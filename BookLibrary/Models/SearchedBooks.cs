@@ -2,9 +2,10 @@
 
 namespace BookLibrary.Models
 {
+    
     public class SearchedBooks
     {
-        [Key]
+        [Key] public int Id { get; set; }
         public string APIBookID { get; set; }
         public string BookTitle { get; set; }
         public string AuthorFirstName { get; set; }

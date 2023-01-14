@@ -204,7 +204,9 @@ namespace BookLibrary.Migrations
                 name: "SearchedBooks",
                 columns: table => new
                 {
-                    APIBookID = table.Column<string>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    APIBookID = table.Column<string>(nullable: true),
                     BookTitle = table.Column<string>(nullable: true),
                     AuthorFirstName = table.Column<string>(nullable: true),
                     AuthorLastName = table.Column<string>(nullable: true),
@@ -215,7 +217,7 @@ namespace BookLibrary.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SearchedBooks", x => x.APIBookID);
+                    table.PrimaryKey("PK_SearchedBooks", x => x.Id);
                     table.ForeignKey(
                         name: "FK_SearchedBooks_AspNetUsers_ApplicationUserId",
                         column: x => x.ApplicationUserId,
