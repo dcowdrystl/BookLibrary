@@ -367,6 +367,7 @@ namespace BookLibrary.Controllers
                     };
 
                     context.BookUsers.Add(newBookUser);
+                    foreach (var item in context.SearchedBooks) { context.SearchedBooks.Remove(item); }
                     await context.SaveChangesAsync();
                 }
             }
@@ -386,6 +387,7 @@ namespace BookLibrary.Controllers
 
 
                 context.BookUsers.Add(newBookUser);
+                foreach (var item in context.SearchedBooks) { context.SearchedBooks.Remove(item); }
                 await context.SaveChangesAsync();
 
             }
