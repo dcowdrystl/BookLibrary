@@ -56,9 +56,9 @@ else
                         Number of Pages: @book.NumberOfPages <br>*@
 
                             </p>
-                            <p class="card-text">
+                            @*<p class="card-text">
                                 APIBookId: @book.APIBookID
-                            </p>
+                            </p>*@
                             @*<a asp-controller="Books" asp-action="Edit" asp-route-id="@book.Id" class="btn btn-outline-dark">Edit Book</a>
                     <a asp-controller="Post" asp-action="ShowPost" asp-route-id="@book.Id" class="btn btn-outline-dark">Reviews</a>
                     <a asp-controller="Post" asp-action="NewPost" asp-route-id="@book.Id" class="btn btn-outline-dark">Add Review</a>

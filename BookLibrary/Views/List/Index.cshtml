@@ -2,8 +2,8 @@
 
 @model List<SearchedBooks>
 <div class="text-center">
-    <h1>Central's Collection</h1>
-    <h7>Total Books: @ViewBag.allBooks </h7>
+    @*<h1>Central's Collection</h1>
+    <h7>Total Books: @ViewBag.allBooks </h7>*@
 </div>
 <div class="container body-content">
 
@@ -15,7 +15,7 @@
         </p>
     </form>
 
-    <div class="dropdown">
+    @*<div class="dropdown">
         <button class="btn btn-outline-dark dropdown-toggle mr-1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Genres
         </button>
@@ -36,13 +36,13 @@
             <a class="dropdown-item" asp-controller="List" asp-action="ShowGenre" asp-route-genre="Speculative Fiction" style="color:black" class="btn btn-outline-dark">Speculative Fiction</a>
             <a class="dropdown-item" asp-controller="List" asp-action="ShowGenre" asp-route-genre="Western" style="color:black" class="btn btn-outline-dark">Western</a>
         </div>
-    </div>
+    </div>*@
 
 </div>
 
 @if (Model.Count == 0)
 {
-    <p>No Books in the Online Collection yet!</p>
+    <p>Search by Title or Author</p>
 }
 
 else
@@ -69,9 +69,9 @@ else
                         Number of Pages: @book.NumberOfPages <br>*@
 
                             </p>
-                            <p class="card-text">
+                           @* <p class="card-text">
                                 APIBookId: @book.APIBookID
-                            </p>
+                            </p>*@
                             @*<a asp-controller="Books" asp-action="Edit" asp-route-id="@book.Id" class="btn btn-outline-dark">Edit Book</a>
                     <a asp-controller="Post" asp-action="ShowPost" asp-route-id="@book.Id" class="btn btn-outline-dark">Reviews</a>
                     <a asp-controller="Post" asp-action="NewPost" asp-route-id="@book.Id" class="btn btn-outline-dark">Add Review</a>
