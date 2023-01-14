@@ -183,18 +183,30 @@ namespace BookLibrary.Controllers
                     {
                     }*/
 
-
-                    if (result != null)
+                    
+                    if (result != null) { 
+                       
+                       /* if(resultItem.VolumeInfo.ImageLinks.Thumbnail == null)
+                        {
+                            result.Items.Remove(resultItem);
+                        }*/
+                 //  if(resultItem.VolumeInfo.ImageLinks.Thumbnail.Any())
                     // if (resultItem.VolumeInfo.ImageLinks.GetType() != null)
-                    {
+                    
 
-                        var booksApi = result.Items.Select(b => new SearchedBooks
+                        var booksApi = result.Items  
+                            .Where(b => b.VolumeInfo.Categories != null)
+                            .Where(b => b.VolumeInfo.ImageLinks.Thumbnail != null)
+                            .Where(b => b.VolumeInfo.Title != null)
+                            .Where(b => b.VolumeInfo.Authors != null)
+                            .Where(b => b.VolumeInfo.PageCount != null)
+                            .Select(b => new SearchedBooks
                         {
                             // Id = context.Books.Count() + 1,
                             BookTitle = b.VolumeInfo.Title,
-                            //AuthorFirstName = b.VolumeInfo.Authors[0],
+                           // AuthorFirstName = b.VolumeInfo.Authors[0],
                             AuthorLastName = b.VolumeInfo.Authors.FirstOrDefault(),
-                            //Genre = b.VolumeInfo.Categories[0],
+                            Genre = b.VolumeInfo.Categories[0],
                             NumberOfPages = (int)b.VolumeInfo.PageCount,
                             ApplicationUserId = currentUser.Id,
                             Image = b.VolumeInfo.ImageLinks.Thumbnail,
@@ -271,6 +283,7 @@ namespace BookLibrary.Controllers
                         //return Redirect("/List");
 
                     }
+                    
                     else
                     {
                         return null;
