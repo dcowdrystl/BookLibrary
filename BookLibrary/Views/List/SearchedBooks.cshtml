@@ -3,21 +3,19 @@
 @model List<SearchedBooks>
 
 <div class="text-center">
-    <h1>Central's Collection</h1>
-    <h7>Total Books: @ViewBag.allBooks </h7>
-</div>
 <div class="container body-content">
 
-   
-       @* <p>
+    <form action="/list/GetBooks" method="post">
+        <p>
             <label for="searchTerm"></label>
             <input type="text" class="btn-outline" placeholder="search" name="searchTerm" id="searchTerm" />
             <input type="submit" class="btn btn-outline-dark" value="Search" />
-        </p>*@
+        </p>
+    </form>
     
 
    
-
+    </div>
 </div>
 
 @if (Model.Count == 0)
@@ -32,100 +30,17 @@ else
 
 
 
-    <table class="table">
-
-        @* <form action="/list/GetBooks" method="post">*@
+        <table class="table">
      
-        @foreach (var book in Model)
-        {
-           
-            <div class="card mb-3" style="max-width: 540px; background-color:tan">
-                <div class="row g-0">
-                    <div class="col-md-4">
-
-                        @*<img src="@book.Image">*@
-                        <a href="https://www.google.com/search?q=.@book.BookTitle.@book.AuthorLastName"> <img src="@book.Image" /></a>
+            @foreach (var book in Model)
+            {         
+                    <div class="text-md-center">
+                            <a asp-controller="List" asp-action="Add" asp-route-bookId="@book.APIBookID" class="btn btn-primary text-dark"> <img src="@book.Image" /></a>
                     </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <h5 class="card-title"><b><a asp-controller="Books" asp-action="Detail" asp-route-id="@book.APIBookID" asp-route-url="/List" style="color:black">@book.BookTitle</a></b></h5>
-                            <p class="card-text">
-                                By: @book.AuthorLastName
-                                @*<br>
-                        Genre: @book.Genre <br>
-                        Number of Pages: @book.NumberOfPages <br>*@
-
-                            </p>
-                            @*<p class="card-text">
-                                APIBookId: @book.APIBookID
-                            </p>*@
-                            @*<a asp-controller="Books" asp-action="Edit" asp-route-id="@book.Id" class="btn btn-outline-dark">Edit Book</a>
-                    <a asp-controller="Post" asp-action="ShowPost" asp-route-id="@book.Id" class="btn btn-outline-dark">Reviews</a>
-                    <a asp-controller="Post" asp-action="NewPost" asp-route-id="@book.Id" class="btn btn-outline-dark">Add Review</a>
-                    @Html.ActionLink(
-                    "Delete Book",
-                    "Delete",
-                    new
-                    {
-                    bookId = @book.Id
-                    },
-                    htmlAttributes: new { @class = "btn btn-outline-danger", @role = "button" }
-                    )*@
-                            @*<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>*@
-
-                            <div class="card-footer">
-
-                                @*<form action="/list/AddBooksApi" method="post">
-                        <p>
-                        <label for=@book></label>
-
-                        <input type="submit" class="btn btn-outline-dark" value="Add" />
-                        </p>
-                        </form>*@
-                                @* <a asp-controller="Books" asp-action="Add" asp-route-id="@book.Id" class="btn btn-primary text-dark"><b> Add</b></a>*@
-                                @Html.ActionLink(
-                        "Add Booksss",
-                        "Add",
-                        "List",
-
-                        new { bookId = @book.APIBookID},
-
-                        htmlAttributes: new { @class = "btn btn-success text-dark", @role = "button"})
-
-                                    <a asp-controller="List" asp-action="Add" asp-route-bookId="@book.APIBookID" class="btn btn-primary text-dark"><b> newBook</b></a>
-                                    <a asp-controller="Post" asp-action="ShowPost" asp-route-id="@book.APIBookID" class="btn btn-primary text-dark"><b> Reviews</b></a>
-
-                                    <a asp-controller="Post" asp-action="NewPost" asp-route-id="@book.APIBookID" class="btn btn-primary text-dark"><b> Add Review</b></a>
-
-                                @*@if (ViewBag.bookTitles.Contains(book.BookTitle))
-                        {
-                        <button type="button" class="btn btn-secondary text-dark" disabled>Already Added</button>
-                        }
-                        else
-                        {
-                        @if (User.Identity.IsAuthenticated)
-                        {
-
-                        @Html.ActionLink(
-                        "Add Book",
-                        "AddOtherBooks",
-                        "Books",
-                        new { bookId = @book.Id , url = "/List"},
-                        htmlAttributes: new { @class = "btn btn-success text-dark", @role = "button"})
-
-
-                        }
-                        }*@
-
-                               
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        }
+                    <br />
+                <br />           
+            }
        
-    </table>
-        </form>
+        </table>
+     </form>
 }

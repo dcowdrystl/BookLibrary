@@ -33,12 +33,7 @@ namespace BookLibrary.Controllers
          context = dbContext;
          _userManager = userManager;
       }
-      /*public IActionResult Index()
-      {
-          List<Book> books = context.Books.ToList();
 
-          return View(books);
-      }*/
       private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
       public async Task<IActionResult> IndexAsync(string searchTerm)
@@ -104,15 +99,6 @@ namespace BookLibrary.Controllers
          .ToList();
          ViewBag.allBooks = books.Count();
 
-         /* List<Book> booksToShow = new List<Book>();
-          foreach (Book book in books)
-          {
-             if (book.Genre == genre)
-             {
-                booksToShow.Add(book);
-             }
-             booksToShow.ToList();
-          }*/
 
          ViewBag.bookTitles = new List<string>();
          if (!string.IsNullOrEmpty(searchTerm))
@@ -163,37 +149,16 @@ namespace BookLibrary.Controllers
                 ViewBag.testing = new List<SearchedBooks>();
                 var currentUser = await GetCurrentUserAsync();
                 var queryList = service.Volumes.List(searchTerm);
-                queryList.MaxResults = 5;
+                queryList.MaxResults = 10;
 
-                // if queryList contains an object without an ImageLink, remove it from the List
 
-                //queryList.Filter = (VolumesResource.ListRequest.FilterEnum?)VolumesResource.ListRequest.PrintTypeEnum.BOOKS;
-
-                //queryList.Filter = VolumesResource.ListRequest.FilterEnum.Partial;
                 var result = queryList.Execute();
                 ViewBag.result = result;
             
                 foreach (var resultItem in result.Items)
                 {
-                    /*if (resultItem.VolumeInfo.ImageLinks != null)
-                    {
-                       continue;
-                    }
-                    else
-                    {
-                    }*/
 
-                    
-                    if (result != null) { 
-                       
-                       /* if(resultItem.VolumeInfo.ImageLinks.Thumbnail == null)
-                        {
-                            result.Items.Remove(resultItem);
-                        }*/
-                 //  if(resultItem.VolumeInfo.ImageLinks.Thumbnail.Any())
-                    // if (resultItem.VolumeInfo.ImageLinks.GetType() != null)
-                    
-
+                    if (result != null) {                    
                         var booksApi = result.Items  
                             .Where(b => b.VolumeInfo.Categories != null)
                             .Where(b => b.VolumeInfo.ImageLinks.Thumbnail != null)
@@ -202,7 +167,7 @@ namespace BookLibrary.Controllers
                             .Where(b => b.VolumeInfo.PageCount != null)
                             .Select(b => new SearchedBooks
                         {
-                            // Id = context.Books.Count() + 1,
+
                             BookTitle = b.VolumeInfo.Title,
                            // AuthorFirstName = b.VolumeInfo.Authors[0],
                             AuthorLastName = b.VolumeInfo.Authors.FirstOrDefault(),
@@ -249,38 +214,13 @@ namespace BookLibrary.Controllers
                                     Image = testBook.Image,
                                     APIBookID = testBook.APIBookID
                                 };
-                               // ViewBag.testing.Add(hello);
-                              //  ViewBag.testing.Add(testing);
-                              // foreach (var tb in context.Books)
-                              //  {
-                                  //  if (tb.ApplicationUserId != hello.ApplicationUserId)
-                                  //  {
 
-                                    
-                                    context.SearchedBooks.Add(hello);
-                                        //context.SaveChanges();
-                                        await context.SaveChangesAsync();
-                                        
-                                       /* var bookId = hello.Id;
-                                        var rUserId = currentUser.Id;
-
-                                        BookUser newBookUser = new BookUser
-                                        {
-                                            BookId = bookId,
-                                            ApplicationUserId = rUserId
-                                        };
-
-
-                                        context.BookUsers.Add(newBookUser);
-                                        await context.SaveChangesAsync();*/
-                                   // }
-                              //  }
+                                    context.SearchedBooks.Add(hello);                                    
+                                     await context.SaveChangesAsync();
                             }
                         }
-                        // testing.ToList();
                         ViewBag.testingBooks = testing;
                          return View("SearchedBooks", testing);
-                        //return Redirect("/List");
 
                     }
                     
@@ -308,30 +248,20 @@ namespace BookLibrary.Controllers
                 if(book.APIBookID == bookId)
                 {
                     addingBook = book;
-                  /*  context.SearchedBooks.Add(addingBook);
-                    context.SaveChanges();*/
+
                 }
             }
-            /*Book addingBook = new Book();
-            addingBook = context.Books
-                   .FirstOrDefault(b => b.APIBookID == bookId);*/
-           // addingBook.Id = context.Books.Count() + 1;
+
             ViewBag.bookToAdd = addingBook;
             ViewBag.title = "Edit : " + addingBook.BookTitle;
             return View("BookDetails", addingBook);
         }
         [HttpPost]
         [Route("List/BookDetails")]
-        //public IActionResult CreatePost(Post newPost)
-        // public async Task<IActionResult> CreatePost(Post newPost)
         public async Task <IActionResult> AddBookAsync(string bookId)
       {
-            // Book book = new Book();
-            //foreach (var book2 in ViewBag.testingBooks)
-            // {
             var currentUser = await GetCurrentUserAsync();
             SearchedBooks searchedBook = new SearchedBooks();
-
 
                      searchedBook = context.SearchedBooks
                    .FirstOrDefault(b => b.APIBookID == bookId);
@@ -346,16 +276,6 @@ namespace BookLibrary.Controllers
                 Image = searchedBook.Image,
                 APIBookID = searchedBook.APIBookID
             };
-            /*if (abc.APIBookID != null)
-                {
-                //Book hello = ViewBag.testingBooks.Find(apibookID);
-                *//* context.Books.Add(searchedBook);
-             context.SaveChanges();*//*
-                // await context.SaveChangesAsync();
-                context.Books.Add(abc);
-                await context.SaveChangesAsync();
-               
-            }*/
 
             Book extantBook = (from b in context.Books where b.BookTitle.ToLower() == abc.BookTitle.ToLower() select b).FirstOrDefault();
 
@@ -366,12 +286,7 @@ namespace BookLibrary.Controllers
                 && bu.ApplicationUserId == currentUser.Id) == 0)
 
                 {
-
-
-
-
                     var rUserId = currentUser.Id;
-
 
                     BookUser newBookUser = new BookUser
                     {
@@ -404,10 +319,9 @@ namespace BookLibrary.Controllers
                 await context.SaveChangesAsync();
 
             }
-            //context.SaveChanges();
-            return Redirect("Index");
-           //  context.SaveChanges();
-           // return View("SearchedBooks", ViewBag.testingBooks);
+
+            return Redirect("/Books/Index");
+
         }
   
     

@@ -19,36 +19,17 @@
                     <h5 class="card-title"><b><a asp-controller="Books" asp-action="Detail" asp-route-APIBookID="@ViewBag.bookToAdd.APIBookID" asp-route-url="/List" style="color:black">@ViewBag.bookToAdd.BookTitle</a></b></h5>
                         <p class="card-text">
                         By: @ViewBag.bookToAdd.AuthorLastName
-                            @*<br>
-                        Genre: @book.Genre <br>
-                        Number of Pages: @book.NumberOfPages <br>*@
+                            <br>
+                            Genre: @ViewBag.bookToAdd.Genre <br>
+                            Number of Pages: @ViewBag.bookToAdd.NumberOfPages <br>
 
                         </p>
-                        <p class="card-text">
-                        APIBookId: @ViewBag.bookToAdd.APIBookID
-                        </p>
+
 
                         <div class="card-footer">
 
-                            @*<form action="/list/AddBooksApi" method="post">
-                        <p>
-                        <label for=@book></label>
-
-                        <input type="submit" class="btn btn-outline-dark" value="Add" />
-                        </p>
-                        </form>*@
-                            @* <a asp-controller="Books" asp-action="Add" asp-route-id="@book.Id" class="btn btn-primary text-dark"><b> Add</b></a>*@
-                            @Html.ActionLink(
-                        "Add Booksss",
-                        "AddBook",
-
-                        new { bookId = @ViewBag.bookToAdd.APIBookID},
-
-                        htmlAttributes: new { @class = "btn btn-success text-dark", @role = "button"})
-
-                        <a asp-controller="List" asp-action="AddBook" asp-route-id="@ViewBag.bookToAdd.APIBookID" class="btn btn-primary text-dark"><b> newBook</b></a>
                             <input type="hidden" value="@ViewBag.bookToAdd.APIBookID" name="bookId">
-                        <input type="submit" class="btn btn-outline-secondary" value="Add Book" />
+                            <input type="submit" class="btn btn-success text-dark" value="Add Book" />
 
                
                         </div>

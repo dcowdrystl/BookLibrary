@@ -37,21 +37,7 @@ else
         Number of Pages: @book.NumberOfPages <br>
                                 
         </p>
-        
-        @*<a asp-controller="Books" asp-action="Edit" asp-route-id="@book.Id" class="btn btn-outline-dark">Edit Book</a>
-        <a asp-controller="Post" asp-action="ShowPost" asp-route-id="@book.Id" class="btn btn-outline-dark">Reviews</a>
-        <a asp-controller="Post" asp-action="NewPost" asp-route-id="@book.Id" class="btn btn-outline-dark">Add Review</a>
-         @Html.ActionLink(
-                    "Delete Book",
-                    "Delete",
-                    new
-                         {
-                        bookId = @book.Id
-                         },
-                    htmlAttributes: new { @class = "btn btn-outline-danger", @role = "button" }
-                    )*@
-        @*<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>*@
-        
+             
         <div class="card-footer">
      
         <a asp-controller="Post" asp-action="ShowPost" asp-route-id="@book.Id" class="btn btn-primary text-dark"><b> Reviews</b></a>
@@ -71,11 +57,10 @@ else
                                     "Add Book",
                                     "AddOtherBooks",
                                     "Books",
-                                    new { bookId = @book.Id , url = "/List"},
+                                    new { bookId = @book.Id , url = "/Books"},
 
                                     htmlAttributes: new { @class = "btn btn-success text-dark", @role = "button"})
-                                    
-                        
+                                                        
                     }
                 }
     </div>
