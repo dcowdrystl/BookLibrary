@@ -52,16 +52,21 @@ else
   <div class="row g-0">
     <div class="col-md-4">
       @*<img src="@book.Image">*@
-      <a href="https://www.google.com/search?q=.@book.BookTitle.@book.AuthorLastName"> <img src="@book.Image"/></a>
+                        @*<img alt="Card image cap" class="card-img-top img-fluid" src="@book.Image" style="width: 22rem; height: 20rem;" />*@
+                        <a href="https://www.google.com/search?q=.@book.BookTitle.@book.AuthorLastName"> <img src="@book.Image" class="card-img-top img-fluid" /></a>
+                        <p><b>Added on: </b>@book.CreatedAt.Month/@book.CreatedAt.Day/@book.CreatedAt.Year</p>
     </div>
+
     <div class="col-md-8">
       <div class="card-body">
+          
         <h5 class="card-title"><b><a asp-controller="Books" asp-action="Detail" asp-route-id="@book.Id" asp-route-url="/List" style="color:black">@book.BookTitle</a></b></h5>
         <p class="card-text">Author: @book.AuthorFirstName @book.AuthorLastName <br>
         Genre: @book.Genre <br>
         Number of Pages: @book.NumberOfPages <br>
-                                
-        </p>
+                                <br />
+                                @book.SearchInfo
+                            </p>
         
         @*<a asp-controller="Books" asp-action="Edit" asp-route-id="@book.Id" class="btn btn-outline-dark">Edit Book</a>
         <a asp-controller="Post" asp-action="ShowPost" asp-route-id="@book.Id" class="btn btn-outline-dark">Reviews</a>

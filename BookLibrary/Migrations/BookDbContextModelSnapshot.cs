@@ -112,6 +112,9 @@ namespace BookLibrary.Migrations
                     b.Property<string>("BookTitle")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Genre")
                         .HasColumnType("nvarchar(max)");
 
@@ -120,6 +123,9 @@ namespace BookLibrary.Migrations
 
                     b.Property<int>("NumberOfPages")
                         .HasColumnType("int");
+
+                    b.Property<string>("SearchInfo")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -275,6 +281,9 @@ namespace BookLibrary.Migrations
 
                     b.Property<int>("NumberOfPages")
                         .HasColumnType("int");
+
+                    b.Property<string>("SearchInfo")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

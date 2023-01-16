@@ -14,11 +14,13 @@ namespace BookLibrary.Models
         public string Genre { get; set; }
         public int NumberOfPages { get; set; }
         public string Image { get; set; } = "no image";
-
-        //[DatabaseGenerated(DatabaseGeneratedOption.None)]
-        //[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
       public string APIBookID { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
+
+        public string SearchInfo { get; set; }
+
+
 
         //[ForeignKey("ApplicationUserId")]
         public ApplicationUser User { get; set; }
@@ -33,7 +35,7 @@ namespace BookLibrary.Models
         {
         }
 
-        public Book(string booktitle, string authorfirstname, string authorlastname, string genre, int numberofpages, string image, string apiBookID)
+        public Book(string booktitle, string authorfirstname, string authorlastname, string genre, int numberofpages, string image, string apiBookID, string searchinfo)
         {
             BookTitle = booktitle;
             AuthorFirstName = authorfirstname;
@@ -42,6 +44,8 @@ namespace BookLibrary.Models
             NumberOfPages = numberofpages;
             Image = image;
             APIBookID = apiBookID;
+            CreatedAt = DateTime.Now;
+            SearchInfo = searchinfo;
         }      
 
         public override string ToString()

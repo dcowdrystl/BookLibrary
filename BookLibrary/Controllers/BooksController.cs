@@ -38,10 +38,11 @@ namespace BookLibrary.Controllers
                 var currentUser = await GetCurrentUserAsync();
 
                 List<Book> books = context.Books
+                    .OrderBy(b => b.CreatedAt)
                     .Include(b => b.BookUsers)
                     .Include(a => a.User)
                     //.ThenInclude(bu => bu.ApplicationUser)
-                    .Where(b => b.BookUsers.Any(bu => bu.ApplicationUserId == currentUser.Id))
+                    .Where(b => b.BookUsers.Any(bu => bu.ApplicationUserId == currentUser.Id))                 
                     .ToList();
                 ViewBag.MyBooks = books.Count();
                 ViewBag.PersonalBooks = books;

@@ -165,6 +165,7 @@ namespace BookLibrary.Controllers
                             .Where(b => b.VolumeInfo.Title != null)
                             .Where(b => b.VolumeInfo.Authors != null)
                             .Where(b => b.VolumeInfo.PageCount != null)
+                            .Where(b => b.SearchInfo.TextSnippet != null)
                             .Select(b => new SearchedBooks
                         {
 
@@ -175,7 +176,8 @@ namespace BookLibrary.Controllers
                             NumberOfPages = (int)b.VolumeInfo.PageCount,
                             ApplicationUserId = currentUser.Id,
                             Image = b.VolumeInfo.ImageLinks.Thumbnail,
-                            APIBookID = b.Id
+                            APIBookID = b.Id,
+                            SearchInfo = b.SearchInfo.TextSnippet
 
                         })
                            .ToList();
@@ -198,7 +200,8 @@ namespace BookLibrary.Controllers
                                     NumberOfPages = (int)testBook.NumberOfPages,
                                     ApplicationUserId = currentUser.Id,
                                     Image = testBook.Image,
-                                    APIBookID = testBook.APIBookID
+                                    APIBookID = testBook.APIBookID,
+                                    SearchInfo = testBook.SearchInfo
                                 };
                                
                                 testing.Add(hello);
@@ -212,7 +215,8 @@ namespace BookLibrary.Controllers
                                     NumberOfPages = (int)testBook.NumberOfPages,
                                     ApplicationUserId = currentUser.Id,
                                     Image = testBook.Image,
-                                    APIBookID = testBook.APIBookID
+                                    APIBookID = testBook.APIBookID,
+                                    SearchInfo = testBook.SearchInfo
                                 };
 
                                     context.SearchedBooks.Add(hello);                                    
@@ -274,7 +278,8 @@ namespace BookLibrary.Controllers
                 NumberOfPages = (int)searchedBook.NumberOfPages,
                 ApplicationUserId = currentUser.Id,
                 Image = searchedBook.Image,
-                APIBookID = searchedBook.APIBookID
+                APIBookID = searchedBook.APIBookID,
+                SearchInfo = searchedBook.SearchInfo
             };
 
             Book extantBook = (from b in context.Books where b.BookTitle.ToLower() == abc.BookTitle.ToLower() select b).FirstOrDefault();

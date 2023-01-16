@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookLibrary.Migrations
 {
     [DbContext(typeof(BookDbContext))]
-    [Migration("20230114083001_InitialCreate")]
+    [Migration("20230116022624_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -114,6 +114,9 @@ namespace BookLibrary.Migrations
                     b.Property<string>("BookTitle")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Genre")
                         .HasColumnType("nvarchar(max)");
 
@@ -122,6 +125,9 @@ namespace BookLibrary.Migrations
 
                     b.Property<int>("NumberOfPages")
                         .HasColumnType("int");
+
+                    b.Property<string>("SearchInfo")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -277,6 +283,9 @@ namespace BookLibrary.Migrations
 
                     b.Property<int>("NumberOfPages")
                         .HasColumnType("int");
+
+                    b.Property<string>("SearchInfo")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

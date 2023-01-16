@@ -8,11 +8,13 @@
 <table class="table">
 
         <div class="card mb-3" style="max-width: 540px; background-color:tan">
+            
             <div class="row g-0">
                 <div class="col-md-4">
-
+               
+                        @*<img alt="Card image cap" class="card-img-top img-fluid" src="@ViewBag.bookToAdd.Image" style="width: 22rem; height: 20rem;" />*@
                     @*<img src="@book.Image">*@
-                <a href="https://www.google.com/search?q=.@ViewBag.bookToAdd.BookTitle.@ViewBag.bookToAdd.AuthorLastName"> <img src="@ViewBag.bookToAdd.Image" /></a>
+                    <a href="https://www.google.com/search?q=.@ViewBag.bookToAdd.BookTitle.@ViewBag.bookToAdd.AuthorLastName"> <img src="@ViewBag.bookToAdd.Image" class="card-img-top img-fluid"/></a>
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
@@ -22,7 +24,8 @@
                             <br>
                             Genre: @ViewBag.bookToAdd.Genre <br>
                             Number of Pages: @ViewBag.bookToAdd.NumberOfPages <br>
-
+                            <br />
+                            @ViewBag.bookToAdd.SearchInfo
                         </p>
 
 
@@ -37,6 +40,7 @@
                 </div>
             </div>
         </div>
+
     
 </table>
 </form>
