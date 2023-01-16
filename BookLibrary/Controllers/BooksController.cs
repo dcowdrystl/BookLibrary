@@ -38,7 +38,7 @@ namespace BookLibrary.Controllers
                 var currentUser = await GetCurrentUserAsync();
 
                 List<Book> books = context.Books
-                    .OrderBy(b => b.CreatedAt)
+                    .OrderByDescending(b => b.CreatedAt)
                     .Include(b => b.BookUsers)
                     .Include(a => a.User)
                     //.ThenInclude(bu => bu.ApplicationUser)
@@ -379,6 +379,7 @@ namespace BookLibrary.Controllers
          var currentUser = await GetCurrentUserAsync();
 
          List<Book> books = context.Books
+                .OrderByDescending(b => b.CreatedAt)
              .Include(b => b.BookUsers)
              .Include(a => a.User)
              //.ThenInclude(bu => bu.ApplicationUser)

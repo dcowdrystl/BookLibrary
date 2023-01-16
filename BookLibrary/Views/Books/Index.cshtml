@@ -20,6 +20,7 @@
                                     <a class="dropdown-item" asp-controller="Books" asp-action="ShowGenre" asp-route-genre="Classics"  style="color:black" class="btn btn-outline-dark">Classics</a>
                                     <a class="dropdown-item" asp-controller="Books" asp-action="ShowGenre" asp-route-genre="Comic Book"  style="color:black" class="btn btn-outline-dark">Comic Book</a>
                                     <a class="dropdown-item" asp-controller="Books" asp-action="ShowGenre" asp-route-genre="Fantasy"  style="color:black" class="btn btn-outline-dark">Fantasy</a>
+                                    <a class="dropdown-item" asp-controller="Books" asp-action="ShowGenre" asp-route-genre="Fiction" style="color:black" class="btn btn-outline-dark">Fiction</a>
                                     <a class="dropdown-item" asp-controller="Books" asp-action="ShowGenre" asp-route-genre="Graphic Novel"  style="color:black" class="btn btn-outline-dark">Graphic Novel</a>
                                     <a class="dropdown-item" asp-controller="Books" asp-action="ShowGenre" asp-route-genre="Historical Fiction"  style="color:black" class="btn btn-outline-dark">Historical Fiction</a>
                                     <a class="dropdown-item" asp-controller="Books" asp-action="ShowGenre" asp-route-genre="Horror"  style="color:black" class="btn btn-outline-dark">Horror</a>
@@ -48,7 +49,7 @@ else
 
         @foreach (var book in Model)
         {
-    <div class="card mb-3" style="max-width: 540px; background-color:tan">
+            <div class="card mb-3" style="max-width: 540px; background-color:lightsteelblue">
   <div class="row g-0">
     <div class="col-md-4">
       @*<img src="@book.Image">*@

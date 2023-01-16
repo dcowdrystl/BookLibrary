@@ -13,6 +13,7 @@ using Google.Apis.Services;
 using BookLibrary.ViewModels;
 using System.Security.Policy;
 using System.Net;
+using Microsoft.AspNetCore.Authorization;
 //AIzaSyACdHSQbarZ_V5SzuDEg8UQUQQX_tKfpvA
 namespace BookLibrary.Controllers
 {
@@ -89,8 +90,8 @@ namespace BookLibrary.Controllers
          return View();
       }
 
-
-      public async Task<IActionResult> ShowGenre(string searchTerm, string genre)
+        [Authorize]
+        public async Task<IActionResult> ShowGenre(string searchTerm, string genre)
       {
          Book book1 = new Book();
          
