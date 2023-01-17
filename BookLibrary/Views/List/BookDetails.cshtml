@@ -6,14 +6,11 @@
 }*@
 <form method="post" action="/List/BookDetails">
 <table class="table">
-        <input type="button" class="btn-info" onclick="history.go(-2)" value="Back to Search" />
-        <div class="card mb-3" style="max-width: 540px; background-color:lightsteelblue">
+        
+        @*<div class="card mb-3" style="max-width: 540px; background-color:lightsteelblue">
             
             <div class="row g-0">
                 <div class="col-md-4">
-               
-                        @*<img alt="Card image cap" class="card-img-top img-fluid" src="@ViewBag.bookToAdd.Image" style="width: 22rem; height: 20rem;" />*@
-                    @*<img src="@book.Image">*@
                     <a href="https://www.google.com/search?q=.@ViewBag.bookToAdd.BookTitle.@ViewBag.bookToAdd.AuthorLastName"> <img src="@ViewBag.bookToAdd.Image" class="card-img-top img-fluid"/></a>
                 </div>
                 <div class="col-md-8">
@@ -34,14 +31,39 @@
 
                             <input type="hidden" value="@ViewBag.bookToAdd.APIBookID" name="bookId">
                             <input type="submit" class="btn btn-primary btn-lg btn-block" value="Add Book" />
-                            @*<input type="button" onclick="history.go(-2)" value="Back to Search" />*@
+
                
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </div>*@
 
+        <div class="card mb-3" style="max-width: 540px;">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <h5 class="card-title"></h5>
+                    <img src="@ViewBag.bookToAdd.Image" class="img-fluid rounded-start" alt="...">
+                    <h5 class="card-title"></h5>
+
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <p class="card-text">@ViewBag.bookToAdd.BookTitle<br/>
+                            @ViewBag.bookToAdd.AuthorLastName<br />
+                            @ViewBag.bookToAdd.Genre<br />
+                            <br />
+                        @ViewBag.bookToAdd.SearchInfo
+                        </p>
+                        <div class="card-footer">
+                            <input type="hidden" value="@ViewBag.bookToAdd.APIBookID" name="bookId">
+                            <input type="submit" class="btn btn-primary btn-lg btn-block" value="Add Book" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input type="button" class="btn-info" onclick="history.go(-2)" value="Back to Search" />
     
 </table>
 </form>

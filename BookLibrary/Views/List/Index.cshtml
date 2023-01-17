@@ -12,13 +12,10 @@
 
 
 <div class="container body-content">
-    <form action="/list/GetBooks" method="post">
-        <p>
-            <label for="searchTerm"></label>
-            <input type="text" class="btn-outline" placeholder="search" name="searchTerm" id="searchTerm" />
-            <input type="submit" class="btn btn-outline-dark" value="Search" />
-        </p>
-    </form>
+        <form action="/List/GetBooks" method="post" class="d-flex" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search" name="searchTerm" id="searchTerm" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
 </div>
 </div>
 

@@ -1,7 +1,12 @@
 ﻿@using BookLibrary.Models
 
 @model List<Book>
-
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/Home">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">My Library</li>
+    </ol>
+</nav>
 <div class="text-center">
     <h1 class="display-4">Personal Collection</h1>
     <h7>Total Books: @ViewBag.MyBooks </h7>
@@ -68,20 +73,6 @@ else
                                 <br />
                                 @book.SearchInfo
                             </p>
-        
-        @*<a asp-controller="Books" asp-action="Edit" asp-route-id="@book.Id" class="btn btn-outline-dark">Edit Book</a>
-        <a asp-controller="Post" asp-action="ShowPost" asp-route-id="@book.Id" class="btn btn-outline-dark">Reviews</a>
-        <a asp-controller="Post" asp-action="NewPost" asp-route-id="@book.Id" class="btn btn-outline-dark">Add Review</a>
-         @Html.ActionLink(
-                    "Delete Book",
-                    "Delete",
-                    new
-                         {
-                        bookId = @book.Id
-                         },
-                    htmlAttributes: new { @class = "btn btn-outline-danger", @role = "button" }
-                    )*@
-        @*<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>*@
 
         <div class="card-footer">
      

@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Authorization;
 //AIzaSyACdHSQbarZ_V5SzuDEg8UQUQQX_tKfpvA
 namespace BookLibrary.Controllers
 {
+    [Authorize]
    public class ListController : Controller
    {
         private static string API_KEY = "AIzaSyACdHSQbarZ_V5SzuDEg8UQUQQX_tKfpvA";
@@ -141,6 +142,7 @@ namespace BookLibrary.Controllers
          return View("Index", books);
       }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> GetBooksAsync(string searchTerm)
         {
