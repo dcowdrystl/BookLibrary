@@ -20,21 +20,7 @@
                 <div class="w-100 h-100 mr-4">
                     <div class="d-flex align-items-center">
                         <img class="rounded-circle" style="height: 70px; width: 70px" src="https://thamesvalleypartnership.org.uk/wp-content/uploads/2020/10/no-photo-400x400.jpg" alt="">
-                       @* <p><span class="font-weight-bold">@post.ApplicationUserId </span> on @post.CreatedAt</p>*@
                         <p><b><a asp-controller="FriendsList" asp-action="Index" style="color:black">@post.ApplicationUserId</a></b> on @post.CreatedAt</p>
-                        @*<h4 class="ml-3">@post.CreatedAt</h4>
-                        <h4 class="ml-3">User Name -</h4>
-                        <h4 class="ml-3">@post.ApplicationUserId</h4>*@
-                        @*<h4 class="ml-3">@post.PostBook.BookTitle</h4>*@
-                        @*<h4 class="ml-3">@post.UserId</h4>*@
-                       
-                        @*<h4 class="ml-3">@post.BookId</h4>*@
-                        @*<h4 class="ml-3">Review for <span class="font-weight-bold"> @post.PostBook.BookTitle </span>  </h4>*@
-@*                        <h4 class="ml-3">Review for <b><a asp-controller="Books" asp-action="Detail" asp-route-id="@post.PostBook.Id" asp-route-url="/List" style="color:black">@post.PostBook.BookTitle</a></b>  </h4>
-*@                        
-                        @*<b><a asp-controller="Books" asp-action="Detail" asp-route-id="@book.Id" asp-route-url="/List" style="color:black">@book.BookTitle</a></b>*@
-                        @*<h4 class="font-weight-bold">  @post.PostBook.BookTitle</h4>*@
-                        @*<h4 class="ml-3">Rating: @post.AlbumRatingNumber/5</h4>*@
                     </div>
                     <div class="border border-dark style-solid mt-3" style="height: 70px; background-color:tan">
                         <p>@post.Content</p>
@@ -45,37 +31,11 @@
                 </div>
             </div>
             @{
-
-              //  Comment emptyComment = new Comment();
-             //   emptyComment.PostId = post.PostId;
-
                 Like emptyLike = new Like();
                 emptyLike.PostId = post.PostId;
-                //create object reference for httpcontext.session
-              //  ApplicationUser currentUser = new ApplicationUser();
-
-                // declare currentUser as the current ApplicationUser
-                
-                // currentUser = HttpContext.Session.GetObjectFromJson<ApplicationUser>("CurrentUser");
-               // int loggedInUserId = ViewBag.CurrentUser;
-                //var loggedInUserId = ApplicationUser.GetUserId();
-                //bool hasUserLikedPostAlready = post.Likes.Any(like => like.UserId == loggedInUserId);
-                //string likeButtonText = hasUserLikedPostAlready ? "Unlike" : "Like";
-                //string likeButtonClass = hasUserLikedPostAlready ? "btn-danger" : "btn-success";
-                //string likeButtonIcon = hasUserLikedPostAlready ? "fa-thumbs-down" : "fa-thumbs-up";
-
-               // var currentUser = HttpContext.User.Identity.Name;
-
-               // Create a bool to toggle between like and unlike
-               
-              //  bool hasUserLikedPostAlready = post.Likes.Any(like => like.UserId == currentUser);
                 bool hasUserLikedPostAlready = post.Likes.Any(like => like.ApplicationUserId == ViewBag.CurrentUser);
                 string likeButtonText = hasUserLikedPostAlready ? "Unlike" : "Like";
-                //string likeButtonText = "Like";
-
-
-
-            }
+ }
             <div class="d-flex justify-content-between mt-2">
                 <div class="d-flex">
                     <form asp-action="Like" asp-controller="Post" asp-route-postId="@post.PostId">
@@ -83,11 +43,7 @@
                     </form>
                     <span class="ml-2">@post.Likes.Count()</span>
                 </div>
-                @*<div>
-                    <a asp-action="ViewComments" asp-controller="Post" asp-route-postId="@post.PostId">View Comments (@post.Comments.Count())</a>
-                </div>*@
             </div>
-            @*<partial name="_CommentForm" model="@emptyComment"></partial>*@
         </div>
     </div>
 }

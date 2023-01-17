@@ -162,11 +162,11 @@ namespace BookLibrary.Controllers
                     if (result != null) {                    
                         var booksApi = result.Items  
                             .Where(b => b.VolumeInfo.Categories != null)
-                            .Where(b => b.VolumeInfo.ImageLinks.Thumbnail != null)
+                            .Where(b => b.VolumeInfo.ImageLinks != null)
                             .Where(b => b.VolumeInfo.Title != null)
                             .Where(b => b.VolumeInfo.Authors != null)
                             .Where(b => b.VolumeInfo.PageCount != null)
-                            .Where(b => b.SearchInfo.TextSnippet != null)
+                            .Where(b => b.SearchInfo != null)
                             .Select(b => new SearchedBooks
                         {
 

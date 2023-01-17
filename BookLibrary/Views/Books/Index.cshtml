@@ -9,7 +9,7 @@
 <p>
     @*<a asp-controller="Books" asp-action="Add" class="btn btn-outline-primary">Add Book</a>*@
     <div class="d-grid gap-2 col-6 mx-auto text-center">
-        <a asp-controller="Books" asp-action="Add" class="btn btn-primary" type="button">Add to your collection</a>
+        <a asp-controller="List" asp-action="Index" class="btn btn-primary" type="button">Add to your collection</a>
 </div>
     <div class="dropdown">
                                 <button class="btn btn-outline-dark dropdown-toggle mr-1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -54,7 +54,7 @@ else
     <div class="col-md-4">
       @*<img src="@book.Image">*@
                         @*<img alt="Card image cap" class="card-img-top img-fluid" src="@book.Image" style="width: 22rem; height: 20rem;" />*@
-                        <a href="https://www.google.com/search?q=.@book.BookTitle.@book.AuthorLastName"> <img src="@book.Image" class="card-img-top img-fluid" /></a>
+                        <a href="https://www.google.com/search?q=.@book.BookTitle.@book.AuthorLastName"> <img src="@book.Image" class="img-responsive" /></a>
                         <p><b>Added on: </b>@book.CreatedAt.Month/@book.CreatedAt.Day/@book.CreatedAt.Year</p>
     </div>
 
