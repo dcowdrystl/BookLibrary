@@ -54,12 +54,19 @@ else
 
         @foreach (var book in Model)
         {
+            
             <div class="card mb-3" style="max-width: 540px; background-color:lightsteelblue">
   <div class="row g-0">
     <div class="col-md-4">
       @*<img src="@book.Image">*@
                         @*<img alt="Card image cap" class="card-img-top img-fluid" src="@book.Image" style="width: 22rem; height: 20rem;" />*@
+                        
                         <a href="https://www.google.com/search?q=.@book.BookTitle.@book.AuthorLastName"> <img src="@book.Image" class="img-responsive" /></a>
+                        @*<div class="btn-group">
+                            <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Want to read
+                            </button>
+                        </div>*@
                         <p><b>Added on: </b>@book.CreatedAt.Month/@book.CreatedAt.Day/@book.CreatedAt.Year</p>
     </div>
 
@@ -67,12 +74,13 @@ else
       <div class="card-body">
           
         <h5 class="card-title"><b><a asp-controller="Books" asp-action="Detail" asp-route-id="@book.Id" asp-route-url="/List" style="color:black">@book.BookTitle</a></b></h5>
-        <p class="card-text">Author: @book.AuthorFirstName @book.AuthorLastName <br>
-        Genre: @book.Genre <br>
-        Number of Pages: @book.NumberOfPages <br>
+        <h5 class="card-title"><b>@book.AuthorFirstName @book.AuthorLastName</b></h5>
+            <p class="card-text">
+                Genre: @book.Genre <br>
+                Number of Pages: @book.NumberOfPages <br>
                                 <br />
                                 @book.SearchInfo
-                            </p>
+            </p>
 
         <div class="card-footer">
      

@@ -6,15 +6,15 @@
     ViewData["Title"] = "Dashboard";
 }
 
-<h1 class="text-center">Dashboard</h1>
+@*<h1 class="text-center">Dashboard</h1>*@
 
 @foreach (Post post in Model)
 {
     <div class="card mb-3">
-        <div class="card-header text-center" style="background-color:burlywood">
-  <b><a asp-controller="Books" asp-action="Detail" asp-route-id="@post.PostBook.Id" asp-route-url="/List" style="color:black">@post.PostBook.BookTitle</a></b>
+        <div class="card-header text-center" style="background-color:lightsteelblue">
+  <h3><b><a asp-controller="Books" asp-action="Detail" asp-route-id="@post.PostBook.Id" asp-route-url="/List" style="color:black">@post.PostBook.BookTitle</a></b></h3>
   </div>
-        <div class="card-body" style="background-color:burlywood">
+        <div class="card-body" style="background-color:lightsteelblue">
             <div class="d-flex justify-content-between">
 
                 <div class="w-100 h-100 mr-4">
@@ -22,8 +22,8 @@
                         <img class="rounded-circle" style="height: 70px; width: 70px" src="https://thamesvalleypartnership.org.uk/wp-content/uploads/2020/10/no-photo-400x400.jpg" alt="">
                         <p><b><a asp-controller="FriendsList" asp-action="Index" style="color:black">@post.ApplicationUserId</a></b> on @post.CreatedAt</p>
                     </div>
-                    <div class="border border-dark style-solid mt-3" style="height: 70px; background-color:tan">
-                        <p>@post.Content</p>
+                    <div class="border border-dark style-solid mt-3" style="height: 70px; background-color:lightblue">
+                        <h5>@post.Content</h5>
                     </div>
                 </div>
                 <div>
@@ -39,7 +39,7 @@
             <div class="d-flex justify-content-between mt-2">
                 <div class="d-flex">
                     <form asp-action="Like" asp-controller="Post" asp-route-postId="@post.PostId">
-                        <input type="submit" value="@likeButtonText" style="background-color: tan">
+                        <input type="submit" value="@likeButtonText" style="background-color: lightblue">
                     </form>
                     <span class="ml-2">@post.Likes.Count()</span>
                 </div>

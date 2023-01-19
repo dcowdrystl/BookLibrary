@@ -14,6 +14,7 @@ using BookLibrary.ViewModels;
 using System.Security.Policy;
 using System.Net;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging;
 //AIzaSyACdHSQbarZ_V5SzuDEg8UQUQQX_tKfpvA
 namespace BookLibrary.Controllers
 {
@@ -149,95 +150,99 @@ namespace BookLibrary.Controllers
             if (!ModelState.IsValid) { return View(); }
             if (ModelState.IsValid)
             {
-                ViewBag.testing = new List<SearchedBooks>();
-                var currentUser = await GetCurrentUserAsync();
-                var queryList = service.Volumes.List(searchTerm);
-                queryList.MaxResults = 10;
-
-
-                var result = queryList.Execute();
-                ViewBag.result = result;
-            
-                foreach (var resultItem in result.Items)
+                try
                 {
-
-                    if (result != null) {                    
-                        var booksApi = result.Items  
-                            .Where(b => b.VolumeInfo.Categories != null)
-                            .Where(b => b.VolumeInfo.ImageLinks != null)
-                            .Where(b => b.VolumeInfo.Title != null)
-                            .Where(b => b.VolumeInfo.Authors != null)
-                            .Where(b => b.VolumeInfo.PageCount != null)
-                            .Where(b => b.SearchInfo != null)
-                            .Select(b => new SearchedBooks
-                        {
-
-                            BookTitle = b.VolumeInfo.Title,
-                           // AuthorFirstName = b.VolumeInfo.Authors[0],
-                            AuthorLastName = b.VolumeInfo.Authors.FirstOrDefault(),
-                            Genre = b.VolumeInfo.Categories[0],
-                            NumberOfPages = (int)b.VolumeInfo.PageCount,
-                            ApplicationUserId = currentUser.Id,
-                            Image = b.VolumeInfo.ImageLinks.Thumbnail,
-                            APIBookID = b.Id,
-                            SearchInfo = b.SearchInfo.TextSnippet
-
-                        })
-                           .ToList();
+                    ViewBag.testing = new List<SearchedBooks>();
+                    var currentUser = await GetCurrentUserAsync();
+                    var queryList = service.Volumes.List(searchTerm);
+                    queryList.MaxResults = 10;
 
 
+                    var result = queryList.Execute();
+                    ViewBag.result = result;
 
-                        ViewBag.booksApi = booksApi;
-                        List<SearchedBooks> testing = new List<SearchedBooks>();
-                        foreach (var testBook in booksApi)
-                        {
-                            if (testBook.ApplicationUserId == currentUser.Id)
-                            {
-                                SearchedBooks hello = new SearchedBooks
-                                {
-                                   // Id = testBook.Id,
-                                    BookTitle = testBook.BookTitle,
-                                    AuthorFirstName = testBook.AuthorFirstName,
-                                    AuthorLastName = testBook.AuthorLastName,
-                                    Genre = testBook.Genre,
-                                    NumberOfPages = (int)testBook.NumberOfPages,
-                                    ApplicationUserId = currentUser.Id,
-                                    Image = testBook.Image,
-                                    APIBookID = testBook.APIBookID,
-                                    SearchInfo = testBook.SearchInfo
-                                };
-                               
-                                testing.Add(hello);
-
-                                Book abc = new Book
-                                {
-                                    BookTitle = testBook.BookTitle,
-                                    AuthorFirstName = testBook.AuthorFirstName,
-                                    AuthorLastName = testBook.AuthorLastName,
-                                    Genre = testBook.Genre,
-                                    NumberOfPages = (int)testBook.NumberOfPages,
-                                    ApplicationUserId = currentUser.Id,
-                                    Image = testBook.Image,
-                                    APIBookID = testBook.APIBookID,
-                                    SearchInfo = testBook.SearchInfo
-                                };
-
-                                    context.SearchedBooks.Add(hello);                                    
-                                     await context.SaveChangesAsync();
-                            }
-                        }
-                        ViewBag.testingBooks = testing;
-                         return View("SearchedBooks", testing);
-
-                    }
-                    
-                    else
+                    foreach (var resultItem in result.Items)
                     {
-                        return null;
+
+                        if (result != null)
+                        {
+                            var booksApi = result.Items
+                                .Where(b => b.VolumeInfo.Categories != null)
+                                .Where(b => b.VolumeInfo.ImageLinks != null)
+                                .Where(b => b.VolumeInfo.Title != null)
+                                .Where(b => b.VolumeInfo.Authors != null)
+                                .Where(b => b.VolumeInfo.PageCount != null)
+                                .Where(b => b.SearchInfo != null)
+                                .Select(b => new SearchedBooks
+                                {
+
+                                    BookTitle = b.VolumeInfo.Title,
+                                    // AuthorFirstName = b.VolumeInfo.Authors[0],
+                                    AuthorLastName = b.VolumeInfo.Authors.FirstOrDefault(),
+                                    Genre = b.VolumeInfo.Categories[0],
+                                    NumberOfPages = (int)b.VolumeInfo.PageCount,
+                                    ApplicationUserId = currentUser.Id,
+                                    Image = b.VolumeInfo.ImageLinks.Thumbnail,
+                                    APIBookID = b.Id,
+                                    SearchInfo = b.SearchInfo.TextSnippet
+
+                                })
+                               .ToList();
+
+
+
+                            ViewBag.booksApi = booksApi;
+                            List<SearchedBooks> testing = new List<SearchedBooks>();
+                            foreach (var testBook in booksApi)
+                            {
+                                if (testBook.ApplicationUserId == currentUser.Id)
+                                {
+                                    SearchedBooks hello = new SearchedBooks
+                                    {
+                                        // Id = testBook.Id,
+                                        BookTitle = testBook.BookTitle,
+                                        AuthorFirstName = testBook.AuthorFirstName,
+                                        AuthorLastName = testBook.AuthorLastName,
+                                        Genre = testBook.Genre,
+                                        NumberOfPages = (int)testBook.NumberOfPages,
+                                        ApplicationUserId = currentUser.Id,
+                                        Image = testBook.Image,
+                                        APIBookID = testBook.APIBookID,
+                                        SearchInfo = testBook.SearchInfo
+                                    };
+
+                                    testing.Add(hello);
+
+                                    Book abc = new Book
+                                    {
+                                        BookTitle = testBook.BookTitle,
+                                        AuthorFirstName = testBook.AuthorFirstName,
+                                        AuthorLastName = testBook.AuthorLastName,
+                                        Genre = testBook.Genre,
+                                        NumberOfPages = (int)testBook.NumberOfPages,
+                                        ApplicationUserId = currentUser.Id,
+                                        Image = testBook.Image,
+                                        APIBookID = testBook.APIBookID,
+                                        SearchInfo = testBook.SearchInfo
+                                    };
+
+                                    context.SearchedBooks.Add(hello);
+                                    await context.SaveChangesAsync();
+                                }
+                            }
+                            ViewBag.testingBooks = testing;
+                            return View("SearchedBooks", testing);
+
+                        }
+
+                        else
+                        {
+                            return null;
+                        }
+
                     }
-
                 }
-
+                catch { return Redirect("/Home"); }
 
             }
             return View();
