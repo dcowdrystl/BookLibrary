@@ -174,7 +174,7 @@ namespace BookLibrary.Controllers
          BookUser extantUser = (from bu in context.BookUsers
                                 where bu.BookId == bookId && bu.ApplicationUserId == currentUser.Id
                                 select bu).FirstOrDefault();
-
+           
          if (extantUser != null)
          {
             context.BookUsers.Remove(extantUser);
@@ -389,7 +389,29 @@ namespace BookLibrary.Controllers
          ViewBag.MyBooks = books.Count();
          return View("Index", books);
       }
-      
-      
-      }
+
+        [HttpGet]
+        public async Task<IActionResult> Favorite(string bookId)
+        {
+            var currentUser = await GetCurrentUserAsync();
+
+
+            BookUser extantUser = (from bu in context.BookUsers
+                                   where bu.ApiBookID == bookId && bu.ApplicationUserId == currentUser.Id
+                                   select bu).FirstOrDefault();
+
+            if (extantUser != null)
+            {
+               extantUser.isFavorite = true;
+                context.SaveChanges();
+
+            }
+
+            context.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
+
+
+
+    }
 }

@@ -145,6 +145,9 @@ namespace BookLibrary.Migrations
                     b.Property<string>("ApiBookID")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("isFavorite")
+                        .HasColumnType("bit");
+
                     b.HasKey("BookId", "ApplicationUserId");
 
                     b.HasIndex("ApplicationUserId");

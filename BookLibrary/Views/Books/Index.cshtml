@@ -97,6 +97,16 @@ else
                          },
                     htmlAttributes: new { @class = "btn btn-outline-danger text-danger text-bold", @role = "button" }
                     )
+
+                                @Html.ActionLink(
+                        "Add to Favorites",
+                        "Favorite",
+                        new
+                        {
+                        bookId = @book.APIBookID
+                        },
+                        htmlAttributes: new { @class = "btn btn-outline-primary text-bold", @role = "button" }
+                        )
     </div>
       </div>
     </div>

@@ -304,7 +304,8 @@ namespace BookLibrary.Controllers
                     BookUser newBookUser = new BookUser
                     {
                         BookId = extantBook.Id,
-                        ApplicationUserId = rUserId
+                        ApplicationUserId = rUserId,
+                        ApiBookID = searchedBook.APIBookID
                     };
 
                     context.BookUsers.Add(newBookUser);
@@ -323,7 +324,8 @@ namespace BookLibrary.Controllers
                 BookUser newBookUser = new BookUser
                 {
                     BookId = bookId2,
-                    ApplicationUserId = rUserId
+                    ApplicationUserId = rUserId,
+                    ApiBookID = searchedBook.APIBookID
                 };
 
 
