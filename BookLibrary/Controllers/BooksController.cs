@@ -411,7 +411,25 @@ namespace BookLibrary.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpGet]
+        public async Task<IActionResult> ShowFavorites()
+        {
+            var currentUser = await GetCurrentUserAsync();
 
+            List<Book> fbooks = context.Books
+                   .OrderByDescending(b => b.CreatedAt)
+                   .Include(b => b.BookUsers)
+                   .Include(a => a.User)
+                   //.ThenInclude(bu => bu.ApplicationUser)
+                   .Where(b => b.BookUsers.Any(bu => bu.ApplicationUserId == currentUser.Id && bu.isFavorite == true))
+                   .ToList();
+
+
+
+
+
+            return View("Index", fbooks);
+        }
 
     }
 }
