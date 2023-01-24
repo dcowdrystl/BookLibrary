@@ -16,10 +16,7 @@
     <div class="d-grid gap-2 col-6 mx-auto text-center">
         <a asp-controller="List" asp-action="Index" class="btn btn-primary" type="button">Add to your collection</a>
 </div>
-    <div class="d-grid gap-2 col-6 mx-auto text-center">
-        <a asp-controller="Books" asp-action="ShowFavorites" class="btn btn-primary" type="button">Favorites</a>
-    </div>
-    <div class="dropdown">
+@*    <div class="dropdown">
                                 <button class="btn btn-outline-dark dropdown-toggle mr-1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Genres
                                 </button>
@@ -41,9 +38,17 @@
                                     <a class="dropdown-item" asp-controller="Books" asp-action="ShowGenre" asp-route-genre="Speculative Fiction"  style="color:black" class="btn btn-outline-dark">Speculative Fiction</a>
                                     <a class="dropdown-item" asp-controller="Books" asp-action="ShowGenre" asp-route-genre="Western"  style="color:black" class="btn btn-outline-dark">Western</a>
                                 </div>
-    </div>
+    </div>*@
 </p>
-
+<div class="dropdown">
+    <button class="btn btn-outline-dark dropdown-toggle mr-1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        All
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+         <a class="dropdown-item" asp-controller="Books" asp-action="Index" style="color:black" class="btn btn-outline-dark">All</a>
+        <a class="dropdown-item" asp-controller="Books" asp-action="ShowFavorites" style="color:black" class="btn btn-outline-dark">Favorites</a>
+    </div>
+</div>
 
 @if (Model.Count == 0)
 {
@@ -71,6 +76,14 @@ else
                             </button>
                         </div>*@
                         <p><b>Added on: </b>@book.CreatedAt.Month/@book.CreatedAt.Day/@book.CreatedAt.Year</p>
+                        <div class="dropdown">
+                            <button class="btn btn-outline-dark dropdown-toggle mr-1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Add to...
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" asp-controller="Books" asp-action="Favorite" asp-route-bookId="@book.APIBookID" style="color:black" class="btn btn-outline-dark">Favorites</a>
+                            </div>
+                        </div>
     </div>
 
     <div class="col-md-8">
@@ -101,15 +114,6 @@ else
                     htmlAttributes: new { @class = "btn btn-outline-danger text-danger text-bold", @role = "button" }
                     )
 
-                                @Html.ActionLink(
-                        "Add to Favorites",
-                        "Favorite",
-                        new
-                        {
-                        bookId = @book.APIBookID
-                        },
-                        htmlAttributes: new { @class = "btn btn-outline-primary text-bold", @role = "button" }
-                        )
     </div>
       </div>
     </div>
