@@ -237,7 +237,9 @@ namespace BookLibrary.Migrations
                     ApplicationUserId = table.Column<string>(nullable: false),
                     ApiBookID = table.Column<string>(nullable: true),
                     isFavorite = table.Column<bool>(nullable: false),
-                    isWantToRead = table.Column<bool>(nullable: false)
+                    isWantToRead = table.Column<bool>(nullable: false),
+                    isRead = table.Column<bool>(nullable: false),
+                    isReading = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {

@@ -14,6 +14,8 @@ namespace BookLibrary.Models
       public string ApiBookID { get; set; }
         public bool isFavorite { get; set; }
         public bool isWantToRead { get; set; }
+        public bool isRead { get; set; }
+        public bool isReading { get; set; }
         public Book Book { get; set; }
 
         ////[Key]

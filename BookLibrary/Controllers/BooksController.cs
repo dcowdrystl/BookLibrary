@@ -464,5 +464,81 @@ namespace BookLibrary.Controllers
             return View("Index", fbooks);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Reading(string bookId)
+        {
+            var currentUser = await GetCurrentUserAsync();
+
+
+            BookUser extantUser = (from bu in context.BookUsers
+                                   where bu.ApiBookID == bookId && bu.ApplicationUserId == currentUser.Id
+                                   select bu).FirstOrDefault();
+
+            if (extantUser != null)
+            {
+                extantUser.isReading = true;
+                context.SaveChanges();
+
+            }
+
+            context.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ShowReading()
+        {
+            var currentUser = await GetCurrentUserAsync();
+
+            List<Book> fbooks = context.Books
+                   .OrderByDescending(b => b.CreatedAt)
+                   .Include(b => b.BookUsers)
+                   .Include(a => a.User)
+                   //.ThenInclude(bu => bu.ApplicationUser)
+                   .Where(b => b.BookUsers.Any(bu => bu.ApplicationUserId == currentUser.Id && bu.isReading == true))
+                   .ToList();
+
+            return View("Index", fbooks);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Read(string bookId)
+        {
+            var currentUser = await GetCurrentUserAsync();
+
+
+            BookUser extantUser = (from bu in context.BookUsers
+                                   where bu.ApiBookID == bookId && bu.ApplicationUserId == currentUser.Id
+                                   select bu).FirstOrDefault();
+
+            if (extantUser != null)
+            {
+                extantUser.isRead = true;
+                extantUser.isReading = false;
+                extantUser.isWantToRead = false;
+                context.SaveChanges();
+
+            }
+
+            context.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ShowRead()
+        {
+            var currentUser = await GetCurrentUserAsync();
+
+            List<Book> fbooks = context.Books
+                   .OrderByDescending(b => b.CreatedAt)
+                   .Include(b => b.BookUsers)
+                   .Include(a => a.User)
+                   //.ThenInclude(bu => bu.ApplicationUser)
+                   .Where(b => b.BookUsers.Any(bu => bu.ApplicationUserId == currentUser.Id && bu.isRead == true))
+                   .ToList();
+
+            return View("Index", fbooks);
+        }
+
     }
 }
