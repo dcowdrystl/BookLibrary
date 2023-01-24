@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookLibrary.Migrations
 {
     [DbContext(typeof(BookDbContext))]
-    [Migration("20230124045218_InitialCreate")]
+    [Migration("20230124204826_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -148,6 +148,9 @@ namespace BookLibrary.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("isFavorite")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("isWantToRead")
                         .HasColumnType("bit");
 
                     b.HasKey("BookId", "ApplicationUserId");

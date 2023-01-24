@@ -13,6 +13,7 @@ namespace BookLibrary.Models
         public int BookId { get; set; }
       public string ApiBookID { get; set; }
         public bool isFavorite { get; set; }
+        public bool isWantToRead { get; set; }
         public Book Book { get; set; }
 
         ////[Key]

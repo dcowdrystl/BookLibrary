@@ -148,6 +148,9 @@ namespace BookLibrary.Migrations
                     b.Property<bool>("isFavorite")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("isWantToRead")
+                        .HasColumnType("bit");
+
                     b.HasKey("BookId", "ApplicationUserId");
 
                     b.HasIndex("ApplicationUserId");

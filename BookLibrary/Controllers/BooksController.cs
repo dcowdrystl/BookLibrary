@@ -424,9 +424,42 @@ namespace BookLibrary.Controllers
                    .Where(b => b.BookUsers.Any(bu => bu.ApplicationUserId == currentUser.Id && bu.isFavorite == true))
                    .ToList();
 
+            return View("Index", fbooks);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> WantToRead(string bookId)
+        {
+            var currentUser = await GetCurrentUserAsync();
 
 
+            BookUser extantUser = (from bu in context.BookUsers
+                                   where bu.ApiBookID == bookId && bu.ApplicationUserId == currentUser.Id
+                                   select bu).FirstOrDefault();
 
+            if (extantUser != null)
+            {
+                extantUser.isWantToRead = true;
+                context.SaveChanges();
+
+            }
+
+            context.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ShowWantToRead()
+        {
+            var currentUser = await GetCurrentUserAsync();
+
+            List<Book> fbooks = context.Books
+                   .OrderByDescending(b => b.CreatedAt)
+                   .Include(b => b.BookUsers)
+                   .Include(a => a.User)
+                   //.ThenInclude(bu => bu.ApplicationUser)
+                   .Where(b => b.BookUsers.Any(bu => bu.ApplicationUserId == currentUser.Id && bu.isWantToRead == true))
+                   .ToList();
 
             return View("Index", fbooks);
         }

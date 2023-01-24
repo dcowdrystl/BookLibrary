@@ -47,6 +47,7 @@
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
          <a class="dropdown-item" asp-controller="Books" asp-action="Index" style="color:black" class="btn btn-outline-dark">All</a>
         <a class="dropdown-item" asp-controller="Books" asp-action="ShowFavorites" style="color:black" class="btn btn-outline-dark">Favorites</a>
+        <a class="dropdown-item" asp-controller="Books" asp-action="ShowWantToRead" style="color:black" class="btn btn-outline-dark">Want to Read</a>
     </div>
 </div>
 
@@ -82,6 +83,7 @@ else
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <a class="dropdown-item" asp-controller="Books" asp-action="Favorite" asp-route-bookId="@book.APIBookID" style="color:black" class="btn btn-outline-dark">Favorites</a>
+                                <a class="dropdown-item" asp-controller="Books" asp-action="WantToRead" asp-route-bookId="@book.APIBookID" style="color:black" class="btn btn-outline-dark">Want to Read</a>
                             </div>
                         </div>
     </div>
