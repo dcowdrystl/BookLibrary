@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using static System.Reflection.Metadata.BlobBuilder;
 
 namespace BookLibrary.Controllers
 {
@@ -297,6 +298,7 @@ namespace BookLibrary.Controllers
             {
                BookId = bookId,
                ApplicationUserId = rUserId
+               
             };
 
             context.BookUsers.Add(newBookUser);
@@ -412,6 +414,27 @@ namespace BookLibrary.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> RemoveFavorite(string bookId)
+        {
+            var currentUser = await GetCurrentUserAsync();
+
+
+            BookUser extantUser = (from bu in context.BookUsers
+                                   where bu.ApiBookID == bookId && bu.ApplicationUserId == currentUser.Id
+                                   select bu).FirstOrDefault();
+
+            if (extantUser != null)
+            {
+                extantUser.isFavorite = false;
+                context.SaveChanges();
+
+            }
+
+            context.SaveChanges();
+            return RedirectToAction(nameof(ShowFavorites));
+        }
+
+        [HttpGet]
         public async Task<IActionResult> ShowFavorites()
         {
             var currentUser = await GetCurrentUserAsync();
@@ -424,7 +447,8 @@ namespace BookLibrary.Controllers
                    .Where(b => b.BookUsers.Any(bu => bu.ApplicationUserId == currentUser.Id && bu.isFavorite == true))
                    .ToList();
 
-            return View("Index", fbooks);
+            ViewBag.MyBooks = fbooks.Count();
+            return View("Favorites", fbooks);
         }
 
         [HttpGet]
@@ -461,6 +485,7 @@ namespace BookLibrary.Controllers
                    .Where(b => b.BookUsers.Any(bu => bu.ApplicationUserId == currentUser.Id && bu.isWantToRead == true))
                    .ToList();
 
+            ViewBag.MyBooks = fbooks.Count();
             return View("Index", fbooks);
         }
 
@@ -498,6 +523,7 @@ namespace BookLibrary.Controllers
                    .Where(b => b.BookUsers.Any(bu => bu.ApplicationUserId == currentUser.Id && bu.isReading == true))
                    .ToList();
 
+            ViewBag.MyBooks = fbooks.Count();
             return View("Index", fbooks);
         }
 
@@ -537,6 +563,7 @@ namespace BookLibrary.Controllers
                    .Where(b => b.BookUsers.Any(bu => bu.ApplicationUserId == currentUser.Id && bu.isRead == true))
                    .ToList();
 
+            ViewBag.MyBooks = fbooks.Count();
             return View("Index", fbooks);
         }
 
