@@ -298,7 +298,6 @@ namespace BookLibrary.Controllers
             {
                BookId = bookId,
                ApplicationUserId = rUserId
-               
             };
 
             context.BookUsers.Add(newBookUser);
