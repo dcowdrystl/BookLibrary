@@ -53,11 +53,11 @@ else
 
                         <div class="dropdown">
                             <button class="btn btn-info btn-sm dropdown-toggle mr-1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Add to...
+                                Want to Read
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <a class="dropdown-item" asp-controller="Books" asp-action="Favorite" asp-route-bookId="@book.APIBookID" style="color:black" class="btn btn-outline-dark">Favorites</a>
-                                <a class="dropdown-item" asp-controller="Books" asp-action="WantToRead" asp-route-bookId="@book.APIBookID" style="color:black" class="btn btn-outline-dark">Want to Read</a>
+                                <a class="dropdown-item disabled" asp-controller="Books" asp-action="WantToRead" asp-route-bookId="@book.APIBookID" style="color:grey" class="btn btn-outline-dark">Want to Read</a>
                                 <a class="dropdown-item" asp-controller="Books" asp-action="Reading" asp-route-bookId="@book.APIBookID" style="color:black" class="btn btn-outline-dark">Reading</a>
                                 <a class="dropdown-item" asp-controller="Books" asp-action="Read" asp-route-bookId="@book.APIBookID" style="color:black" class="btn btn-outline-dark">Read</a>
                             </div>

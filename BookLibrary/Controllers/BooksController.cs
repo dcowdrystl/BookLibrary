@@ -43,15 +43,36 @@ namespace BookLibrary.Controllers
                 ViewBag.MyBooks = books.Count();
                 ViewBag.PersonalBooks = books;
 
-                List<Book> fbooks = context.Books
+                ViewBag.bookTitlesR = new List<string>();
+                List<Book> rbooks = context.Books
                   .OrderByDescending(b => b.CreatedAt)
                   .Include(b => b.BookUsers)
                   .Include(a => a.User)
                   .Where(b => b.BookUsers.Any(bu => bu.ApplicationUserId == currentUser.Id && bu.isRead == true))
                   .ToList();
+                foreach (var book in rbooks)
+                {
+                    ViewBag.bookTitlesR.Add(book.BookTitle);
+                }
+                ViewBag.MyReadBooks = rbooks.Count();
 
-                ViewBag.MyReadBooks = fbooks.Count();
+                ViewBag.bookTitlesW2R = new List<string>();
+                List<Book> fbooksW2R = context.Books
+                       .OrderByDescending(b => b.CreatedAt)
+                       .Include(b => b.BookUsers)
+                       .Include(a => a.User)
+                       .Where(b => b.BookUsers.Any(bu => bu.ApplicationUserId == currentUser.Id && bu.isWantToRead == true))
+                       .ToList();
+                foreach (var book in fbooksW2R)
+                {
+                    ViewBag.bookTitlesW2R.Add(book.BookTitle);
+                }
+                ViewBag.MyW2RBooks = fbooksW2R.Count();
+                /*                List<BookUser> fuser = context.BookUsers
+                                    .Where(bu => bu.ApplicationUserId == currentUser.Id)
+                                    .ToList();
 
+                                ViewBag.UserBooks = fuser;*/
                 return View(books);
             }
             return View();
@@ -424,6 +445,7 @@ namespace BookLibrary.Controllers
         public async Task<IActionResult> ShowWantToRead()
         {
             var currentUser = await GetCurrentUserAsync();
+            ViewBag.bookTitlesW2R = new List<string>();
 
             List<Book> fbooks = context.Books
                    .OrderByDescending(b => b.CreatedAt)
@@ -433,6 +455,10 @@ namespace BookLibrary.Controllers
                    .ToList();
 
             ViewBag.MyBooks = fbooks.Count();
+            foreach (var book in fbooks)
+            {
+                ViewBag.bookTitlesW2R.Add(book.BookTitle);
+            }
             return View("WantToRead", fbooks);
         }
 
