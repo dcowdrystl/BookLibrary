@@ -29,7 +29,6 @@ namespace BookLibrary.Controllers
       private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
 
-      //[AllowAnonymous]
       public async Task<IActionResult> Index()
       {
          if (!ModelState.IsValid) { return View(); }
@@ -42,36 +41,15 @@ namespace BookLibrary.Controllers
                     .OrderByDescending(b => b.CreatedAt)
                     .Include(b => b.BookUsers)
                     .Include(a => a.User)
-                    //.ThenInclude(bu => bu.ApplicationUser)
                     .Where(b => b.BookUsers.Any(bu => bu.ApplicationUserId == currentUser.Id))                 
                     .ToList();
                 ViewBag.MyBooks = books.Count();
                 ViewBag.PersonalBooks = books;
 
-                /* List<Book> omg = (from b in context.Books
-                                   join bu in context.BookUsers on b.Id equals bu.BookId
-                                   join a in context.ApplicationUsers on bu.ApplicationUserId equals a.Id
-                                   where a.Id == currentUser.Id
-                                   orderby b.AuthorLastName ascending
-                                   select new Book
-
-                                   {
-                                      Id = b.Id,
-                                      BookTitle = b.BookTitle,
-                                      AuthorFirstName = b.AuthorFirstName,
-                                      AuthorLastName = b.AuthorLastName,
-                                      Genre = b.Genre,
-                                      NumberOfPages = b.NumberOfPages,
-                                   }).ToList<Book>();*/
-                /* var currentUser = await GetCurrentUserAsync();
-                 List<Book> books = context.Books.Where(b => b.ApplicationUserId == currentUser.Id)
-
-               .ToList();*/
                  List<Book> fbooks = context.Books
                    .OrderByDescending(b => b.CreatedAt)
                    .Include(b => b.BookUsers)
                    .Include(a => a.User)
-                   //.ThenInclude(bu => bu.ApplicationUser)
                    .Where(b => b.BookUsers.Any(bu => bu.ApplicationUserId == currentUser.Id && bu.isRead == true))
                    .ToList();
 
@@ -79,14 +57,11 @@ namespace BookLibrary.Controllers
 
                 return View(books);
          }
-
          return View();
       }
 
       public IActionResult Add()
       {
-
-
          AddBookViewModel addBookViewModel = new AddBookViewModel();
          return View(addBookViewModel);
       }
@@ -97,14 +72,10 @@ namespace BookLibrary.Controllers
          var currentUser = await GetCurrentUserAsync();
          if (!ModelState.IsValid)
          {
-
             return View("Add", addBookViewModel);
-
          }
          else if (ModelState.IsValid)
          {
-
-
             Book newBook = new Book
             {
                BookTitle = addBookViewModel.BookTitle,
@@ -126,13 +97,7 @@ namespace BookLibrary.Controllers
                && bu.ApplicationUserId == currentUser.Id) == 0)
 
                {
-
-
-
-
                   var rUserId = currentUser.Id;
-
-
                   BookUser newBookUser = new BookUser
                   {
                      BookId = extantBook.Id,
@@ -156,11 +121,8 @@ namespace BookLibrary.Controllers
                   BookId = bookId,
                   ApplicationUserId = rUserId
                };
-
-
                context.BookUsers.Add(newBookUser);
                await context.SaveChangesAsync();
-
             }
 
             return RedirectToAction(nameof(Index));
@@ -272,7 +234,6 @@ namespace BookLibrary.Controllers
 
             foreach (var book in titles)
             {
-
                ViewBag.bookTitles.Add(book.BookTitle);
             }
          }
@@ -284,18 +245,11 @@ namespace BookLibrary.Controllers
       {
          var currentUser = await GetCurrentUserAsync();
 
-
          if (context.BookUsers.ToList().Count(bu => bu.BookId == bookId
                  && bu.ApplicationUserId == currentUser.Id) == 0)
 
          {
-
-
-
-
             var rUserId = currentUser.Id;
-
-
             BookUser newBookUser = new BookUser
             {
                BookId = bookId,
@@ -305,12 +259,9 @@ namespace BookLibrary.Controllers
             context.BookUsers.Add(newBookUser);
             await context.SaveChangesAsync();
             return Redirect(url);
-
-
          }
          context.SaveChanges();
          return Redirect(url);
-         //return RedirectToAction(nameof(Index));
       }
 
       public IActionResult Detail(int id)
@@ -346,11 +297,6 @@ namespace BookLibrary.Controllers
 
          if (ModelState.IsValid)
          {
-           
-
-            // This ONE line of code below took about 9 hours to create...
-
-
             List<Book> omg = (from b in context.Books
                               join bu in context.BookUsers on b.Id equals bu.BookId
                               join a in context.ApplicationUsers on bu.ApplicationUserId equals a.Id                         
@@ -366,15 +312,10 @@ namespace BookLibrary.Controllers
                                  NumberOfPages = b.NumberOfPages,
                               }).ToList<Book>();
 
-
-
-
             return View(omg);
          }
 
          return View();
-
-
       }
 
       public async Task<IActionResult> ShowGenre(string genre)
@@ -382,10 +323,9 @@ namespace BookLibrary.Controllers
          var currentUser = await GetCurrentUserAsync();
 
          List<Book> books = context.Books
-                .OrderByDescending(b => b.CreatedAt)
+             .OrderByDescending(b => b.CreatedAt)
              .Include(b => b.BookUsers)
              .Include(a => a.User)
-             //.ThenInclude(bu => bu.ApplicationUser)
              .Where(b => b.BookUsers.Any(bu => bu.ApplicationUserId == currentUser.Id))
              .Where(b => b.Genre == genre)
              .ToList();
@@ -407,7 +347,6 @@ namespace BookLibrary.Controllers
             {
                extantUser.isFavorite = true;
                 context.SaveChanges();
-
             }
 
             context.SaveChanges();
@@ -428,7 +367,6 @@ namespace BookLibrary.Controllers
             {
                 extantUser.isFavorite = false;
                 context.SaveChanges();
-
             }
 
             context.SaveChanges();
@@ -444,7 +382,6 @@ namespace BookLibrary.Controllers
                    .OrderByDescending(b => b.CreatedAt)
                    .Include(b => b.BookUsers)
                    .Include(a => a.User)
-                   //.ThenInclude(bu => bu.ApplicationUser)
                    .Where(b => b.BookUsers.Any(bu => bu.ApplicationUserId == currentUser.Id && bu.isFavorite == true))
                    .ToList();
 
@@ -466,7 +403,6 @@ namespace BookLibrary.Controllers
             {
                 extantUser.isWantToRead = true;
                 context.SaveChanges();
-
             }
 
             context.SaveChanges();
@@ -486,7 +422,6 @@ namespace BookLibrary.Controllers
             {
                 extantUser.isWantToRead = false;
                 context.SaveChanges();
-
             }
 
             context.SaveChanges();
@@ -502,7 +437,6 @@ namespace BookLibrary.Controllers
                    .OrderByDescending(b => b.CreatedAt)
                    .Include(b => b.BookUsers)
                    .Include(a => a.User)
-                   //.ThenInclude(bu => bu.ApplicationUser)
                    .Where(b => b.BookUsers.Any(bu => bu.ApplicationUserId == currentUser.Id && bu.isWantToRead == true))
                    .ToList();
 
@@ -524,7 +458,6 @@ namespace BookLibrary.Controllers
             {
                 extantUser.isReading = true;
                 context.SaveChanges();
-
             }
 
             context.SaveChanges();
@@ -544,7 +477,6 @@ namespace BookLibrary.Controllers
             {
                 extantUser.isReading = false;
                 context.SaveChanges();
-
             }
 
             context.SaveChanges();
@@ -560,7 +492,6 @@ namespace BookLibrary.Controllers
                    .OrderByDescending(b => b.CreatedAt)
                    .Include(b => b.BookUsers)
                    .Include(a => a.User)
-                   //.ThenInclude(bu => bu.ApplicationUser)
                    .Where(b => b.BookUsers.Any(bu => bu.ApplicationUserId == currentUser.Id && bu.isReading == true))
                    .ToList();
 
@@ -584,7 +515,6 @@ namespace BookLibrary.Controllers
                 extantUser.isReading = false;
                 extantUser.isWantToRead = false;
                 context.SaveChanges();
-
             }
 
             context.SaveChanges();
@@ -604,7 +534,6 @@ namespace BookLibrary.Controllers
             {
                 extantUser.isRead = false;
                 context.SaveChanges();
-
             }
 
             context.SaveChanges();
@@ -620,7 +549,6 @@ namespace BookLibrary.Controllers
                    .OrderByDescending(b => b.CreatedAt)
                    .Include(b => b.BookUsers)
                    .Include(a => a.User)
-                   //.ThenInclude(bu => bu.ApplicationUser)
                    .Where(b => b.BookUsers.Any(bu => bu.ApplicationUserId == currentUser.Id && bu.isRead == true))
                    .ToList();
 
