@@ -1,0 +1,104 @@
+﻿@using BookLibrary.Models
+
+@model List<Book>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/Home">Home</a></li>
+        <li class="breadcrumb-item"><a href="/Books">My Library</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Read</li>
+    </ol>
+</nav>
+<div class="text-center">
+    <h1 class="display-4">Read </h1>
+    <h7>Total Books: @ViewBag.MyReadBooks </h7>
+</div>
+<p>
+    @*<a asp-controller="Books" asp-action="Add" class="btn btn-outline-primary">Add Book</a>*@
+    <div class="d-grid gap-2 col-6 mx-auto text-center">
+        <a asp-controller="List" asp-action="Index" class="btn btn-primary" type="button">Add to your collection</a>
+    </div>
+
+</p>
+<div class="dropdown">
+    <button class="btn btn-outline-dark btn-lg dropdown-toggle mr-1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Read(@ViewBag.MyReadBooks)
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" asp-controller="Books" asp-action="Index" style="color:black" class="btn btn-outline-dark">All</a>
+        <a class="dropdown-item" asp-controller="Books" asp-action="ShowFavorites" style="color:black" class="btn btn-outline-dark">Favorites</a>
+        <a class="dropdown-item" asp-controller="Books" asp-action="ShowWantToRead" style="color:black" class="btn btn-outline-dark">Want to Read</a>
+        <a class="dropdown-item" asp-controller="Books" asp-action="ShowReading" style="color:black" class="btn btn-outline-dark">Reading</a>
+        <a class="dropdown-item disabled" asp-controller="Books" asp-action="ShowRead" style="color:grey" class="btn btn-outline-dark">Read(@ViewBag.MyReadBooks)</a>
+    </div>
+</div>
+<br />
+@if (Model.Count == 0)
+{
+        <p>No Books in your collection yet!</p>
+}
+
+else
+{
+        <table class="table">
+
+
+        @foreach (var book in Model)
+        {
+
+                    <div class="card mb-3" style="max-width: 840px; background-color:lightsteelblue">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <p><b>Added on: </b>@book.CreatedAt.Month/@book.CreatedAt.Day/@book.CreatedAt.Year</p>
+                                <a href="https://www.google.com/search?q=.@book.BookTitle.@book.AuthorLastName"> <img src="@book.Image" class="img-responsive" /></a>
+
+                                <div class="dropdown">
+                                    <button class="btn btn-info btn-sm dropdown-toggle mr-1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Add to...
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" asp-controller="Books" asp-action="Favorite" asp-route-bookId="@book.APIBookID" style="color:black" class="btn btn-outline-dark">Favorites</a>
+                                        <a class="dropdown-item" asp-controller="Books" asp-action="WantToRead" asp-route-bookId="@book.APIBookID" style="color:black" class="btn btn-outline-dark">Want to Read</a>
+                                        <a class="dropdown-item" asp-controller="Books" asp-action="Reading" asp-route-bookId="@book.APIBookID" style="color:black" class="btn btn-outline-dark">Reading</a>
+                                        <a class="dropdown-item" asp-controller="Books" asp-action="Read" asp-route-bookId="@book.APIBookID" style="color:black" class="btn btn-outline-dark">Read</a>
+                                    </div>
+                                    <a asp-controller="Books" asp-action="RemoveRead" asp-route-bookId="@book.APIBookID" class="btn btn-outline-danger btn-sm text-dark"><b>Remove Read</b></a>
+
+                                </div>
+                            </div>
+
+                            <div class="col-md-8">
+                                <div class="card-body">
+
+                                    <h5 class="card-title"><b><a asp-controller="Books" asp-action="Detail" asp-route-id="@book.Id" asp-route-url="/List" style="color:black">@book.BookTitle</a></b></h5>
+                                    <h5 class="card-title"><b>@book.AuthorFirstName @book.AuthorLastName</b></h5>
+                                    <p class="card-text">
+                                        Genre: @book.Genre <br>
+                                        Number of Pages: @book.NumberOfPages <br>
+                                        <br />
+                                @book.SearchInfo
+                                    </p>
+
+                                    <div class="card-footer">
+
+                                        <a asp-controller="Post" asp-action="ShowPost" asp-route-id="@book.Id" class="btn btn-primary text-dark"><b>Reviews</b></a>
+
+                                        <a asp-controller="Post" asp-action="NewPost" asp-route-id="@book.Id" class="btn btn-primary text-dark"><b>Add Review</b></a>
+                                        <a asp-controller="Books" asp-action="Edit" asp-route-id="@book.Id" class="btn btn-info text-dark"><b>Edit Book</b></a>
+                                @Html.ActionLink(
+                        "Delete Book",
+                        "Delete",
+                        new
+                        {
+                        bookId = @book.Id
+                        },
+                        htmlAttributes: new { @class = "btn btn-outline-danger text-danger text-bold", @role = "button" }
+                        )
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        }
+        </table>
+}

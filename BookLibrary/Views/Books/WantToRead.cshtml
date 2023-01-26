@@ -5,11 +5,11 @@
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/Home">Home</a></li>
         <li class="breadcrumb-item"><a href="/Books">My Library</a></li>
-         <li class="breadcrumb-item active" aria-current="page">Favorites</li>
+        <li class="breadcrumb-item active" aria-current="page">Want to Read</li>
     </ol>
 </nav>
 <div class="text-center">
-    <h1 class="display-4">Favorites </h1>
+    <h1 class="display-4">Want To Read </h1>
     <h7>Total Books: @ViewBag.MyBooks </h7>
 </div>
 <p>
@@ -21,17 +21,17 @@
 </p>
 <div class="dropdown">
     <button class="btn btn-outline-dark btn-lg dropdown-toggle mr-1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Favorites
+        Want to Read
     </button>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
         <a class="dropdown-item" asp-controller="Books" asp-action="Index" style="color:black" class="btn btn-outline-dark">All</a>
-        <a class="dropdown-item disabled" asp-controller="Books" asp-action="ShowFavorites" style="color:grey" class="btn btn-outline-dark">Favorites</a>
-        <a class="dropdown-item" asp-controller="Books" asp-action="ShowWantToRead" style="color:black" class="btn btn-outline-dark">Want to Read</a>
+        <a class="dropdown-item" asp-controller="Books" asp-action="ShowFavorites" style="color:black" class="btn btn-outline-dark">Favorites</a>
+        <a class="dropdown-item disabled" asp-controller="Books" asp-action="ShowWantToRead" style="color:grey" class="btn btn-outline-dark">Want to Read</a>
         <a class="dropdown-item" asp-controller="Books" asp-action="ShowReading" style="color:black" class="btn btn-outline-dark">Reading</a>
-        <a class="dropdown-item" asp-controller="Books" asp-action="ShowRead" style="color:black" class="btn btn-outline-dark">Read</a>
+        <a class="dropdown-item" asp-controller="Books" asp-action="ShowRead" style="color:black" class="btn btn-outline-dark">Read(@ViewBag.MyReadBooks)</a>
     </div>
 </div>
-<br/>
+<br />
 @if (Model.Count == 0)
 {
     <p>No Books in your collection yet!</p>
@@ -50,7 +50,7 @@ else
                     <div class="col-md-4">
                         <p><b>Added on: </b>@book.CreatedAt.Month/@book.CreatedAt.Day/@book.CreatedAt.Year</p>
                         <a href="https://www.google.com/search?q=.@book.BookTitle.@book.AuthorLastName"> <img src="@book.Image" class="img-responsive" /></a>
-                       
+
                         <div class="dropdown">
                             <button class="btn btn-info btn-sm dropdown-toggle mr-1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Add to...
@@ -61,8 +61,8 @@ else
                                 <a class="dropdown-item" asp-controller="Books" asp-action="Reading" asp-route-bookId="@book.APIBookID" style="color:black" class="btn btn-outline-dark">Reading</a>
                                 <a class="dropdown-item" asp-controller="Books" asp-action="Read" asp-route-bookId="@book.APIBookID" style="color:black" class="btn btn-outline-dark">Read</a>
                             </div>
-                          
-                            <a asp-controller="Books" asp-action="RemoveFavorite" asp-route-bookId="@book.APIBookID" class="btn btn-outline-danger btn-sm text-dark"><b>Remove Favorite</b></a>
+                            <a asp-controller="Books" asp-action="RemoveWantToRead" asp-route-bookId="@book.APIBookID" class="btn btn-outline-danger btn-sm text-dark"><b>Remove Want to Read</b></a>
+
                         </div>
                     </div>
 

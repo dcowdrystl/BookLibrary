@@ -67,6 +67,15 @@ namespace BookLibrary.Controllers
                  List<Book> books = context.Books.Where(b => b.ApplicationUserId == currentUser.Id)
 
                .ToList();*/
+                 List<Book> fbooks = context.Books
+                   .OrderByDescending(b => b.CreatedAt)
+                   .Include(b => b.BookUsers)
+                   .Include(a => a.User)
+                   //.ThenInclude(bu => bu.ApplicationUser)
+                   .Where(b => b.BookUsers.Any(bu => bu.ApplicationUserId == currentUser.Id && bu.isRead == true))
+                   .ToList();
+
+            ViewBag.MyReadBooks = fbooks.Count();
 
                 return View(books);
          }
@@ -158,13 +167,6 @@ namespace BookLibrary.Controllers
          }
          return View(addBookViewModel);
       }
-      //[HttpGet]
-      //public IActionResult Delete()
-      //{
-      //    /*ViewBag.books = BookData.GetAll();*/
-      //    ViewBag.books = context.Books.ToList();
-      //    return RedirectToAction(nameof(Index));
-      //}
 
       [HttpGet]
       public async Task<IActionResult> Delete(int bookId)
@@ -470,6 +472,26 @@ namespace BookLibrary.Controllers
             context.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
+        [HttpGet]
+        public async Task<IActionResult> RemoveWantToRead(string bookId)
+        {
+            var currentUser = await GetCurrentUserAsync();
+
+
+            BookUser extantUser = (from bu in context.BookUsers
+                                   where bu.ApiBookID == bookId && bu.ApplicationUserId == currentUser.Id
+                                   select bu).FirstOrDefault();
+
+            if (extantUser != null)
+            {
+                extantUser.isWantToRead = false;
+                context.SaveChanges();
+
+            }
+
+            context.SaveChanges();
+            return RedirectToAction(nameof(ShowWantToRead));
+        }
 
         [HttpGet]
         public async Task<IActionResult> ShowWantToRead()
@@ -485,7 +507,7 @@ namespace BookLibrary.Controllers
                    .ToList();
 
             ViewBag.MyBooks = fbooks.Count();
-            return View("Index", fbooks);
+            return View("WantToRead", fbooks);
         }
 
         [HttpGet]
@@ -508,6 +530,26 @@ namespace BookLibrary.Controllers
             context.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
+        [HttpGet]
+        public async Task<IActionResult> RemoveReading(string bookId)
+        {
+            var currentUser = await GetCurrentUserAsync();
+
+
+            BookUser extantUser = (from bu in context.BookUsers
+                                   where bu.ApiBookID == bookId && bu.ApplicationUserId == currentUser.Id
+                                   select bu).FirstOrDefault();
+
+            if (extantUser != null)
+            {
+                extantUser.isReading = false;
+                context.SaveChanges();
+
+            }
+
+            context.SaveChanges();
+            return RedirectToAction(nameof(ShowReading));
+        }
 
         [HttpGet]
         public async Task<IActionResult> ShowReading()
@@ -523,7 +565,7 @@ namespace BookLibrary.Controllers
                    .ToList();
 
             ViewBag.MyBooks = fbooks.Count();
-            return View("Index", fbooks);
+            return View("Reading", fbooks);
         }
 
         [HttpGet]
@@ -548,6 +590,26 @@ namespace BookLibrary.Controllers
             context.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
+        [HttpGet]
+        public async Task<IActionResult> RemoveRead(string bookId)
+        {
+            var currentUser = await GetCurrentUserAsync();
+
+
+            BookUser extantUser = (from bu in context.BookUsers
+                                   where bu.ApiBookID == bookId && bu.ApplicationUserId == currentUser.Id
+                                   select bu).FirstOrDefault();
+
+            if (extantUser != null)
+            {
+                extantUser.isRead = false;
+                context.SaveChanges();
+
+            }
+
+            context.SaveChanges();
+            return RedirectToAction(nameof(ShowRead));
+        }
 
         [HttpGet]
         public async Task<IActionResult> ShowRead()
@@ -562,8 +624,8 @@ namespace BookLibrary.Controllers
                    .Where(b => b.BookUsers.Any(bu => bu.ApplicationUserId == currentUser.Id && bu.isRead == true))
                    .ToList();
 
-            ViewBag.MyBooks = fbooks.Count();
-            return View("Index", fbooks);
+            ViewBag.MyReadBooks = fbooks.Count();
+            return View("Read", fbooks);
         }
 
     }
