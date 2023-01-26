@@ -68,6 +68,19 @@ namespace BookLibrary.Controllers
                     ViewBag.bookTitlesW2R.Add(book.BookTitle);
                 }
                 ViewBag.MyW2RBooks = fbooksW2R.Count();
+
+                ViewBag.bookTitlesReading = new List<string>();
+                List<Book> fbooksReading = context.Books
+                       .OrderByDescending(b => b.CreatedAt)
+                       .Include(b => b.BookUsers)
+                       .Include(a => a.User)
+                       .Where(b => b.BookUsers.Any(bu => bu.ApplicationUserId == currentUser.Id && bu.isReading == true))
+                       .ToList();
+                foreach (var book in fbooksReading)
+                {
+                    ViewBag.bookTitlesReading.Add(book.BookTitle);
+                }
+                ViewBag.MyReadingBooks = fbooksReading.Count();
                 /*                List<BookUser> fuser = context.BookUsers
                                     .Where(bu => bu.ApplicationUserId == currentUser.Id)
                                     .ToList();
@@ -415,6 +428,8 @@ namespace BookLibrary.Controllers
             if (extantUser != null)
             {
                 extantUser.isWantToRead = true;
+                extantUser.isRead = false;
+                extantUser.isReading = false;
                 context.SaveChanges();
             }
 
@@ -475,6 +490,8 @@ namespace BookLibrary.Controllers
             if (extantUser != null)
             {
                 extantUser.isReading = true;
+                extantUser.isWantToRead = false;
+                extantUser.isRead = false;
                 context.SaveChanges();
             }
 

@@ -26,7 +26,7 @@
         <a class="dropdown-item disabled" asp-controller="Books" asp-action="Index" style="color:grey" class="btn btn-outline-dark">All(@ViewBag.MyBooks)</a>
         <a class="dropdown-item" asp-controller="Books" asp-action="ShowFavorites" style="color:black" class="btn btn-outline-dark">Favorites</a>
         <a class="dropdown-item" asp-controller="Books" asp-action="ShowWantToRead" style="color:black" class="btn btn-outline-dark">Want to Read(@ViewBag.MyW2RBooks)</a>
-        <a class="dropdown-item" asp-controller="Books" asp-action="ShowReading" style="color:black" class="btn btn-outline-dark">Reading</a>
+        <a class="dropdown-item" asp-controller="Books" asp-action="ShowReading" style="color:black" class="btn btn-outline-dark">Reading(@ViewBag.MyReadingBooks)</a>
         <a class="dropdown-item" asp-controller="Books" asp-action="ShowRead" style="color:black" class="btn btn-outline-dark">Read(@ViewBag.MyReadBooks)</a>
     </div>
 </div>
@@ -63,6 +63,12 @@ else
                                  Read
                                 </button>
                             }
+                            else if (ViewBag.bookTitlesReading.Contains(book.BookTitle))
+                            {
+                                <button class="btn btn-info btn-sm dropdown-toggle mr-1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                 Reading
+                                </button>
+                            }
                             else
                             {
                             <button class="btn btn-info btn-sm dropdown-toggle mr-1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -72,7 +78,7 @@ else
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <a class="dropdown-item" asp-controller="Books" asp-action="Favorite" asp-route-bookId="@book.APIBookID" style="color:black" class="btn btn-outline-dark">Favorites</a>
                                 <a class="dropdown-item" asp-controller="Books" asp-action="WantToRead" asp-route-bookId="@book.APIBookID" style="color:black" class="btn btn-outline-dark">Want to Read(@ViewBag.MyW2RBooks)</a>
-                                <a class="dropdown-item" asp-controller="Books" asp-action="Reading" asp-route-bookId="@book.APIBookID" style="color:black" class="btn btn-outline-dark">Reading</a>
+                                <a class="dropdown-item" asp-controller="Books" asp-action="Reading" asp-route-bookId="@book.APIBookID" style="color:black" class="btn btn-outline-dark">Reading(@ViewBag.MyReadingBooks)</a>
                                 <a class="dropdown-item" asp-controller="Books" asp-action="Read" asp-route-bookId="@book.APIBookID" style="color:black" class="btn btn-outline-dark">Read(@ViewBag.MyReadBooks)</a>
                             </div>
                         </div>
