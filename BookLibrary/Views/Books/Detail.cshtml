@@ -1,7 +1,5 @@
 ﻿@model BookLibrary.ViewModels.BookDetailViewModel
-@*@model BookCollection.Models.Book*@
 
-@*@model List<BookCollection.Models.Book>*@
 <h1>@Model.BookTitle</h1>
 
 <table class="table">
@@ -26,8 +24,6 @@
         <td>@Model.NumberOfPages</td>
     </tr>
 
-   
-    
     @if (Model.UserBooks.Count != 0)
     {
         <tr>
@@ -37,18 +33,12 @@
             @foreach (var person in @Model.UserBooks)
             {
                 <td><b><a asp-controller="FriendsList" asp-action="Index" style="color:black">@person.UserName.Remove(person.UserName.IndexOf("@"))</a></b></td>
-                //<td>@person.UserName.Remove(person.UserName.IndexOf("@"))</td>
+
             }
         </tr>
         
 
     }
-    @*<td class="list-group">
-        @foreach(Post post in Model.Posts)
-            {
-                <a asp-action="ViewComments" asp-controller="Post" asp-route-postId="@post.PostId" class="list-group-item list-group-item-action"> @post.UserId</a>
-            }
-    </td>*@
     
     <td><a asp-controller="Post" asp-action="ShowPost" asp-route-id="@Model.Id" class="btn btn-outline-secondary">Reviews</a></td>
 </table>
