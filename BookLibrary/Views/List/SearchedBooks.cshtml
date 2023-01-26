@@ -3,26 +3,26 @@
 @model List<SearchedBooks>
 
 <nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="/Home">Home</a></li>
-    <li class="breadcrumb-item"><a href="/List">Search</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Results</li>
-  </ol>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/Home">Home</a></li>
+        <li class="breadcrumb-item"><a href="/List">Search</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Results</li>
+    </ol>
 </nav>
 
 <div class="text-center">
-<div class="container body-content">
+    <div class="container body-content">
 
-    <form action="/list/GetBooks" method="post">
-        <p>
-            <label for="searchTerm"></label>
-            <input type="text" class="btn-outline" placeholder="Title, Author or ISBN" name="searchTerm" id="searchTerm" />
-            <input type="submit" class="btn btn-outline-success" value="Search" />
-        </p>
-    </form>
-    
+        <form action="/list/GetBooks" method="post">
+            <p>
+                <label for="searchTerm"></label>
+                <input type="text" class="btn-outline" placeholder="Title, Author or ISBN" name="searchTerm" id="searchTerm" />
+                <input type="submit" class="btn btn-outline-success" value="Search" />
+            </p>
+        </form>
 
-   
+
+
     </div>
 </div>
 
@@ -33,24 +33,24 @@
 
 else
 {
-   
+
     <form action="/list/Add" method="post">
 
 
 
         <table class="table">
-     
+
             @foreach (var book in Model)
-            {         
+            {
                 <div class="container">
                     <div class="text-md-center">
                         <a asp-controller="List" asp-action="Add" asp-route-bookId="@book.APIBookID"> <img src="@book.Image" class="img-responsive" width="250" height="330" /></a>
-                        <br/>
-                        <br/>
+                        <br />
+                        <br />
                     </div>
-               </div>
+                </div>
             }
-       
+
         </table>
-     </form>
+    </form>
 }

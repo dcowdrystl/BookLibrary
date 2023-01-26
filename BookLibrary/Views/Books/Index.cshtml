@@ -15,30 +15,8 @@
     @*<a asp-controller="Books" asp-action="Add" class="btn btn-outline-primary">Add Book</a>*@
     <div class="d-grid gap-2 col-6 mx-auto text-center">
         <a asp-controller="List" asp-action="Index" class="btn btn-primary" type="button">Add to your collection</a>
-</div>
-@*    <div class="dropdown">
-                                <button class="btn btn-outline-dark dropdown-toggle mr-1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Genres
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" asp-controller="Books" asp-action="ShowGenre" asp-route-genre="Action and Adventure"  style="color:black" class="btn btn-outline-dark">Action and Adventure</a>
-                                    <a class="dropdown-item" asp-controller="Books" asp-action="ShowGenre" asp-route-genre="Classics"  style="color:black" class="btn btn-outline-dark">Classics</a>
-                                    <a class="dropdown-item" asp-controller="Books" asp-action="ShowGenre" asp-route-genre="Comic Book"  style="color:black" class="btn btn-outline-dark">Comic Book</a>
-                                    <a class="dropdown-item" asp-controller="Books" asp-action="ShowGenre" asp-route-genre="Fantasy"  style="color:black" class="btn btn-outline-dark">Fantasy</a>
-                                    <a class="dropdown-item" asp-controller="Books" asp-action="ShowGenre" asp-route-genre="Fiction" style="color:black" class="btn btn-outline-dark">Fiction</a>
-                                    <a class="dropdown-item" asp-controller="Books" asp-action="ShowGenre" asp-route-genre="Graphic Novel"  style="color:black" class="btn btn-outline-dark">Graphic Novel</a>
-                                    <a class="dropdown-item" asp-controller="Books" asp-action="ShowGenre" asp-route-genre="Historical Fiction"  style="color:black" class="btn btn-outline-dark">Historical Fiction</a>
-                                    <a class="dropdown-item" asp-controller="Books" asp-action="ShowGenre" asp-route-genre="Horror"  style="color:black" class="btn btn-outline-dark">Horror</a>
-                                    <a class="dropdown-item" asp-controller="Books" asp-action="ShowGenre" asp-route-genre="Literary Fiction"  style="color:black" class="btn btn-outline-dark">Literary Fiction</a>
-                                    <a class="dropdown-item" asp-controller="Books" asp-action="ShowGenre" asp-route-genre="Mystery"  style="color:black" class="btn btn-outline-dark">Mystery</a>
-                                    <a class="dropdown-item" asp-controller="Books" asp-action="ShowGenre" asp-route-genre="Non-Fiction"  style="color:black" class="btn btn-outline-dark">Non-Fiction</a>
-                                    <a class="dropdown-item" asp-controller="Books" asp-action="ShowGenre" asp-route-genre="Realist Literature"  style="color:black" class="btn btn-outline-dark">Realist Literature</a>
-                                    <a class="dropdown-item" asp-controller="Books" asp-action="ShowGenre" asp-route-genre="Romance"  style="color:black" class="btn btn-outline-dark">Romance</a>
-                                    <a class="dropdown-item" asp-controller="Books" asp-action="ShowGenre" asp-route-genre="Science Fiction"  style="color:black" class="btn btn-outline-dark">Science Fiction</a>
-                                    <a class="dropdown-item" asp-controller="Books" asp-action="ShowGenre" asp-route-genre="Speculative Fiction"  style="color:black" class="btn btn-outline-dark">Speculative Fiction</a>
-                                    <a class="dropdown-item" asp-controller="Books" asp-action="ShowGenre" asp-route-genre="Western"  style="color:black" class="btn btn-outline-dark">Western</a>
-                                </div>
-    </div>*@
+    </div>
+
 </p>
 <div class="dropdown">
     <button class="btn btn-outline-dark btn-lg dropdown-toggle mr-1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -52,7 +30,7 @@
         <a class="dropdown-item" asp-controller="Books" asp-action="ShowRead" style="color:black" class="btn btn-outline-dark">Read(@ViewBag.MyReadBooks)</a>
     </div>
 </div>
-<br/>
+<br />
 @if (Model.Count == 0)
 {
     <p>No Books in your collection yet!</p>
@@ -61,24 +39,17 @@
 else
 {
     <table class="table">
-       
+
 
         @foreach (var book in Model)
         {
-            
+
             <div class="card mb-3" style="max-width: 840px; background-color:lightsteelblue">
-  <div class="row g-0">
-    <div class="col-md-4">
-      @*<img src="@book.Image">*@
-                        @*<img alt="Card image cap" class="card-img-top img-fluid" src="@book.Image" style="width: 22rem; height: 20rem;" />*@
+                <div class="row g-0">
+                    <div class="col-md-4">
+
                         <p><b>Added on: </b>@book.CreatedAt.Month/@book.CreatedAt.Day/@book.CreatedAt.Year</p>
                         <a href="https://www.google.com/search?q=.@book.BookTitle.@book.AuthorLastName"> <img src="@book.Image" class="img-responsive" /></a>
-                        @*<div class="btn-group">
-                            <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Want to read
-                            </button>
-                        </div>*@
-                       @* <p><b>Added on: </b>@book.CreatedAt.Month/@book.CreatedAt.Day/@book.CreatedAt.Year</p>*@
                         <div class="dropdown">
                             <button class="btn btn-info btn-sm dropdown-toggle mr-1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Add to...
@@ -90,44 +61,44 @@ else
                                 <a class="dropdown-item" asp-controller="Books" asp-action="Read" asp-route-bookId="@book.APIBookID" style="color:black" class="btn btn-outline-dark">Read(@ViewBag.MyReadBooks)</a>
                             </div>
                         </div>
-                        <br/>
-                        <br/>
-                       
-    </div>
+                        <br />
+                        <br />
 
-    <div class="col-md-8">
-      <div class="card-body">
-          
-        <h5 class="card-title"><b><a asp-controller="Books" asp-action="Detail" asp-route-id="@book.Id" asp-route-url="/List" style="color:black">@book.BookTitle</a></b></h5>
-        <h5 class="card-title"><b>@book.AuthorFirstName @book.AuthorLastName</b></h5>
-            <p class="card-text">
-                Genre: @book.Genre <br>
-                Number of Pages: @book.NumberOfPages <br>
+                    </div>
+
+                    <div class="col-md-8">
+                        <div class="card-body">
+
+                            <h5 class="card-title"><b><a asp-controller="Books" asp-action="Detail" asp-route-id="@book.Id" asp-route-url="/List" style="color:black">@book.BookTitle</a></b></h5>
+                            <h5 class="card-title"><b>@book.AuthorFirstName @book.AuthorLastName</b></h5>
+                            <p class="card-text">
+                                Genre: @book.Genre <br>
+                                Number of Pages: @book.NumberOfPages <br>
                                 <br />
                                 @book.SearchInfo
-            </p>
+                            </p>
 
-        <div class="card-footer">
-     
-        <a asp-controller="Post" asp-action="ShowPost" asp-route-id="@book.Id" class="btn btn-primary text-dark"><b>Reviews</b></a>
-        
-        <a asp-controller="Post" asp-action="NewPost" asp-route-id="@book.Id" class="btn btn-primary text-dark"><b>Add Review</b></a>
-        <a asp-controller="Books" asp-action="Edit" asp-route-id="@book.Id" class="btn btn-info text-dark"><b>Edit Book</b></a>
-        @Html.ActionLink(
-                    "Delete Book",
-                    "Delete",
-                    new
-                         {
+                            <div class="card-footer">
+
+                                <a asp-controller="Post" asp-action="ShowPost" asp-route-id="@book.Id" class="btn btn-primary text-dark"><b>Reviews</b></a>
+
+                                <a asp-controller="Post" asp-action="NewPost" asp-route-id="@book.Id" class="btn btn-primary text-dark"><b>Add Review</b></a>
+                                <a asp-controller="Books" asp-action="Edit" asp-route-id="@book.Id" class="btn btn-info text-dark"><b>Edit Book</b></a>
+                                @Html.ActionLink(
+                        "Delete Book",
+                        "Delete",
+                        new
+                        {
                         bookId = @book.Id
-                         },
-                    htmlAttributes: new { @class = "btn btn-outline-danger text-danger text-bold", @role = "button" }
-                    )
+                        },
+                        htmlAttributes: new { @class = "btn btn-outline-danger text-danger text-bold", @role = "button" }
+                        )
 
-    </div>
-      </div>
-    </div>
-  </div>
-</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         }
     </table>
 }

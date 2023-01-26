@@ -12,8 +12,8 @@
 {
     <div class="card mb-3">
         <div class="card-header text-center" style="background-color:lightsteelblue">
-  <h3><b><a asp-controller="Books" asp-action="Detail" asp-route-id="@post.PostBook.Id" asp-route-url="/List" style="color:black">@post.PostBook.BookTitle</a></b></h3>
-  </div>
+            <h3><b><a asp-controller="Books" asp-action="Detail" asp-route-id="@post.PostBook.Id" asp-route-url="/List" style="color:black">@post.PostBook.BookTitle</a></b></h3>
+        </div>
         <div class="card-body" style="background-color:lightsteelblue">
             <div class="d-flex justify-content-between">
 
@@ -35,7 +35,7 @@
                 emptyLike.PostId = post.PostId;
                 bool hasUserLikedPostAlready = post.Likes.Any(like => like.ApplicationUserId == ViewBag.CurrentUser);
                 string likeButtonText = hasUserLikedPostAlready ? "Unlike" : "Like";
- }
+            }
             <div class="d-flex justify-content-between mt-2">
                 <div class="d-flex">
                     <form asp-action="Like" asp-controller="Post" asp-route-postId="@post.PostId">

@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
+﻿using System.Collections.Generic;
 
 namespace BookLibrary.Models
 {
     public class BookUser
     {
         public int BookId { get; set; }
-      public string ApiBookID { get; set; }
+        public string ApiBookID { get; set; }
         public bool isFavorite { get; set; }
         public bool isWantToRead { get; set; }
         public bool isRead { get; set; }
@@ -19,12 +15,12 @@ namespace BookLibrary.Models
         public string ApplicationUserId { get; set; }
         public List<Post> Posts { get; set; }
 
-      /*public List<ApplicationUser> Friends { get; set; } = new List<ApplicationUser>();*/
-      public BookUser()
+        /*public List<ApplicationUser> Friends { get; set; } = new List<ApplicationUser>();*/
+        public BookUser()
         {
 
         }
 
-        
+
     }
 }

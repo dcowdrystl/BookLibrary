@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.AspNetCore.Identity;
 
 namespace BookLibrary.Models
 {
@@ -15,7 +12,7 @@ namespace BookLibrary.Models
         public int NumberOfPages { get; set; }
         public string Image { get; set; } = "no image";
         public int Id { get; set; }
-      public string APIBookID { get; set; }
+        public string APIBookID { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
         public string SearchInfo { get; set; }
@@ -31,7 +28,7 @@ namespace BookLibrary.Models
         public IList<BookUser> BookUsers { get; set; }
         public List<Post> Posts { get; set; }
 
-      public Book()
+        public Book()
         {
         }
 
@@ -46,7 +43,7 @@ namespace BookLibrary.Models
             APIBookID = apiBookID;
             CreatedAt = DateTime.Now;
             SearchInfo = searchinfo;
-        }      
+        }
 
         public override string ToString()
         {
