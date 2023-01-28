@@ -166,6 +166,8 @@ namespace BookLibrary.Controllers
                                 .Where(b => b.VolumeInfo.Title != null)
                                 .Where(b => b.VolumeInfo.Authors != null)
                                 .Where(b => b.VolumeInfo.PageCount != null)
+                                .Where(b => b.VolumeInfo.Publisher != null)
+                                .Where(b => b.VolumeInfo.PublishedDate != null)
                                 .Where(b => b.SearchInfo != null)
                                 .Select(b => new SearchedBooks
                                 {
@@ -178,6 +180,8 @@ namespace BookLibrary.Controllers
                                     ApplicationUserId = currentUser.Id,
                                     Image = b.VolumeInfo.ImageLinks.Thumbnail,
                                     APIBookID = b.Id,
+                                    Publisher = b.VolumeInfo.Publisher,
+                                    PublishedDate = b.VolumeInfo.PublishedDate,
                                     SearchInfo = b.SearchInfo.TextSnippet
 
                                 })
@@ -202,6 +206,8 @@ namespace BookLibrary.Controllers
                                         ApplicationUserId = currentUser.Id,
                                         Image = testBook.Image,
                                         APIBookID = testBook.APIBookID,
+                                        Publisher = testBook.Publisher,
+                                        PublishedDate = testBook.PublishedDate,
                                         SearchInfo = testBook.SearchInfo
                                     };
 
@@ -217,6 +223,8 @@ namespace BookLibrary.Controllers
                                         ApplicationUserId = currentUser.Id,
                                         Image = testBook.Image,
                                         APIBookID = testBook.APIBookID,
+                                        Publisher = testBook.Publisher,
+                                        PublishedDate = testBook.PublishedDate,
                                         SearchInfo = testBook.SearchInfo
                                     };
 
@@ -281,6 +289,8 @@ namespace BookLibrary.Controllers
                 ApplicationUserId = currentUser.Id,
                 Image = searchedBook.Image,
                 APIBookID = searchedBook.APIBookID,
+                Publisher = searchedBook.Publisher,
+                PublishedDate = searchedBook.PublishedDate,
                 SearchInfo = searchedBook.SearchInfo
             };
 

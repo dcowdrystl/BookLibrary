@@ -14,6 +14,8 @@ namespace BookLibrary.Models
         public int Id { get; set; }
         public string APIBookID { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public string Publisher { get; set; }
+        public string PublishedDate { get; set; }
 
         public string SearchInfo { get; set; }
 
@@ -32,7 +34,7 @@ namespace BookLibrary.Models
         {
         }
 
-        public Book(string booktitle, string authorfirstname, string authorlastname, string genre, int numberofpages, string image, string apiBookID, string searchinfo)
+        public Book(string booktitle, string authorfirstname, string authorlastname, string genre, int numberofpages, string image, string apiBookID, string publisher, string publisheddate, string searchinfo)
         {
             BookTitle = booktitle;
             AuthorFirstName = authorfirstname;
@@ -42,6 +44,8 @@ namespace BookLibrary.Models
             Image = image;
             APIBookID = apiBookID;
             CreatedAt = DateTime.Now;
+            Publisher = publisher;
+            PublishedDate = publisheddate;
             SearchInfo = searchinfo;
         }
 

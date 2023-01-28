@@ -2,7 +2,7 @@
 
 namespace BookLibrary.Models
 {
-    
+
     public class SearchedBooks
     {
         [Key] public int Id { get; set; }
@@ -14,7 +14,8 @@ namespace BookLibrary.Models
         public int NumberOfPages { get; set; }
         public string Image { get; set; }
         public string SearchInfo { get; set; }
-
+        public string Publisher { get; set; }
+        public string PublishedDate { get; set; }
         public ApplicationUser User { get; set; }
         public string ApplicationUserId { get; set; }
 
@@ -22,7 +23,7 @@ namespace BookLibrary.Models
         {
         }
 
-        public SearchedBooks(string apibookid, string booktitle, string authorfirstname, string authorlastname, string genre, int numberofpages, string image, string searchinfo)
+        public SearchedBooks(string apibookid, string booktitle, string authorfirstname, string authorlastname, string genre, int numberofpages, string image, string publisher, string publisheddate, string searchinfo)
         {
             APIBookID = apibookid;
             BookTitle = booktitle;
@@ -31,6 +32,8 @@ namespace BookLibrary.Models
             Genre = genre;
             NumberOfPages = numberofpages;
             Image = image;
+            Publisher = publisher;
+            PublishedDate = publisheddate;
             SearchInfo = searchinfo;
         }
 

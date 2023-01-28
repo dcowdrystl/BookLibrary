@@ -39,7 +39,7 @@
             </div>
         </div>*@
 
-        <div class="card mb-3" style="max-width: 540px;">
+        <div class="card mb-3" style="max-width: 640px;">
             <div class="row g-0">
                 <div class="col-md-4">
                     <h5 class="card-title"></h5>
@@ -49,9 +49,13 @@
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
-                        <p class="card-text">@ViewBag.bookToAdd.BookTitle<br/>
+                        <p class="card-text">
+                            <h2>@ViewBag.bookToAdd.BookTitle</h2>
                             @ViewBag.bookToAdd.AuthorLastName<br />
-                            @ViewBag.bookToAdd.Genre<br />
+                            <br />
+                            Genre: @ViewBag.bookToAdd.Genre<br />
+                           Published: @ViewBag.bookToAdd.PublishedDate @ViewBag.bookToAdd.Publisher
+                            <br />
                             <br />
                         @ViewBag.bookToAdd.SearchInfo
                         </p>

@@ -168,6 +168,8 @@ namespace BookLibrary.Migrations
                     Image = table.Column<string>(nullable: true),
                     APIBookID = table.Column<string>(nullable: true),
                     CreatedAt = table.Column<DateTime>(nullable: false),
+                    Publisher = table.Column<string>(nullable: true),
+                    PublishedDate = table.Column<string>(nullable: true),
                     SearchInfo = table.Column<string>(nullable: true),
                     ApplicationUserId = table.Column<string>(nullable: true)
                 },
@@ -216,6 +218,8 @@ namespace BookLibrary.Migrations
                     NumberOfPages = table.Column<int>(nullable: false),
                     Image = table.Column<string>(nullable: true),
                     SearchInfo = table.Column<string>(nullable: true),
+                    Publisher = table.Column<string>(nullable: true),
+                    PublishedDate = table.Column<string>(nullable: true),
                     ApplicationUserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
