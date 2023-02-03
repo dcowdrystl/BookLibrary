@@ -6,6 +6,7 @@ namespace BookLibrary.Models
     public class Book
     {
         public string BookTitle { get; set; }
+        //public string[] Authors { get; set; }
         public string AuthorFirstName { get; set; }
         public string AuthorLastName { get; set; }
         public string Genre { get; set; }

@@ -1,5 +1,4 @@
 ﻿using BookLibrary.Models;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
@@ -19,38 +18,21 @@ namespace BookLibrary.Data
         public DbSet<Like> Likes { get; set; }
         public DbSet<SearchedBooks> SearchedBooks { get; set; }
         public BookDbContext(DbContextOptions<BookDbContext> options) : base(options)
-        { 
-        }
-      
-
-      //protected override void OnModelCreating(ModelBuilder modelBuilder)
-      //{
-
-      //    base.OnModelCreating(modelBuilder);
-      //}
-
-      protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-         foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
-         {
-            relationship.DeleteBehavior = DeleteBehavior.Restrict;
-         }
+        }
 
-         modelBuilder.Entity<BookUser>()
-                .HasKey(bu => new { bu.BookId, bu.ApplicationUserId });
 
-            /*modelBuilder.Entity<SearchedBooks>(eb =>
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
             {
-                eb.HasNoKey();
-            });
-                */
+                relationship.DeleteBehavior = DeleteBehavior.Restrict;
+            }
+
+            modelBuilder.Entity<BookUser>()
+                   .HasKey(bu => new { bu.BookId, bu.ApplicationUserId });
 
             base.OnModelCreating(modelBuilder);
-
-            /*modelBuilder.Entity<Book>(b =>
-            {
-                b.Property(u => u.Id).HasDefaultValueSql("newsequentialid()");
-            });*/
 
         }
     }

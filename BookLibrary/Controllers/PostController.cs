@@ -22,16 +22,10 @@ namespace BookLibrary.Models
 
         [HttpGet("dashboard")]
         public IActionResult Dashboard()
-        //public async Task<IActionResult> DashboardAsync()
         {
             if (!ModelState.IsValid) { return RedirectToAction("Index", "Home"); }
 
             List<Post> allPosts = _db.Posts
-                // .Include(p => p.PostBook).ThenInclude(a => a.BookTitle)
-                // .Include(post => post.Comments)
-                //.Include(post => post.User)
-
-                //.Where(p => p.User.Id == _userManager.GetUserId(HttpContext.User))
                 .Include(p => p.PostBook)
                 .Include(p => p.User)
                 .Include(post => post.Likes)
@@ -43,15 +37,6 @@ namespace BookLibrary.Models
         }
 
         [HttpGet("posts/new")]
-        /*public IActionResult NewPost()
-        {
-           if (!ModelState.IsValid) { return RedirectToAction("Index", "Home"); }
-
-           List<Book> allBooks = _db.Books.ToList();
-           ViewBag.AllBooks = allBooks;
-
-           return View("NewPost");
-        }*/
         [Authorize]
         public IActionResult NewPost(int id)
         {
@@ -67,8 +52,6 @@ namespace BookLibrary.Models
         }
 
         [HttpPost("posts/create")]
-        //public IActionResult CreatePost(Post newPost)
-        // public async Task<IActionResult> CreatePost(Post newPost)
         public async Task<IActionResult> CreatePost(AddPostViewModel addPostViewModel, int bookId)
         {
             if (!ModelState.IsValid) { return RedirectToAction("Index", "Home"); }
@@ -129,8 +112,6 @@ namespace BookLibrary.Models
             List<Post> bookPosts = _db.Posts
             .Include(p => p.Likes)
             .Include(p => p.PostBook)
-            //.Where(p => p.BookId == id)
-            // .Include(p => p.User)
             .OrderByDescending(post => post.CreatedAt)
             .ToList();
 

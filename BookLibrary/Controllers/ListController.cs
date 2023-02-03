@@ -3,11 +3,13 @@ using BookLibrary.Models;
 using Google.Apis.Books.v1;
 using Google.Apis.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Internal;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 //AIzaSyACdHSQbarZ_V5SzuDEg8UQUQQX_tKfpvA
 namespace BookLibrary.Controllers
@@ -15,7 +17,9 @@ namespace BookLibrary.Controllers
     [Authorize]
     public class ListController : Controller
     {
+        private static readonly HttpClient client = new HttpClient();
         private static string API_KEY = "AIzaSyACdHSQbarZ_V5SzuDEg8UQUQQX_tKfpvA";
+
 
         public static BooksService service = new BooksService(new BaseClientService.Initializer
         {
@@ -174,6 +178,7 @@ namespace BookLibrary.Controllers
 
                                     BookTitle = b.VolumeInfo.Title,
                                     // AuthorFirstName = b.VolumeInfo.Authors[0],
+                                    // Authors = string.Join(", ", b.volumeInfo.authors)
                                     AuthorLastName = b.VolumeInfo.Authors.FirstOrDefault(),
                                     Genre = b.VolumeInfo.Categories[0],
                                     NumberOfPages = (int)b.VolumeInfo.PageCount,
@@ -243,12 +248,54 @@ namespace BookLibrary.Controllers
                         }
 
                     }
+
+                    //------------------This is another way to do it-------------------------------This is another way to do it---------------------------------------
+                    /* string requestUri = $"https://www.googleapis.com/books/v1/volumes?q={searchTerm}";
+                     HttpResponseMessage response = await client.GetAsync(requestUri);
+
+
+                     string responseString = await response.Content.ReadAsStringAsync();
+                     GoogleBookSearchResult searchResult = JsonConvert.DeserializeObject<GoogleBookSearchResult>(responseString);
+
+                     List<SearchedBooks> books = new List<SearchedBooks>();
+                     foreach (var item in searchResult.Items.Where(b => b.VolumeInfo.Categories != null)
+                                 .Where(b => b.VolumeInfo.ImageLinks != null)
+                                 .Where(b => b.VolumeInfo.Title != null)
+                                 .Where(b => b.VolumeInfo.Authors != null)
+                                 .Where(b => b.VolumeInfo.PageCount != null)
+                                 .Where(b => b.VolumeInfo.Publisher != null)
+                                 .Where(b => b.VolumeInfo.PublishedDate != null)
+                                 .Where(b => b.SearchInfo != null))
+                     {
+                         SearchedBooks book = new SearchedBooks
+                         {
+                             BookTitle = item.VolumeInfo.Title,
+
+
+                             NumberOfPages = item.VolumeInfo.PageCount,
+                             PublishedDate = item.VolumeInfo.PublishedDate,
+                             Publisher = item.VolumeInfo.Publisher,
+                             Image = item.VolumeInfo.ImageLinks.Thumbnail,
+                             APIBookID = item.Id,
+                             SearchInfo = item.SearchInfo.TextSnippet
+                         };
+
+                         books.Add(book);
+                         context.SearchedBooks.Add(book);
+                         await context.SaveChangesAsync();
+                     }
+
+                     ViewBag.MyBooks = books.Count;
+                     ViewBag.testingBooks = books;
+                     return View("SearchedBooks", books);*/
+
                 }
                 catch { return Redirect("/Home"); }
 
             }
             return View();
         }
+
         // [Route("List/GetBooks")]
         [HttpGet]
         [Route("List/BookDetails/{bookId}")]

@@ -57,7 +57,9 @@
                            Published: @ViewBag.bookToAdd.PublishedDate @ViewBag.bookToAdd.Publisher
                             <br />
                             <br />
-                        @ViewBag.bookToAdd.SearchInfo
+                        <p class="lh-1">
+                                @ViewBag.bookToAdd.SearchInfo
+                        </p>
                         </p>
                         <div class="card-footer">
                             <input type="hidden" value="@ViewBag.bookToAdd.APIBookID" name="bookId">
