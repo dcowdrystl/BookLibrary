@@ -28,82 +28,93 @@
 <br />
 <div class="d-flex">
     <div class="col-10">
-@if (Model.Count == 0)
-{
-    <p>No Books in your collection yet!</p>
-}
-
-else
-{
-    <div class="card-columns">
-        @foreach (var book in Model)
+        @if (Model.Count == 0)
         {
-            <div class="card">
-                <img class="card-img-top" src="@book.Image" alt="Book Cover">
-                <div class="card-body">
-                    <h5 class="card-title">@book.BookTitle</h5>
-                    <p class="card-text">
-                        Author: @book.AuthorFirstName @book.AuthorLastName<br />
-                        Genre: @book.Genre<br />
-                        Pages: @book.NumberOfPages<br />
-                        Published Date: @book.PublishedDate<br />
-                        Publisher: @book.Publisher
+            <p>No Books in your collection yet!</p>
+        }
 
-                    </p>
-                    <p class="lh-1">@book.SearchInfo</p>
+        else
+        {
+            <div class="row">
+                @foreach (var book in Model)
+                {
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="card">
+                            <img class="card-img-top" src="@book.Image" alt="Book Cover">
+                            <div class="card-body">
+                                <h5 class="card-title">@book.BookTitle</h5>
+                                <p class="card-text">
+                                    Author: @book.AuthorFirstName @book.AuthorLastName<br />                               
+                                    <div>
+                                        <button class="btn btn-outline-info btn-lg btn-block dropdown-toggle" type="button" data-toggle="collapse" data-target="#searchinfo-@book.Id" aria-expanded="false" aria-controls="searchinfo-@book.Id">
+                                            Info
+                                        </button>
+                                        <div class="collapse" id="searchinfo-@book.Id">
+                                            <p class="card-text">
+                                                Genre: @book.Genre<br />
+                                                Pages: @book.NumberOfPages<br />
+                                                Published Date: @book.PublishedDate<br />
+                                                Publisher: @book.Publisher<br />
+                                                @book.SearchInfo
+                                            </p>
+                                        </div>
+                                    </div>
+                                </p>
 
-                    <div class="dropdown">
-                        @if (ViewBag.bookTitlesW2R.Contains(book.BookTitle))
-                        {
-                            <button class="btn btn-info btn-lg btn-block dropdown-toggle mr-1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Want to Read
-                            </button>
-                        }
-                        else if (ViewBag.bookTitlesR.Contains(book.BookTitle))
-                        {
-                            <button class="btn btn-success btn-lg btn-block dropdown-toggle mr-1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Read
-                            </button>
-                        }
-                        else if (ViewBag.bookTitlesReading.Contains(book.BookTitle))
-                        {
-                            <button class="btn btn-outline-success btn-lg btn-block dropdown-toggle mr-1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Reading
-                            </button>
-                        }
-                        else
-                        {
-                            <button class="btn btn-primary btn-lg btn-block dropdown-toggle mr-1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Add to...
-                            </button>
-                        }
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" asp-controller="Books" asp-action="Favorite" asp-route-bookId="@book.APIBookID" style="color:black" class="btn btn-outline-dark">Favorites</a>
-                            <a class="dropdown-item" asp-controller="Books" asp-action="WantToRead" asp-route-bookId="@book.APIBookID" style="color:black" class="btn btn-outline-dark">Want to Read(@ViewBag.MyW2RBooks)</a>
-                            <a class="dropdown-item" asp-controller="Books" asp-action="Reading" asp-route-bookId="@book.APIBookID" style="color:black" class="btn btn-outline-dark">Reading(@ViewBag.MyReadingBooks)</a>
-                            <a class="dropdown-item" asp-controller="Books" asp-action="Read" asp-route-bookId="@book.APIBookID" style="color:black" class="btn btn-outline-dark">Read(@ViewBag.MyReadBooks)</a>
-                        </div>
-                    </div>
-                    <div class="card-footer">
-                        <div class="dropdown">
-                            <button class="btn btn-outline-primary btn-lg btn-block dropdown-toggle mr-1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                More...
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" asp-controller="Post" asp-action="ShowPost" asp-route-id="@book.Id" style="color:black" class="btn btn-outline-dark">Reviews</a>
-                                <a class="dropdown-item" asp-controller="Post" asp-action="NewPost" asp-route-id="@book.Id" style="color:black" class="btn btn-outline-dark">Add Review</a>
-                                <a class="dropdown-item" asp-controller="Books" asp-action="Edit" asp-route-id="@book.Id" style="color:black" class="btn btn-outline-dark">Edit Book</a>
-                                <a class="dropdown-item" asp-controller="Books" asp-action="Delete" asp-route-bookId="@book.Id" style="color:black" class="btn btn-outline-danger">Delete</a>
+
+                                <div class="dropdown">
+                                    @if (ViewBag.bookTitlesW2R.Contains(book.BookTitle))
+                                    {
+                                        <button class="btn btn-info btn-lg btn-block dropdown-toggle mr-1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Want to Read
+                                        </button>
+                                    }
+                                    else if (ViewBag.bookTitlesR.Contains(book.BookTitle))
+                                    {
+                                        <button class="btn btn-success btn-lg btn-block dropdown-toggle mr-1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Read
+                                        </button>
+                                    }
+                                    else if (ViewBag.bookTitlesReading.Contains(book.BookTitle))
+                                    {
+                                        <button class="btn btn-outline-success btn-lg btn-block dropdown-toggle mr-1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Reading
+                                        </button>
+                                    }
+                                    else
+                                    {
+                                        <button class="btn btn-primary btn-lg btn-block dropdown-toggle mr-1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Add to...
+                                        </button>
+                                    }
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" asp-controller="Books" asp-action="Favorite" asp-route-bookId="@book.APIBookID" style="color:black" class="btn btn-outline-dark">Favorites</a>
+                                        <a class="dropdown-item" asp-controller="Books" asp-action="WantToRead" asp-route-bookId="@book.APIBookID" style="color:black" class="btn btn-outline-dark">Want to Read(@ViewBag.MyW2RBooks)</a>
+                                        <a class="dropdown-item" asp-controller="Books" asp-action="Reading" asp-route-bookId="@book.APIBookID" style="color:black" class="btn btn-outline-dark">Reading(@ViewBag.MyReadingBooks)</a>
+                                        <a class="dropdown-item" asp-controller="Books" asp-action="Read" asp-route-bookId="@book.APIBookID" style="color:black" class="btn btn-outline-dark">Read(@ViewBag.MyReadBooks)</a>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="dropdown">
+                                        <button class="btn btn-outline-primary btn-lg btn-block dropdown-toggle mr-1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            More...
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item" asp-controller="Post" asp-action="ShowPost" asp-route-id="@book.Id" style="color:black" class="btn btn-outline-dark">Reviews</a>
+                                            <a class="dropdown-item" asp-controller="Post" asp-action="NewPost" asp-route-id="@book.Id" style="color:black" class="btn btn-outline-dark">Add Review</a>
+                                            <a class="dropdown-item" asp-controller="Books" asp-action="Edit" asp-route-id="@book.Id" style="color:black" class="btn btn-outline-dark">Edit Book</a>
+                                            <a class="dropdown-item" asp-controller="Books" asp-action="Delete" asp-route-bookId="@book.Id" style="color:black" class="btn btn-outline-danger">Delete</a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-
                     </div>
-                </div>
+
+                }
             </div>
 
         }
     </div>
-
-}
-    </div>
 </div>
+

@@ -39,6 +39,7 @@ else
 
 
         <table class="table">
+            
                 <div class="card-columns">
 
             @foreach (var book in Model)
@@ -50,8 +51,36 @@ else
                         <br />
                     </div>
                 </div>
+
+
+@*                    <div class="card-group">
+                    <div class="card giant">
+                        <img src="@book.Image" alt="Book Cover" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">@book.BookTitle</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">@book.AuthorFirstName @book.AuthorLastName</h6>
+                            <p class="card-text">@book.SearchInfo</p>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Publisher: @book.Publisher</li>
+                                <li class="list-group-item">Published Date: @book.PublishedDate</li>
+                                <li class="list-group-item">Pages: @book.NumberOfPages</li>
+
+                            </ul>
+                        </div>
+                        <div class="card-footer">
+                        <a asp-controller="List" asp-action="Add" asp-route-bookId="@book.APIBookID" class="btn btn-primary btn-lg btn-block">Add Book </a>
+                        </div>
+                    </div>
+                    </div>
+                    <style>
+                        .giant {
+                            width: 70%;
+                            margin: 20px auto;
+                        }
+                    </style>*@
             }
             </div>
+                 
         </table>
     </form>
 }

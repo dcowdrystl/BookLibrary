@@ -42,26 +42,38 @@ else
 
 
 
-    <div class="card-columns">
+    <div class="row">
         @foreach (var book in Model)
         {
+                    <div class="col-lg-3 col-md-4 col-sm-6">
             <div class="card">
                 <img class="card-img-top" src="@book.Image" alt="Book Cover">
                 <div class="card-body">
+
                     <h5 class="card-title text-center">@book.BookTitle</h5>
-                    <p class="card-text">Author: @book.AuthorFirstName @book.AuthorLastName<br/>
-                        Genre: @book.Genre<br/>
-                        Pages: @book.NumberOfPages<br/>
-                        Published Date: @book.PublishedDate<br/>
-                        Publisher: @book.Publisher
-                    
-                    </p>
-                    <p class="lh-1">@book.SearchInfo</p>
+
+                                <h7 class="card-text text-center">@book.AuthorFirstName @book.AuthorLastName</h7>
+                                <p class="card-text">
+                                    <div>
+                                        <button class="btn btn-outline-info btn-lg btn-block dropdown-toggle" type="button" data-toggle="collapse" data-target="#searchinfo-@book.Id" aria-expanded="false" aria-controls="searchinfo-@book.Id">
+                                            Info
+                                        </button>
+                                        <div class="collapse" id="searchinfo-@book.Id">
+                                            <p class="card-text">
+                                                <b>Genre:</b> @book.Genre<br />
+                                                <b>Pages:</b> @book.NumberOfPages<br />
+                                                <b>Published Date:</b> @book.PublishedDate<br />
+                                                <b>Publisher:</b> @book.Publisher<br />
+                                               <br/> <em>@book.SearchInfo</em>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </p>
 
                     <div class="dropdown">
                         @if (ViewBag.bookTitlesW2R.Contains(book.BookTitle))
                         {
-                            <button class="btn btn-info btn-lg btn-block dropdown-toggle mr-1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button class="btn btn-outline-success btn-lg btn-block dropdown-toggle mr-1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Want to Read
                             </button>
                         }
@@ -106,6 +118,7 @@ else
                     </div>
                     </div>
                 </div>
+                    </div>
                
         }
             </div>
