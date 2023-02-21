@@ -10,7 +10,7 @@
 </nav>
 <div class="text-center">
     <h1 class="display-4">Want to Read</h1>
-    <h7>Total Books: @ViewBag.MyBooks </h7>
+    <h6>Total Books: @ViewBag.MyBooks </h6>
 </div>
 
 <div class="dropdown text-center">
@@ -43,8 +43,9 @@
                             <img class="card-img-top" src="@book.Image" alt="Book Cover">
                             <div class="card-body">
                                 <h5 class="card-title">@book.BookTitle</h5>
+                                <h6>@book.AuthorFirstName @book.AuthorLastName </h6>
                                 <p class="card-text">
-                                    Author: @book.AuthorFirstName @book.AuthorLastName<br />                               
+                                    
                                     <div>
                                         <button class="btn btn-outline-info btn-lg btn-block dropdown-toggle" type="button" data-toggle="collapse" data-target="#searchinfo-@book.Id" aria-expanded="false" aria-controls="searchinfo-@book.Id">
                                             Info

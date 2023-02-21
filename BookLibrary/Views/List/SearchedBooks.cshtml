@@ -34,7 +34,7 @@
 else
 {
 
-    <form action="/list/Add" method="post">
+   @* <form action="/list/Add" method="post">
 
 
 
@@ -50,7 +50,46 @@ else
                         <br />
                         <br />
                     </div>
+                </div>*@
+
+
+    <div class="container">
+        <div class="row">
+            @foreach (var book in Model)
+            {
+                <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                    <div class="card h-100">
+                        <img class="card-img-top" src="@book.Image" alt="Book Cover">
+                        <div class="card-body">
+                            <h5 class="card-title text-center">@book.BookTitle</h5>
+                            <h6 class="card-text text-center">@book.AuthorFirstName @book.AuthorLastName</h6>
+                            <div class="mt-3">
+                                <button class="btn btn-outline-info btn-lg btn-block dropdown-toggle" type="button" data-toggle="collapse" data-target="#searchinfo-@book.Id" aria-expanded="false" aria-controls="searchinfo-@book.Id">
+                                    Info
+                                </button>
+                                <div class="collapse" id="searchinfo-@book.Id">
+                                    <p class="card-text">
+                                        <b>Genre:</b> @book.Genre<br>
+                                        <b>Pages:</b> @book.NumberOfPages<br>
+                                        <b>Published Date:</b> @book.PublishedDate<br>
+                                        <b>Publisher:</b> @book.Publisher<br>
+                                        <em>@book.SearchInfo</em>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a class="btn btn-primary btn-block" asp-controller="List" asp-action="Add" asp-route-bookId="@book.APIBookID">Add to List</a>
+                            
+                        </div>
+                    </div>
                 </div>
+            }
+        </div>
+    </div>
+
+
+
 
 
 @*                    <div class="card-group">
@@ -81,6 +120,6 @@ else
             }
             </div>
                  
-        </table>
-    </form>
+  @*      </table>
+    </form>*@
 }

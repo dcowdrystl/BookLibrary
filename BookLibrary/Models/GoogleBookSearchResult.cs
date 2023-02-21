@@ -2,58 +2,7 @@
 
 namespace BookLibrary.Models
 {
-    /*    public class GoogleBookSearchResult
-        {
-            public string Kind { get; set; }
-            public int TotalItems { get; set; }
-            public List<GoogleBookResult> Items { get; set; }
 
-            public GoogleBookSearchResult()
-            {
-            }
-        }
-
-        public class GoogleBookResult
-        {
-            public string Id { get; set; }
-            public VolumeInfo VolumeInfo { get; set; }
-            public SearchInfo SearchInfo { get; set; }
-
-            public GoogleBookResult()
-            {
-            }
-        }*/
-
-    /*public class VolumeInfo
-    {
-        public string Title { get; set; }
-        public List<string> Authors { get; set; }
-        public string Publisher { get; set; }
-        public string PublishedDate { get; set; }
-
-        public int PageCount { get; set; }
-        public ImageLinks ImageLinks { get; set; }
-
-
-        public VolumeInfo()
-        {
-        }
-    }
-    public class SearchInfo
-    {
-        public string TextSnippet { get; set; }
-        public SearchInfo()
-        {
-        }
-    }
-    public class ImageLinks
-    {
-        public string Thumbnail { get; set; }
-
-        public ImageLinks()
-        {
-        }
-    }*/
     public class AccessInfo
     {
         public string Country { get; set; }
